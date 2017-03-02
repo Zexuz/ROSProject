@@ -8,7 +8,7 @@ For non code files (xml etc) our current best guidance is consistency. When edit
 The general rule we follow is "use Visual Studio defaults".
 
 1. We use [Allman style](http://en.wikipedia.org/wiki/Indent_style#Allman_style) braces, where each brace begins on a new line. A single line statement block can go without braces but the block must be properly indented on its own line and it must not be nested in other statement blocks that use braces (See issue [381](https://github.com/dotnet/corefx/issues/381) for examples). 
-2. We use tabs of indentation (no tabs).
+2. We use tabs of indentation.
 3. We use `_camelCase` for internal and private fields and use `readonly` where possible. Prefix instance fields with `_`, static fields with `s_` and thread static fields with `t_`. When used on static fields, `readonly` should come after `static` (i.e. `static readonly` not `readonly static`).
 4. We avoid `this.` unless absolutely necessary. 
 5. We always specify the visibility, even if it's the default (i.e.
