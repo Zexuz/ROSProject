@@ -1,0 +1,68 @@
+CREATE TABLE Entries
+(
+	EntryId int NOT NULL IDENTITY PRIMARY KEY,
+
+	BoatId int FOREIGN KEY REFERENCES Boats(BoatId) NOT NULL
+	ResponsibleUser int FOREIGN KEY REFERENCES RegisteredUsers(RegisterdUserId) NOT NULL,
+
+	EntryNumber varchar(50) NOT NULL,
+	RegistrationDate date FOREIGN KEY REFERENCES Boats(BoatId) NOT NULL,
+	HasPayed boolean NOT NULL,
+	TotalFee int NOT NULL
+
+);
+
+CREATE TABLE RegisteredUsers
+(
+	RegisterdUserId int NOT NULL IDENTITY PRIMARY KEY,
+
+	EntryId int FOREIGN KEY REFERENCES Entries(EntryId) NOT NULL,
+	UserId int FOREIGN KEY REFERENCES Users(UserId) NOT NULL,
+	
+	[Number] int NOT NULL,
+	
+	CONSTANT uk_number UNIQUE([Number]) 
+);
+
+CREATE TABLE RegisteredUsers
+(
+	UserId int NOT NULL IDENTITY PRIMARY KEY,
+
+	Email varchar(50) NOT NULL,
+	Password varchar(50) NOT NULL,
+	FirstName varchar(50) NOT NULL,
+	LastName varchar(50) NOT NULL,
+	DateOfBirth date NULL,
+	
+	CONSTANT uk_email UNIQUE(Email) 
+);
+
+
+CREATE TABLE AddressContacts
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY,
+
+	Number int NOT NULL,
+	NextOfKin varchar(50) NULL,
+	PhoneNumber varchar(50) NOT NULL,
+	Contry varchar(50) NULL,
+	BoxNumber varchar(50) NULL,
+	StreetAddress varchar(50) NULL,
+	City varchar(50) NULL,
+	CipCode varchar(50) NULL,
+	
+	CONSTANT uk_number UNIQUE(Number) 
+);
+
+CREATE TABLE Boats
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY,
+
+	RegistrationNumber varchar(50) NOT NULL,
+	Name varchar(50) NOT NULL,
+	Type varchar(50) NULL,
+	Handicap float NULL,
+	Description varchar (512) NULL
+	
+	CONSTANT uk_RegistrationNumber UNIQUE(RegistrationNumber) 
+);
