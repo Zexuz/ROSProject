@@ -66,3 +66,100 @@ CREATE TABLE Boats
 	
 	CONSTANT uk_RegistrationNumber UNIQUE(RegistrationNumber) 
 );
+
+CREATE TABLE RegattaEntries
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY,
+	
+	EntryId int FOREIGN KEY REFERENCES Entries(EntryId) NOT NULL,
+	RegattaId int FOREIGN KEY REFERENCES Regatta(RegattaId) NOT NULL,
+	
+	number int NOT NULL 
+);
+
+CREATE TABLE TeamBoatResults
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY,
+	
+	BoatId int FOREIGN KEY REFERENCES Boats(BoatId) NOT NULL,
+	TeamId int FOREIGN KEY REFERENCES Teams(TeamId) NOT NULL
+);
+
+CREATE TABLE Teams
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE TeamCrewRegisteredUsers
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE SocialEntries
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE Admins
+(
+	UserId int FOREIGN KEY REFERENCES Users(UserId),
+	ClubId int FOREIGN KEY REFERENCES Clubs(ClubId)
+	EventId int FOREIGN KEY REFERENCES Events(EventId),
+	RegattaId int FOREIGN KEY REFERENCES Regatta(RegattaId),
+	
+	CONSTRAINTS pk_User_Club_Evenet_Regatta_Id (UserId,ClubId,EventId,RegattaId)
+);
+
+CREATE TABLE Clubs
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE Memberships
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE ContactPersons
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE Regattor
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE Events
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE RaceEvents
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY,
+	
+	EventId int FOREIGN KEY REFERENCES Events(EventId) NOT NULL
+);
+
+CREATE TABLE SocialEvents
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY,
+	
+	EventId int FOREIGN KEY REFERENCES Events(EventId) NOT NULL
+);
+
+CREATE TABLE Results
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY
+);
+
+CREATE TABLE RaceEntries
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY	
+);
+
+
+
+
+
