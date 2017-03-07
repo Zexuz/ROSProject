@@ -39,8 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDatabaseConnection.cs" />
-    <Compile Include="Interfaces\DatabaseConnection.cs" />
+    <Compile Include="DatabaseConnection.cs" />
+    <Compile Include="Interfaces\IDatabaseConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,19 +13,14 @@ namespace ROS.Interfaces
         public SqlConnection SqlConnection { get; set; }
 
 
-        public void Login()
-
+        public void OpenConnection()
         {
             SqlConnection = new SqlConnection("");
-            return SqlConnection;
         }
 
-        void Test()
+        public object SendQueryOperation()
         {
-            using (Login())
-            {
-
-            }
+            throw new NotImplementedException();
         }
     }
 }
