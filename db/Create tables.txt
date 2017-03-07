@@ -11,7 +11,7 @@ CREATE TABLE Entries
 	HasPayed boolean NOT NULL,
 	TotalFee int NULL,
 
-	CONSTRAINTS uk_number UNIQUE ([Number])
+	CONSTRAINT uk_number UNIQUE ([Number])
 );
 
 CREATE TABLE RegisteredUsers
@@ -23,7 +23,7 @@ CREATE TABLE RegisteredUsers
 	
 	[Number] int NOT NULL,
 	
-	CONSTRAINTS uk_number UNIQUE([Number]) 
+	CONSTRAINT uk_number UNIQUE([Number]) 
 );
 
 CREATE TABLE Users
@@ -38,7 +38,7 @@ CREATE TABLE Users
 	LastName varchar(50) NOT NULL,
 	DateOfBirth date NULL,
 	
-	CONSTRAINTS uk_email UNIQUE(Email) 
+	CONSTRAINT uk_email UNIQUE(Email) 
 );
 
 
@@ -55,7 +55,7 @@ CREATE TABLE AddressContacts
 	City varchar(50) NOT NULL,
 	ZipCode varchar(50) NOT NULL,
 	
-	CONSTRAINTS uk_number UNIQUE([Number]) 
+	CONSTRAINT uk_number UNIQUE([Number]) 
 );
 
 CREATE TABLE Boats
@@ -68,7 +68,7 @@ CREATE TABLE Boats
 	Handicap float NULL,
 	Description varchar (512) NULL
 	
-	CONSTRAINTS uk_RegistrationNumber UNIQUE(RegistrationNumber) 
+	CONSTRAINT uk_RegistrationNumber UNIQUE(RegistrationNumber) 
 );
 
 CREATE TABLE Teams
@@ -132,7 +132,7 @@ CREATE TABLE Admins
 	EventId int FOREIGN KEY REFERENCES Events(Id),
 	RegattaId int FOREIGN KEY REFERENCES Regatta(Id),
 	
-	CONSTRAINTS pk_User_Club_Evenet_Regatta_Id (UserId,ClubId,EventId,RegattaId)
+	CONSTRAINT pk_User_Club_Evenet_Regatta_Id (UserId,ClubId,EventId,RegattaId)
 );
 
 
@@ -149,7 +149,7 @@ CREATE TABLE Clubs
 	HomePage varchar(2083) NULL,
 	Description varchar(1024) NULL,
 	
-	CONSTRAINTS uk_name (Name)
+	CONSTRAINT uk_name (Name)
 );
 
 CREATE TABLE Results
@@ -164,7 +164,7 @@ CREATE TABLE Results
 	[Time] int,
 	CalculatedTime int,
 	
-	CONSTRAINTS uk_number ([Number])
+	CONSTRAINT uk_number ([Number])
 );
 
 CREATE TABLE RaceEvents
@@ -204,7 +204,7 @@ CREATE TABLE Events
 	Fee int,
 	Description varchar(1024),
 	
-	CONSTRAINTS uk_number([Number])
+	CONSTRAINT uk_number([Number])
 );
 
 CREATE TABLE ContactPersons
@@ -216,7 +216,7 @@ CREATE TABLE ContactPersons
 	Email varchar(100) NOT NULL,
 	PhoneNumber varchar(50) NOT NULL,
 	
-	CONSTRAINTS uk_email(Email)
+	CONSTRAINT uk_email(Email)
 );
 
 
@@ -233,6 +233,6 @@ CREATE TABLE Regattor
 	Fee int,
 	Description varchar(1024),
 	
-	CONSTRAINTS uk_name_startDateTime (Name,StartDateTime)
+	CONSTRAINT uk_name_startDateTime (Name,StartDateTime)
 	
 );
