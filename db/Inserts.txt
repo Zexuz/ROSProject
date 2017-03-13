@@ -1,0 +1,25 @@
+INSERT INTO AddressContacts (Number, NextOfKin, PhoneNumber, Country, BoxNumber, StreetAddress, City, ZipCode)
+VALUES
+(1, 'Anhörig1', '070-11111111', 'Sverige', 101, '', 'Göteborg', 41511),
+(2, 'Anhörig2', '070-22222222', 'Sverige', 102, '', 'Göteborg', 41514),
+(3, 'Anhörig3', '070-33333333', 'USA', 'A gatan 1', '', 'Chicago', 7383489),
+(4, 'Anhörig4', '070-44444444', 'Sverige', '', 'B gatan 4', 'Växjö', 36050),
+(5, 'Anhörig5', '070-55555555', 'Sverige', '', 'C gatan 67', 'Göteborg', 41524),
+(6, '', '070-66666666', 'Sverige', '', 'D gatan 83', 'Stockholm', 12316),
+(7, '', '070-77777777', 'Sverige', '', 'E gatan 33', 'Stockholm', 12267),
+(8, '', '070-88888888', 'Sverige', 108, '', 'Visby', 17890),
+(9, 'Anhörig9', '070-99999999', 'Sverige', '', 'F gatan 5', 'Pungpinan', 34323),
+(10, '', '070-10101010', 'Tibet', 1010, '', 'Bergstopp14', 00000),
+(11, '', '073-11111111', 'Sverige', 100, '', 'Göteborg', 41512),
+(12, '', '073-22222222', 'Sverige', 102, '', 'Karlskrona', 31290),
+(13, '', '073-33333333', 'Sverige', 103, '', 'Kiruna', 92733),
+(14, '', '073-44444444', 'Sverige', 104, '', 'Malmö', 23479),
+(15, '', '073-55555555', 'Sverige', 105, '', 'Göteborg', 41518),
+(16, '', '073-66666666', 'Sverige', 106, '', 'Göteborg', 41513),
+(17, '', '073-77777777', 'Sverige', 107, '', 'Stockholm', 12267),
+(18, '', '073-88888888', 'Sverige', 108, '', 'Stockholm', 14367),
+(19, '', '073-99999999', 'Sverige', '', 'F gatan 34', 'Stockholm', 14236),
+(20, '', '073-20202020', 'Norge', '', 'G gatan 45', 'Bergen', 98874),
+(21, '', '076-11111111', 'Sverige', '', 'H gatan 7', 'Göteborg', 41521),
+(22, '', '076-22222222', 'Sverige', 789, '', 'Göteborg', 41524);
+
