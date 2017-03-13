@@ -58,19 +58,19 @@ CREATE TABLE ContactPersons
 
 CREATE TABLE Clubs
 (
-	Id int NOT NULL IDENTITY PRIMARY KEY,
-	
-	ContactPersonsId int FOREIGN KEY REFERENCES ContactPersons(Id),
-	
-	Name varchar(50) NOT NULL,
-	RegistrationDate date NOT NULL,
-	Email varchar(100) NULL,
-	Logo varchar(2083) NULL,
-	HomePage varchar(2083) NULL,
-	Description varchar(1024) NULL,
-	
-	CONSTRAINT UC_ClubName UNIQUE([Name])
+    Id INT PRIMARY KEY NOT NULL IDENTITY,
+    ContactPersonsId INT,
+    Name VARCHAR(50) NOT NULL,
+    RegistrationDate DATE NOT NULL,
+    Email VARCHAR(100),
+    Logo VARCHAR(2083),
+    HomePage VARCHAR(2083),
+    Description VARCHAR(1024),
+    AddressContacId INT,
+    CONSTRAINT FK__Clubs__ContactPe__31EC6D26 FOREIGN KEY (ContactPersonsId) REFERENCES ContactPersons (Id),
+    CONSTRAINT Clubs_AddressContacts_Id_fk FOREIGN KEY (AddressContacId) REFERENCES AddressContacts (Id)
 );
+CREATE UNIQUE INDEX UC_ClubName ON Clubs (Name);
 
 CREATE TABLE Regattas
 (
