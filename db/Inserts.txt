@@ -23,3 +23,16 @@ VALUES
 (21, '', '076-11111111', 'Sverige', '', 'H gatan 7', 'Göteborg', 41521),
 (22, '', '076-22222222', 'Sverige', 789, '', 'Göteborg', 41524);
 
+
+INSERT INTO Users (AddressContactId, Email, [Password], FirstName, LastName, DateOfBirth)
+VALUES
+(1, 'mail1@mail.com', '0000', 'Anders', 'Andersson', '1976-01-01'),
+(2, 'mail2@mail.com', '0000', 'Ann', 'Ahl', '1976-01-02'),
+(3, 'mail3@mail.com', '0000', 'Bengt', 'Bengtsson', '1946-01-03'),
+(4, 'mail4@mail.com', '0000', 'Göte', 'Borg', '1966-01-14'),
+(5, 'mail5@mail.com', '0000', 'Bobby', 'Brown', '1974-01-01'),
+(6, 'mail6@mail.com', '0000', 'Mats', 'Matsson', '1976-01-01'),
+(7, 'mail7@mail.com', '0000', 'Britta', 'Bengtsson', '1946-02-01'),
+(8, 'mail8@mail.com', '0000', 'Bosse', 'Johansson', '1976-01-20'),
+(9, 'mail9@mail.com', '0000', 'Nicklas', 'Svensson', '1986-03-01'),
+(10, 'mail10@mail.com', '0000', 'Hans', 'Andersson', '1956-01-10');
