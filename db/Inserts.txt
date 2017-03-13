@@ -34,3 +34,14 @@ INSERT INTO Boats (RegistrationNumber, Name, Type, Handicap, Description) VALUES
 ('V8qdpG8', 'Kajsa', null, null, null),
 ('smJAUJs', 'Mimmi', null, null, null),
 ('dE41v88', 'Donald', null, null, 'Duck');
+
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (1, 'some.email@gmail.com', '0722050085');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (2, 'some.email@gmail.com', '0785484548');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (3, 'some.email@gmail.com', '0754854854');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (4, 'some.email@gmail.com', '0754586233');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (5, 'some.email@gmail.com', '0712354689');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (6, 'some.email@gmail.com', '0754854879');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (7, 'some.email@gmail.com', '0732654874');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (8, 'some.email@gmail.com', '0754843316');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (9, 'some.email@gmail.com', '0732165489');
+INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (10, 'some.email@gmail.com', '0715457484');
