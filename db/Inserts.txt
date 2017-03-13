@@ -2,7 +2,7 @@ INSERT INTO AddressContacts (Number, NextOfKin, PhoneNumber, Country, BoxNumber,
 VALUES
 (1, 'Anhörig1', '070-11111111', 'Sverige', 101, NULL, 'Göteborg', 41511),
 (2, 'Anhörig2', '070-22222222', 'Sverige', 102, NULL, 'Göteborg', 41514),
-(3, 'Anhörig3', '070-33333333', 'USA', 'A gatan 1', NULL, 'Chicago', 7383489),
+(3, 'Anhörig3', '070-33333333', 'USA', NULL, 'A gatan 1', 'Chicago', 7383489),
 (4, 'Anhörig4', '070-44444444', 'Sverige', NULL, 'B gatan 4', 'Växjö', 36050),
 (5, 'Anhörig5', '070-55555555', 'Sverige', NULL, 'C gatan 67', 'Göteborg', 41524),
 (6, NULL, '070-66666666', 'Sverige', NULL, 'D gatan 83', 'Stockholm', 12316),
@@ -23,7 +23,7 @@ VALUES
 (21, NULL, '076-11111111', 'Sverige', NULL, 'H gatan 7', 'Göteborg', 41521),
 (22, NULL, '076-22222222', 'Sverige', 789, NULL, 'Göteborg', 41524);
 
-INSERT INTO [Olas db].dbo.Boats (RegistrationNumber, Name, Type, Handicap, Description) VALUES 
+INSERT INTO Boats (RegistrationNumber, Name, Type, Handicap, Description) VALUES 
 ('oqJdkqW44', 'Margareta', null, null, 'Detta är en ''description'' om en båt '),
 ('548Awfkle', 'Carina', null, null, 'Ännu en description'),
 ('qweASDio', 'Sara', null, null, null),
