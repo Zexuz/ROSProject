@@ -74,20 +74,20 @@ CREATE UNIQUE INDEX UC_ClubName ON Clubs (Name);
 
 CREATE TABLE Regattas
 (
-	Id int NOT NULL IDENTITY PRIMARY KEY,
-	
-	HostingClubId int FOREIGN KEY REFERENCES Clubs(Id),
-	ContactPersonsId int FOREIGN KEY REFERENCES ContactPersons(Id),
-	
-	Name varchar(50) NOT NULL,
-	StartDateTime dateTime NOT NULL,
-	EndDateTime dateTime NOT NULL,
-	Fee int,
-	Description varchar(1024),
-	
-	CONSTRAINT UC_name_startDateTime UNIQUE([Name],StartDateTime)
-	
+    Id INT PRIMARY KEY NOT NULL IDENTITY,
+    HostingClubId INT,
+    ContactPersonsId INT,
+    Name VARCHAR(50) NOT NULL,
+    StartDateTime DATETIME NOT NULL,
+    EndDateTime DATETIME NOT NULL,
+    Fee INT,
+    Description VARCHAR(1024),
+    AddressContactId INT,
+    CONSTRAINT FK__Regattas__Hostin__35BCFE0A FOREIGN KEY (HostingClubId) REFERENCES Clubs (Id),
+    CONSTRAINT FK__Regattas__Contac__36B12243 FOREIGN KEY (ContactPersonsId) REFERENCES ContactPersons (Id),
+    CONSTRAINT Regattas_AddressContacts_Id_fk FOREIGN KEY (AddressContactId) REFERENCES AddressContacts (Id)
 );
+CREATE UNIQUE INDEX UC_name_startDateTime ON Regattas (Name, StartDateTime);
 
 CREATE TABLE [Events]
 (
