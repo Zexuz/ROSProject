@@ -51,3 +51,53 @@ INSERT INTO Regattas (HostingClubId, ContactPersonsId, [Name], StartDateTime, En
 VALUES
 (1, 6, 'Tjörn runt', '2017-01-01:09.30.00', '2017-01-03:18.30.00', NULL, 'En gratis regatta', 21),
 (1, 6, 'Vårregattan 2017', '2017-03-01:09.00.00', '2017-03-07:18.30.00', 1000, 'En dyr regatta', 22);
+
+
+INSERT INTO [Events] (RegattasId, ContactPersonsId, Number, StartDateTime, EndDateTime, [Location], MaxParticipants, Fee, [Description])
+VALUES
+(1, 6, 1, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Tjörn', 50, NULL, 'Race klass 1'),
+(1, 7, 2, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Tjörn', 50, NULL, 'Race klass 2'),
+(1, 8, 3, '2017-01-03:09.30.00', '2017-01-03:18.30.00', 'Tjörn', 500, NULL, 'Korvgrillning'),
+(2, 9, 1, '2017-03-01:09.00.00', '2017-03-05:18.30.00', 'Köpenhamn', NULL, 500, 'Race klass 1'),
+(2, 10, 2, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Vinga', NULL, 500, 'Race klass 2'),
+(2, 9, 3, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Vinga', NULL, 500, 'Race öppen'),
+(2, 1, 4, '2017-01-03:09.30.00', '2017-01-03:18.30.00', 'Berlin', 500, 1000, 'Bordellbesök');
+
+INSERT INTO RaceEvents (EventId, [Type], Class, MinHandicap, MaxHandicap)
+VALUES
+(1, '48 timmars', 1, 1, 1.5),
+(2, '48 timmars', 2, 1.6, 2),
+(4, 'Given sträcka', 1, 1, 1.5),
+(5, 'Given sträcka', 2, 1.6, 2),
+(6, 'Given sträcka', NULL, NULL, NULL);
+
+INSERT INTO RaceEvents (EventId, [Name])
+VALUES
+(3, 'Grillning'),
+(7, 'Hemlig aktivitet');
+
+INSERT INTO Memberships (UserId, ClubId)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 1),
+(7, 2),
+(8, 3),
+(9, 4),
+(10, 5);
+
+INSERT INTO Admins (UserId, ClubId, EventId, RegattaId)
+VALUES
+(1, 1, NULL, NULL),
+(2, 2, NULL, NULL),
+(3, 3, NULL, NULL),
+(4, 4, NULL, NULL),
+(5, 5, NULL, NULL),
+(6, 1, NULL, NULL),
+(7, NULL, NULL, 1),
+(1, NULL, NULL, 2),
+(2, NULL, 1, NULL),
+(6, NULL, 7, NULL);
