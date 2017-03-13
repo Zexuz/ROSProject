@@ -48,10 +48,10 @@ CREATE TABLE ContactPersons
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 	
-	UserId int FOREIGN KEY REFERENCES Users(Id),
+	UserId int FOREIGN KEY REFERENCES Users(Id) NOT NULL,
 	
-	Email varchar(100) NOT NULL,
-	PhoneNumber varchar(50) NOT NULL,
+	Email varchar(100) NULL,
+	PhoneNumber varchar(50) NULL,
 	
 	CONSTRAINT UC_ContactPersonEmail UNIQUE(Email)
 );
