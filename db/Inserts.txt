@@ -36,3 +36,18 @@ VALUES
 (8, 'mail8@mail.com', '0000', 'Bosse', 'Johansson', '1976-01-20'),
 (9, 'mail9@mail.com', '0000', 'Nicklas', 'Svensson', '1986-03-01'),
 (10, 'mail10@mail.com', '0000', 'Hans', 'Andersson', '1956-01-10');
+
+
+INSERT INTO Clubs (ContactPersonsId, [Name], RegistrationDate, Email, Logo, HomePage, [Description], AddressContactId)
+VALUES
+(1, 'Klubb1', '1976-01-01', 'klubbmail1@mail.com', 'www.logo1.com', 'www.homepage1.com', 'En klubb', 11),
+(2, 'Klubb2', '1996-01-01', 'klubbmail2@mail.com', 'www.logo2.com', 'www.homepage2.com', 'En annan klubb', 12),
+(3, 'Klubb3', '2006-01-01', 'klubbmail3@mail.com', 'www.logo3.com', 'www.homepage3.com', 'En bra klubb', 13),
+(4, 'Klubb4', '1999-01-01', 'klubbmail4@mail.com', 'www.logo4.com', 'www.homepage4.com', 'En dålig klubb', 14),
+(5, 'Klubb5', '1976-01-01', 'klubbmail5@mail.com', NULL, 'www.homepage5.com', NULL, 15);
+
+
+INSERT INTO Regattas (HostingClubId, ContactPersonsId, [Name], StartDateTime, EndDateTime, Fee, [Description], AddressContactId)
+VALUES
+(1, 6, 'Tjörn runt', '2017-01-01:09.30.00', '2017-01-03:18.30.00', NULL, 'En gratis regatta', 21),
+(1, 6, 'Vårregattan 2017', '2017-03-01:09.00.00', '2017-03-07:18.30.00', 1000, 'En dyr regatta', 22);
