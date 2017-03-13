@@ -1,26 +1,29 @@
-﻿using System;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
+using ROS.Interfaces;
+using ROS.Models;
 
-namespace ROS.Interfaces
+namespace ROS
 {
     public class DatabaseConnection : IDatabaseConnection
     {
-        public string Host { get; set; }
-        public string Database { get; set; }
-        public string LoginName { get; set; }
-        public string Password { get; set; }
+        private readonly MSSQLLoginCredentials _loginCredentialsCred;
 
-        public SqlConnection SqlConnection { get; set; }
-
-
-        public void OpenConnection()
+        public DatabaseConnection(MSSQLLoginCredentials loginCredentialsCred)
         {
-            SqlConnection = new SqlConnection("");
+            _loginCredentialsCred = loginCredentialsCred;
         }
 
-        public object SendQueryOperation()
+        public SqlCommand PrepareQuery(string query)
         {
-            throw new NotImplementedException();
+            var connectionString = $@"Data Source={_loginCredentialsCred.Host};
+                                   Initial Catalog={_loginCredentialsCred.Database};
+                                   User id={_loginCredentialsCred.LoginName};
+                                   Password={_loginCredentialsCred.Password};";
+            using (var conn = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand(query, conn);
+                return command;
+            }
         }
     }
 }
