@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.0.0
-MinimumVisualStudioVersion = 10.0.0.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS", "ROS.csproj", "{7249763C-F8BE-44A7-B751-8964FBDFAE24}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Test", "ROS.Test\ROS.Test.csproj", "{7841E94C-D82B-47F2-89FD-627793105090}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoS.MVC", "..\RoS.MVC\RoS.MVC.csproj", "{F9989D45-749B-4030-A3A7-0DBB2705ECFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7841E94C-D82B-47F2-89FD-627793105090}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7841E94C-D82B-47F2-89FD-627793105090}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7841E94C-D82B-47F2-89FD-627793105090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9989D45-749B-4030-A3A7-0DBB2705ECFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9989D45-749B-4030-A3A7-0DBB2705ECFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9989D45-749B-4030-A3A7-0DBB2705ECFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9989D45-749B-4030-A3A7-0DBB2705ECFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
