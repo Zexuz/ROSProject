@@ -66,7 +66,7 @@ CREATE TABLE Clubs
     Logo VARCHAR(2083),
     HomePage VARCHAR(2083),
     Description VARCHAR(1024),
-    AddressContacId INT,
+    AddressContactId INT,
     CONSTRAINT FK__Clubs__ContactPe__31EC6D26 FOREIGN KEY (ContactPersonsId) REFERENCES ContactPersons (Id),
     CONSTRAINT Clubs_AddressContacts_Id_fk FOREIGN KEY (AddressContacId) REFERENCES AddressContacts (Id)
 );
@@ -237,7 +237,7 @@ CREATE TABLE Admins
 	UserId int FOREIGN KEY REFERENCES Users(Id) NOT NULL,
 	ClubId int FOREIGN KEY REFERENCES Clubs(Id),
 	EventId int FOREIGN KEY REFERENCES Events(Id),
-	RegattasId int FOREIGN KEY REFERENCES Regattas(Id),
+	RegattaId int FOREIGN KEY REFERENCES Regattas(Id),
 	
 	CONSTRAINT pk_User_Club_Evenet_Regattas_Id UNIQUE(UserId,ClubId,EventId,RegattasId)
 );
