@@ -114,7 +114,7 @@ CREATE TABLE RaceEvents
 	EventId int FOREIGN KEY REFERENCES [Events](Id) NOT NULL,
 
 	[Type] varchar (100) NOT NULL,
-	[Class] varchar (50),
+	[Class] varchar (50) DEFAULT 'Öpen',
 	MinHandicap float,
 	MaxHandicap float
 );
