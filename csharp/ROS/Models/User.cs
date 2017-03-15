@@ -17,4 +17,5 @@ namespace ROS.Models
 
         public int AddressContactId { get; set; }
     }
+
 }
