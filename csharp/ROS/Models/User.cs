@@ -14,5 +14,7 @@ namespace ROS.Models
         public Name Name { get; set; }
 
         public DateTime DateOfBirth { get; set; }
+
+        public int AddressContactId { get; set; }
     }
 }
