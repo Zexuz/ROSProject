@@ -1,7 +1,6 @@
-﻿using System;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
-namespace ROS.Interfaces
+namespace ROS.Repositories.Interfaces
 {
     public interface IDatabaseConnection
     {

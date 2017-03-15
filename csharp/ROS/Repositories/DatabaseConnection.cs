@@ -1,8 +1,8 @@
 ﻿using System.Data.SqlClient;
-using ROS.Interfaces;
 using ROS.Models;
+using ROS.Repositories.Interfaces;
 
-namespace ROS
+namespace ROS.Repositories
 {
     public class DatabaseConnection : IDatabaseConnection
     {
