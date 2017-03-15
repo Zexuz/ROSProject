@@ -3,7 +3,7 @@
     public class Boat
     {
         public int Id { get; set; }
-
+  
         public int Handicap{ get; set; }
 
         public string SailNumber { get; set; }
