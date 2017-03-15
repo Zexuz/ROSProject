@@ -1,0 +1,845 @@
+USE [master]
+GO
+/****** Object:  Database [schoolProject]    Script Date: 2017-03-14 11:14:40 ******/
+CREATE DATABASE [schoolProject]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'schoolProject', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS02\MSSQL\DATA\schoolProject.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'schoolProject_log', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS02\MSSQL\DATA\schoolProject_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [schoolProject] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [schoolProject].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [schoolProject] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [schoolProject] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [schoolProject] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [schoolProject] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [schoolProject] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [schoolProject] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [schoolProject] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [schoolProject] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [schoolProject] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [schoolProject] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [schoolProject] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [schoolProject] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [schoolProject] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [schoolProject] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [schoolProject] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [schoolProject] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [schoolProject] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [schoolProject] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [schoolProject] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [schoolProject] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [schoolProject] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [schoolProject] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [schoolProject] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [schoolProject] SET  MULTI_USER 
+GO
+ALTER DATABASE [schoolProject] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [schoolProject] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [schoolProject] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [schoolProject] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [schoolProject] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [schoolProject] SET QUERY_STORE = OFF
+GO
+USE [schoolProject]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [schoolProject]
+GO
+/****** Object:  Table [dbo].[AddressContacts]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AddressContacts](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Number] [int] NOT NULL,
+	[NextOfKin] [varchar](50) NULL,
+	[PhoneNumber] [varchar](50) NOT NULL,
+	[Country] [varchar](50) NOT NULL,
+	[BoxNumber] [varchar](50) NULL,
+	[StreetAddress] [varchar](50) NULL,
+	[City] [varchar](50) NOT NULL,
+	[ZipCode] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Admins]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Admins](
+	[UserId] [int] NOT NULL,
+	[ClubId] [int] NULL,
+	[EventId] [int] NULL,
+	[RegattaId] [int] NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Boats]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Boats](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RegistrationNumber] [varchar](50) NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+	[Type] [varchar](50) NULL,
+	[Handicap] [float] NULL,
+	[Description] [varchar](512) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Clubs]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Clubs](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ContactPersonsId] [int] NULL,
+	[Name] [varchar](50) NOT NULL,
+	[RegistrationDate] [date] NOT NULL,
+	[Email] [varchar](100) NULL,
+	[Logo] [varchar](2083) NULL,
+	[HomePage] [varchar](2083) NULL,
+	[Description] [varchar](1024) NULL,
+	[AddressContactId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[ContactPersons]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ContactPersons](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[Email] [varchar](100) NULL,
+	[PhoneNumber] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Entries]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Entries](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[BoatId] [int] NOT NULL,
+	[ResponsibleUser] [int] NOT NULL,
+	[RegattaId] [int] NOT NULL,
+	[Number] [int] NOT NULL,
+	[RegistrationDate] [date] NOT NULL,
+	[HasPayed] [bit] NOT NULL,
+	[TotalFee] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Events]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Events](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RegattaId] [int] NULL,
+	[ContactPersonsId] [int] NULL,
+	[Number] [int] NOT NULL,
+	[StartDateTime] [datetime] NOT NULL,
+	[EndDateTime] [datetime] NOT NULL,
+	[Location] [varchar](100) NOT NULL,
+	[MaxParticipants] [int] NULL,
+	[Fee] [int] NULL,
+	[Description] [varchar](1024) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Memberships]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Memberships](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[ClubId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[RaceEntries]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RaceEntries](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TeamId] [int] NOT NULL,
+	[RaceId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[RaceEvents]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RaceEvents](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[EventId] [int] NOT NULL,
+	[Type] [varchar](100) NOT NULL,
+	[Class] [varchar](50) NULL,
+	[MinHandicap] [float] NULL,
+	[MaxHandicap] [float] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Regattas]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Regattas](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[HostingClubId] [int] NULL,
+	[ContactPersonsId] [int] NULL,
+	[Name] [varchar](50) NOT NULL,
+	[StartDateTime] [datetime] NOT NULL,
+	[EndDateTime] [datetime] NOT NULL,
+	[Fee] [int] NULL,
+	[Description] [varchar](1024) NULL,
+	[AddressContactId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[RegisteredUsers]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RegisteredUsers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[EntryId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+	[Number] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Results]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Results](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TeamBoatResultsId] [int] NULL,
+	[Number] [int] NOT NULL,
+	[Distace] [int] NULL,
+	[CalculatedDistance] [int] NULL,
+	[Time] [int] NULL,
+	[CalculatedTime] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[SocialEntries]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SocialEntries](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RegisteredUserId] [int] NOT NULL,
+	[SocialEventsId] [int] NOT NULL,
+	[Friends] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[SocialEvents]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SocialEvents](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[EventId] [int] NOT NULL,
+	[Name] [varchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TeamBoatResults]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TeamBoatResults](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[BoatId] [int] NOT NULL,
+	[TeamId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TeamCrewRegisteredUsers]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TeamCrewRegisteredUsers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TeamId] [int] NOT NULL,
+	[RegisteredUserId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Teams]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Teams](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[EntryId] [int] NOT NULL,
+	[SkipperId] [int] NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 2017-03-14 11:14:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[AddressContactId] [int] NOT NULL,
+	[Email] [varchar](50) NOT NULL,
+	[Password] [varchar](50) NOT NULL,
+	[FirstName] [varchar](50) NOT NULL,
+	[LastName] [varchar](50) NOT NULL,
+	[DateOfBirth] [date] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET IDENTITY_INSERT [dbo].[AddressContacts] ON 
+
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (1, 1, N'Anhörig1', N'070-11111111', N'Sverige', N'101', NULL, N'Göteborg', N'41511')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (2, 2, N'Anhörig2', N'070-22222222', N'Sverige', N'102', NULL, N'Göteborg', N'41514')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (3, 3, N'Anhörig3', N'070-33333333', N'USA', NULL, N'A gatan 1', N'Chicago', N'7383489')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (4, 4, N'Anhörig4', N'070-44444444', N'Sverige', NULL, N'B gatan 4', N'Växjö', N'36050')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (5, 5, N'Anhörig5', N'070-55555555', N'Sverige', NULL, N'C gatan 67', N'Göteborg', N'41524')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (6, 6, NULL, N'070-66666666', N'Sverige', NULL, N'D gatan 83', N'Stockholm', N'12316')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (7, 7, NULL, N'070-77777777', N'Sverige', NULL, N'E gatan 33', N'Stockholm', N'12267')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (8, 8, NULL, N'070-88888888', N'Sverige', N'108', NULL, N'Visby', N'17890')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (9, 9, N'Anhörig9', N'070-99999999', N'Sverige', NULL, N'F gatan 5', N'Pungpinan', N'34323')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (10, 10, NULL, N'070-10101010', N'Tibet', N'1010', NULL, N'Bergstopp14', N'0')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (11, 11, NULL, N'073-11111111', N'Sverige', N'100', NULL, N'Göteborg', N'41512')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (12, 12, NULL, N'073-22222222', N'Sverige', N'102', NULL, N'Karlskrona', N'31290')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (13, 13, NULL, N'073-33333333', N'Sverige', N'103', NULL, N'Kiruna', N'92733')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (14, 14, NULL, N'073-44444444', N'Sverige', N'104', NULL, N'Malmö', N'23479')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (15, 15, NULL, N'073-55555555', N'Sverige', N'105', NULL, N'Göteborg', N'41518')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (16, 16, NULL, N'073-66666666', N'Sverige', N'106', NULL, N'Göteborg', N'41513')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (17, 17, NULL, N'073-77777777', N'Sverige', N'107', NULL, N'Stockholm', N'12267')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (18, 18, NULL, N'073-88888888', N'Sverige', N'108', NULL, N'Stockholm', N'14367')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (19, 19, NULL, N'073-99999999', N'Sverige', NULL, N'F gatan 34', N'Stockholm', N'14236')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (20, 20, NULL, N'073-20202020', N'Norge', NULL, N'G gatan 45', N'Bergen', N'98874')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (21, 21, NULL, N'076-11111111', N'Sverige', NULL, N'H gatan 7', N'Göteborg', N'41521')
+INSERT [dbo].[AddressContacts] ([Id], [Number], [NextOfKin], [PhoneNumber], [Country], [BoxNumber], [StreetAddress], [City], [ZipCode]) VALUES (22, 22, NULL, N'076-22222222', N'Sverige', N'789', NULL, N'Göteborg', N'41524')
+SET IDENTITY_INSERT [dbo].[AddressContacts] OFF
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (1, NULL, NULL, 3)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (1, 4, NULL, NULL)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (2, NULL, 21, NULL)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (2, 5, NULL, NULL)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (3, 6, NULL, NULL)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (4, 7, NULL, NULL)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (5, 8, NULL, NULL)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (6, NULL, 27, NULL)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (6, 4, NULL, NULL)
+INSERT [dbo].[Admins] ([UserId], [ClubId], [EventId], [RegattaId]) VALUES (7, NULL, NULL, 2)
+SET IDENTITY_INSERT [dbo].[Boats] ON 
+
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (1, N'oqJdkqW44', N'Margareta', NULL, NULL, N'Detta är en "description" om en båt ')
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (2, N'548Awfkle', N'Carina', NULL, NULL, N'Ännu en description')
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (3, N'qweASDio', N'Sara', NULL, NULL, NULL)
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (4, N'mkmkxcjJ', N'Emely', NULL, NULL, N'Så vacker')
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (5, N'5484asdj', N'Undefined', NULL, NULL, NULL)
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (6, N'bC3F5Wa', N'The beauty', NULL, NULL, NULL)
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (7, N'RaUrUWR', N'Speedster', NULL, NULL, N'Snabbaste båten någonsin')
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (8, N'V8qdpG8', N'Kajsa', NULL, NULL, NULL)
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (9, N'smJAUJs', N'Mimmi', NULL, NULL, NULL)
+INSERT [dbo].[Boats] ([Id], [RegistrationNumber], [Name], [Type], [Handicap], [Description]) VALUES (10, N'dE41v88', N'Donald', NULL, NULL, N'Duck')
+SET IDENTITY_INSERT [dbo].[Boats] OFF
+SET IDENTITY_INSERT [dbo].[Clubs] ON 
+
+INSERT [dbo].[Clubs] ([Id], [ContactPersonsId], [Name], [RegistrationDate], [Email], [Logo], [HomePage], [Description], [AddressContactId]) VALUES (4, 2, N'Klubb1', CAST(N'1976-01-01' AS Date), N'klubbmail1@mail.com', N'www.logo1.com', N'www.homepage1.com', N'En klubb', 11)
+INSERT [dbo].[Clubs] ([Id], [ContactPersonsId], [Name], [RegistrationDate], [Email], [Logo], [HomePage], [Description], [AddressContactId]) VALUES (5, 3, N'Klubb2', CAST(N'1996-01-01' AS Date), N'klubbmail2@mail.com', N'www.logo2.com', N'www.homepage2.com', N'En annan klubb', 12)
+INSERT [dbo].[Clubs] ([Id], [ContactPersonsId], [Name], [RegistrationDate], [Email], [Logo], [HomePage], [Description], [AddressContactId]) VALUES (6, 4, N'Klubb3', CAST(N'2006-01-01' AS Date), N'klubbmail3@mail.com', N'www.logo3.com', N'www.homepage3.com', N'En bra klubb', 13)
+INSERT [dbo].[Clubs] ([Id], [ContactPersonsId], [Name], [RegistrationDate], [Email], [Logo], [HomePage], [Description], [AddressContactId]) VALUES (7, 5, N'Klubb4', CAST(N'1999-01-01' AS Date), N'klubbmail4@mail.com', N'www.logo4.com', N'www.homepage4.com', N'En dålig klubb', 14)
+INSERT [dbo].[Clubs] ([Id], [ContactPersonsId], [Name], [RegistrationDate], [Email], [Logo], [HomePage], [Description], [AddressContactId]) VALUES (8, 6, N'Klubb5', CAST(N'1976-01-01' AS Date), N'klubbmail5@mail.com', NULL, N'www.homepage5.com', NULL, 15)
+SET IDENTITY_INSERT [dbo].[Clubs] OFF
+SET IDENTITY_INSERT [dbo].[ContactPersons] ON 
+
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (2, 1, N'some.email1@gmail.com', N'0722050085')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (3, 2, N'some.email2@gmail.com', N'0785484548')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (4, 3, N'some.email3@gmail.com', N'0754854854')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (5, 4, N'some.email4@gmail.com', N'0754586233')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (6, 5, N'some.email5@gmail.com', N'0712354689')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (7, 6, N'some.email6@gmail.com', N'0754854879')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (8, 7, N'some.email7@gmail.com', N'0732654874')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (9, 8, N'some.email8@gmail.com', N'0754843316')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (10, 9, N'some.email9@gmail.com', N'0732165489')
+INSERT [dbo].[ContactPersons] ([Id], [UserId], [Email], [PhoneNumber]) VALUES (11, 10, N'some.emai10l@gmail.com', N'0715457484')
+SET IDENTITY_INSERT [dbo].[ContactPersons] OFF
+SET IDENTITY_INSERT [dbo].[Entries] ON 
+
+INSERT [dbo].[Entries] ([Id], [BoatId], [ResponsibleUser], [RegattaId], [Number], [RegistrationDate], [HasPayed], [TotalFee]) VALUES (1, 1, 1, 2, 1, CAST(N'2017-01-01' AS Date), 1, 100)
+INSERT [dbo].[Entries] ([Id], [BoatId], [ResponsibleUser], [RegattaId], [Number], [RegistrationDate], [HasPayed], [TotalFee]) VALUES (3, 2, 2, 3, 2, CAST(N'2017-01-01' AS Date), 0, 100)
+INSERT [dbo].[Entries] ([Id], [BoatId], [ResponsibleUser], [RegattaId], [Number], [RegistrationDate], [HasPayed], [TotalFee]) VALUES (4, 3, 3, 3, 3, CAST(N'2017-01-01' AS Date), 1, 200)
+INSERT [dbo].[Entries] ([Id], [BoatId], [ResponsibleUser], [RegattaId], [Number], [RegistrationDate], [HasPayed], [TotalFee]) VALUES (5, 4, 4, 2, 4, CAST(N'2016-01-01' AS Date), 0, 300)
+SET IDENTITY_INSERT [dbo].[Entries] OFF
+SET IDENTITY_INSERT [dbo].[Events] ON 
+
+INSERT [dbo].[Events] ([Id], [RegattaId], [ContactPersonsId], [Number], [StartDateTime], [EndDateTime], [Location], [MaxParticipants], [Fee], [Description]) VALUES (21, 3, 6, 1, CAST(N'2017-01-01T09:30:00.000' AS DateTime), CAST(N'2017-01-03T09:00:00.000' AS DateTime), N'Tjörn', 50, NULL, N'Race klass 1')
+INSERT [dbo].[Events] ([Id], [RegattaId], [ContactPersonsId], [Number], [StartDateTime], [EndDateTime], [Location], [MaxParticipants], [Fee], [Description]) VALUES (22, 3, 7, 2, CAST(N'2017-01-01T09:30:00.000' AS DateTime), CAST(N'2017-01-03T09:00:00.000' AS DateTime), N'Tjörn', 50, NULL, N'Race klass 2')
+INSERT [dbo].[Events] ([Id], [RegattaId], [ContactPersonsId], [Number], [StartDateTime], [EndDateTime], [Location], [MaxParticipants], [Fee], [Description]) VALUES (23, 3, 8, 3, CAST(N'2017-01-03T09:30:00.000' AS DateTime), CAST(N'2017-01-03T18:30:00.000' AS DateTime), N'Tjörn', 500, NULL, N'Korvgrillning')
+INSERT [dbo].[Events] ([Id], [RegattaId], [ContactPersonsId], [Number], [StartDateTime], [EndDateTime], [Location], [MaxParticipants], [Fee], [Description]) VALUES (24, 3, 9, 4, CAST(N'2017-03-01T09:00:00.000' AS DateTime), CAST(N'2017-03-05T18:30:00.000' AS DateTime), N'Köpenhamn', NULL, 500, N'Race klass 1')
+INSERT [dbo].[Events] ([Id], [RegattaId], [ContactPersonsId], [Number], [StartDateTime], [EndDateTime], [Location], [MaxParticipants], [Fee], [Description]) VALUES (25, 3, 10, 5, CAST(N'2017-01-01T09:30:00.000' AS DateTime), CAST(N'2017-01-03T09:00:00.000' AS DateTime), N'Vinga', NULL, 500, N'Race klass 2')
+INSERT [dbo].[Events] ([Id], [RegattaId], [ContactPersonsId], [Number], [StartDateTime], [EndDateTime], [Location], [MaxParticipants], [Fee], [Description]) VALUES (26, 2, 9, 6, CAST(N'2017-01-01T09:30:00.000' AS DateTime), CAST(N'2017-01-03T09:00:00.000' AS DateTime), N'Vinga', NULL, 500, N'Race öppen')
+INSERT [dbo].[Events] ([Id], [RegattaId], [ContactPersonsId], [Number], [StartDateTime], [EndDateTime], [Location], [MaxParticipants], [Fee], [Description]) VALUES (27, 2, 11, 7, CAST(N'2017-01-03T09:30:00.000' AS DateTime), CAST(N'2017-01-03T18:30:00.000' AS DateTime), N'Berlin', 500, 1000, N'Bordellbesök')
+SET IDENTITY_INSERT [dbo].[Events] OFF
+SET IDENTITY_INSERT [dbo].[Memberships] ON 
+
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (2, 1, 4)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (3, 2, 5)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (4, 3, 6)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (5, 4, 7)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (6, 5, 8)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (7, 6, 4)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (8, 7, 5)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (9, 8, 6)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (10, 9, 7)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (11, 10, 8)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (12, 1, 4)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (13, 2, 5)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (14, 3, 6)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (15, 4, 7)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (16, 5, 8)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (17, 6, 4)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (18, 7, 5)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (19, 8, 6)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (20, 9, 7)
+INSERT [dbo].[Memberships] ([Id], [UserId], [ClubId]) VALUES (21, 10, 8)
+SET IDENTITY_INSERT [dbo].[Memberships] OFF
+SET IDENTITY_INSERT [dbo].[RaceEntries] ON 
+
+INSERT [dbo].[RaceEntries] ([Id], [TeamId], [RaceId]) VALUES (1, 3, 7)
+INSERT [dbo].[RaceEntries] ([Id], [TeamId], [RaceId]) VALUES (2, 4, 7)
+INSERT [dbo].[RaceEntries] ([Id], [TeamId], [RaceId]) VALUES (3, 5, 7)
+INSERT [dbo].[RaceEntries] ([Id], [TeamId], [RaceId]) VALUES (4, 6, 7)
+SET IDENTITY_INSERT [dbo].[RaceEntries] OFF
+SET IDENTITY_INSERT [dbo].[RaceEvents] ON 
+
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (7, 21, N'48 timmars', N'1', 1, 1.5)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (8, 22, N'48 timmars', N'2', 1.6, 2)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (9, 23, N'Given sträcka', N'1', 1, 1.5)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (10, 24, N'Given sträcka', N'2', 1.6, 2)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (11, 25, N'Given sträcka', NULL, NULL, NULL)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (12, 21, N'48 timmars', N'1', 1, 1.5)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (13, 22, N'48 timmars', N'2', 1.6, 2)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (14, 23, N'Given sträcka', N'1', 1, 1.5)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (15, 24, N'Given sträcka', N'2', 1.6, 2)
+INSERT [dbo].[RaceEvents] ([Id], [EventId], [Type], [Class], [MinHandicap], [MaxHandicap]) VALUES (16, 25, N'Given sträcka', NULL, NULL, NULL)
+SET IDENTITY_INSERT [dbo].[RaceEvents] OFF
+SET IDENTITY_INSERT [dbo].[Regattas] ON 
+
+INSERT [dbo].[Regattas] ([Id], [HostingClubId], [ContactPersonsId], [Name], [StartDateTime], [EndDateTime], [Fee], [Description], [AddressContactId]) VALUES (2, 4, 6, N'Tjörn runt', CAST(N'2017-01-01T09:30:00.000' AS DateTime), CAST(N'2017-01-03T18:30:00.000' AS DateTime), NULL, N'En gratis regatta', 21)
+INSERT [dbo].[Regattas] ([Id], [HostingClubId], [ContactPersonsId], [Name], [StartDateTime], [EndDateTime], [Fee], [Description], [AddressContactId]) VALUES (3, 4, 6, N'Vårregattan 2017', CAST(N'2017-03-01T09:00:00.000' AS DateTime), CAST(N'2017-03-07T18:30:00.000' AS DateTime), 1000, N'En dyr regatta', 22)
+SET IDENTITY_INSERT [dbo].[Regattas] OFF
+SET IDENTITY_INSERT [dbo].[RegisteredUsers] ON 
+
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (1, 1, 1, 1)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (2, 3, 2, 2)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (3, 4, 3, 3)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (4, 5, 4, 4)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (5, 1, 5, 5)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (6, 3, 6, 6)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (7, 4, 7, 7)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (8, 5, 8, 8)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (9, 1, 9, 9)
+INSERT [dbo].[RegisteredUsers] ([Id], [EntryId], [UserId], [Number]) VALUES (10, 3, 10, 10)
+SET IDENTITY_INSERT [dbo].[RegisteredUsers] OFF
+SET IDENTITY_INSERT [dbo].[SocialEntries] ON 
+
+INSERT [dbo].[SocialEntries] ([Id], [RegisteredUserId], [SocialEventsId], [Friends]) VALUES (1, 1, 2, 50)
+INSERT [dbo].[SocialEntries] ([Id], [RegisteredUserId], [SocialEventsId], [Friends]) VALUES (2, 2, 2, 1)
+INSERT [dbo].[SocialEntries] ([Id], [RegisteredUserId], [SocialEventsId], [Friends]) VALUES (3, 3, 3, 0)
+INSERT [dbo].[SocialEntries] ([Id], [RegisteredUserId], [SocialEventsId], [Friends]) VALUES (4, 4, 3, 5)
+SET IDENTITY_INSERT [dbo].[SocialEntries] OFF
+SET IDENTITY_INSERT [dbo].[SocialEvents] ON 
+
+INSERT [dbo].[SocialEvents] ([Id], [EventId], [Name]) VALUES (2, 26, N'Grillning')
+INSERT [dbo].[SocialEvents] ([Id], [EventId], [Name]) VALUES (3, 27, N'Hemlig aktivitet')
+INSERT [dbo].[SocialEvents] ([Id], [EventId], [Name]) VALUES (4, 26, N'Grillning')
+INSERT [dbo].[SocialEvents] ([Id], [EventId], [Name]) VALUES (5, 27, N'Hemlig aktivitet')
+SET IDENTITY_INSERT [dbo].[SocialEvents] OFF
+SET IDENTITY_INSERT [dbo].[TeamBoatResults] ON 
+
+INSERT [dbo].[TeamBoatResults] ([Id], [BoatId], [TeamId]) VALUES (1, 1, 3)
+INSERT [dbo].[TeamBoatResults] ([Id], [BoatId], [TeamId]) VALUES (2, 2, 4)
+INSERT [dbo].[TeamBoatResults] ([Id], [BoatId], [TeamId]) VALUES (3, 3, 5)
+INSERT [dbo].[TeamBoatResults] ([Id], [BoatId], [TeamId]) VALUES (4, 4, 6)
+SET IDENTITY_INSERT [dbo].[TeamBoatResults] OFF
+SET IDENTITY_INSERT [dbo].[TeamCrewRegisteredUsers] ON 
+
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (1, 3, 1)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (2, 3, 2)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (3, 3, 3)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (4, 4, 4)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (5, 4, 5)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (6, 4, 6)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (7, 5, 7)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (8, 5, 8)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (9, 6, 9)
+INSERT [dbo].[TeamCrewRegisteredUsers] ([Id], [TeamId], [RegisteredUserId]) VALUES (10, 6, 10)
+SET IDENTITY_INSERT [dbo].[TeamCrewRegisteredUsers] OFF
+SET IDENTITY_INSERT [dbo].[Teams] ON 
+
+INSERT [dbo].[Teams] ([Id], [EntryId], [SkipperId], [Name]) VALUES (3, 1, 1, N'Niclas änglar')
+INSERT [dbo].[Teams] ([Id], [EntryId], [SkipperId], [Name]) VALUES (4, 3, 2, N'Robins benbryttare')
+INSERT [dbo].[Teams] ([Id], [EntryId], [SkipperId], [Name]) VALUES (5, 4, 5, N'Kenans horungar')
+INSERT [dbo].[Teams] ([Id], [EntryId], [SkipperId], [Name]) VALUES (6, 5, 6, N'Linus madcats')
+SET IDENTITY_INSERT [dbo].[Teams] OFF
+SET IDENTITY_INSERT [dbo].[Users] ON 
+
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (1, 1, N'mail1@mail.com', N'0000', N'Anders', N'Andersson', CAST(N'1976-01-01' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (2, 2, N'mail2@mail.com', N'0000', N'Ann', N'Ahl', CAST(N'1976-01-02' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (3, 3, N'mail3@mail.com', N'0000', N'Bengt', N'Bengtsson', CAST(N'1946-01-03' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (4, 4, N'mail4@mail.com', N'0000', N'Göte', N'Borg', CAST(N'1966-01-14' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (5, 5, N'mail5@mail.com', N'0000', N'Bobby', N'Brown', CAST(N'1974-01-01' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (6, 6, N'mail6@mail.com', N'0000', N'Mats', N'Matsson', CAST(N'1976-01-01' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (7, 7, N'mail7@mail.com', N'0000', N'Britta', N'Bengtsson', CAST(N'1946-02-01' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (8, 8, N'mail8@mail.com', N'0000', N'Bosse', N'Johansson', CAST(N'1976-01-20' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (9, 9, N'mail9@mail.com', N'0000', N'Nicklas', N'Svensson', CAST(N'1986-03-01' AS Date))
+INSERT [dbo].[Users] ([Id], [AddressContactId], [Email], [Password], [FirstName], [LastName], [DateOfBirth]) VALUES (10, 10, N'mail10@mail.com', N'0000', N'Hans', N'Andersson', CAST(N'1956-01-10' AS Date))
+SET IDENTITY_INSERT [dbo].[Users] OFF
+/****** Object:  Index [UC_AddressContactNumber]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[AddressContacts] ADD  CONSTRAINT [UC_AddressContactNumber] UNIQUE NONCLUSTERED 
+(
+	[Number] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [pk_User_Club_Evenet_Regattas_Id]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[Admins] ADD  CONSTRAINT [pk_User_Club_Evenet_Regattas_Id] UNIQUE NONCLUSTERED 
+(
+	[UserId] ASC,
+	[ClubId] ASC,
+	[EventId] ASC,
+	[RegattaId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [UC_RegistrationNumber]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[Boats] ADD  CONSTRAINT [UC_RegistrationNumber] UNIQUE NONCLUSTERED 
+(
+	[RegistrationNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [UC_ClubName]    Script Date: 2017-03-14 11:14:40 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [UC_ClubName] ON [dbo].[Clubs]
+(
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [UC_ContactPersonEmail]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[ContactPersons] ADD  CONSTRAINT [UC_ContactPersonEmail] UNIQUE NONCLUSTERED 
+(
+	[Email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [UC_EntryNumber]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[Entries] ADD  CONSTRAINT [UC_EntryNumber] UNIQUE NONCLUSTERED 
+(
+	[Number] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [UC_EventNumber]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[Events] ADD  CONSTRAINT [UC_EventNumber] UNIQUE NONCLUSTERED 
+(
+	[Number] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [UC_name_startDateTime]    Script Date: 2017-03-14 11:14:40 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [UC_name_startDateTime] ON [dbo].[Regattas]
+(
+	[Name] ASC,
+	[StartDateTime] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [UC_RegisteredUserNumber]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[RegisteredUsers] ADD  CONSTRAINT [UC_RegisteredUserNumber] UNIQUE NONCLUSTERED 
+(
+	[Number] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [UC_ResultNumber]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[Results] ADD  CONSTRAINT [UC_ResultNumber] UNIQUE NONCLUSTERED 
+(
+	[Number] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [UC_UserEmail]    Script Date: 2017-03-14 11:14:40 ******/
+ALTER TABLE [dbo].[Users] ADD  CONSTRAINT [UC_UserEmail] UNIQUE NONCLUSTERED 
+(
+	[Email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Admins]  WITH CHECK ADD FOREIGN KEY([ClubId])
+REFERENCES [dbo].[Clubs] ([Id])
+GO
+ALTER TABLE [dbo].[Admins]  WITH CHECK ADD FOREIGN KEY([EventId])
+REFERENCES [dbo].[Events] ([Id])
+GO
+ALTER TABLE [dbo].[Admins]  WITH CHECK ADD FOREIGN KEY([RegattaId])
+REFERENCES [dbo].[Regattas] ([Id])
+GO
+ALTER TABLE [dbo].[Admins]  WITH CHECK ADD FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[Clubs]  WITH CHECK ADD  CONSTRAINT [Clubs_AddressContacts_Id_fk] FOREIGN KEY([AddressContactId])
+REFERENCES [dbo].[AddressContacts] ([Id])
+GO
+ALTER TABLE [dbo].[Clubs] CHECK CONSTRAINT [Clubs_AddressContacts_Id_fk]
+GO
+ALTER TABLE [dbo].[Clubs]  WITH CHECK ADD  CONSTRAINT [FK__Clubs__ContactPe__31EC6D26] FOREIGN KEY([ContactPersonsId])
+REFERENCES [dbo].[ContactPersons] ([Id])
+GO
+ALTER TABLE [dbo].[Clubs] CHECK CONSTRAINT [FK__Clubs__ContactPe__31EC6D26]
+GO
+ALTER TABLE [dbo].[ContactPersons]  WITH CHECK ADD FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[Entries]  WITH CHECK ADD FOREIGN KEY([BoatId])
+REFERENCES [dbo].[Boats] ([Id])
+GO
+ALTER TABLE [dbo].[Entries]  WITH CHECK ADD FOREIGN KEY([RegattaId])
+REFERENCES [dbo].[Regattas] ([Id])
+GO
+ALTER TABLE [dbo].[Entries]  WITH CHECK ADD FOREIGN KEY([ResponsibleUser])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[Events]  WITH CHECK ADD FOREIGN KEY([ContactPersonsId])
+REFERENCES [dbo].[ContactPersons] ([Id])
+GO
+ALTER TABLE [dbo].[Events]  WITH CHECK ADD FOREIGN KEY([RegattaId])
+REFERENCES [dbo].[Regattas] ([Id])
+GO
+ALTER TABLE [dbo].[Memberships]  WITH CHECK ADD FOREIGN KEY([ClubId])
+REFERENCES [dbo].[Clubs] ([Id])
+GO
+ALTER TABLE [dbo].[Memberships]  WITH CHECK ADD FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[RaceEntries]  WITH CHECK ADD FOREIGN KEY([RaceId])
+REFERENCES [dbo].[RaceEvents] ([Id])
+GO
+ALTER TABLE [dbo].[RaceEntries]  WITH CHECK ADD FOREIGN KEY([TeamId])
+REFERENCES [dbo].[Teams] ([Id])
+GO
+ALTER TABLE [dbo].[RaceEvents]  WITH CHECK ADD FOREIGN KEY([EventId])
+REFERENCES [dbo].[Events] ([Id])
+GO
+ALTER TABLE [dbo].[Regattas]  WITH CHECK ADD  CONSTRAINT [FK__Regattas__Contac__36B12243] FOREIGN KEY([ContactPersonsId])
+REFERENCES [dbo].[ContactPersons] ([Id])
+GO
+ALTER TABLE [dbo].[Regattas] CHECK CONSTRAINT [FK__Regattas__Contac__36B12243]
+GO
+ALTER TABLE [dbo].[Regattas]  WITH CHECK ADD  CONSTRAINT [FK__Regattas__Hostin__35BCFE0A] FOREIGN KEY([HostingClubId])
+REFERENCES [dbo].[Clubs] ([Id])
+GO
+ALTER TABLE [dbo].[Regattas] CHECK CONSTRAINT [FK__Regattas__Hostin__35BCFE0A]
+GO
+ALTER TABLE [dbo].[Regattas]  WITH CHECK ADD  CONSTRAINT [Regattas_AddressContacts_Id_fk] FOREIGN KEY([AddressContactId])
+REFERENCES [dbo].[AddressContacts] ([Id])
+GO
+ALTER TABLE [dbo].[Regattas] CHECK CONSTRAINT [Regattas_AddressContacts_Id_fk]
+GO
+ALTER TABLE [dbo].[RegisteredUsers]  WITH CHECK ADD FOREIGN KEY([EntryId])
+REFERENCES [dbo].[Entries] ([Id])
+GO
+ALTER TABLE [dbo].[RegisteredUsers]  WITH CHECK ADD FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[Results]  WITH CHECK ADD FOREIGN KEY([TeamBoatResultsId])
+REFERENCES [dbo].[TeamBoatResults] ([Id])
+GO
+ALTER TABLE [dbo].[SocialEntries]  WITH CHECK ADD FOREIGN KEY([RegisteredUserId])
+REFERENCES [dbo].[RegisteredUsers] ([Id])
+GO
+ALTER TABLE [dbo].[SocialEntries]  WITH CHECK ADD FOREIGN KEY([SocialEventsId])
+REFERENCES [dbo].[SocialEvents] ([Id])
+GO
+ALTER TABLE [dbo].[SocialEvents]  WITH CHECK ADD FOREIGN KEY([EventId])
+REFERENCES [dbo].[Events] ([Id])
+GO
+ALTER TABLE [dbo].[TeamBoatResults]  WITH CHECK ADD FOREIGN KEY([BoatId])
+REFERENCES [dbo].[Boats] ([Id])
+GO
+ALTER TABLE [dbo].[TeamBoatResults]  WITH CHECK ADD FOREIGN KEY([TeamId])
+REFERENCES [dbo].[Teams] ([Id])
+GO
+ALTER TABLE [dbo].[TeamCrewRegisteredUsers]  WITH CHECK ADD FOREIGN KEY([RegisteredUserId])
+REFERENCES [dbo].[RegisteredUsers] ([Id])
+GO
+ALTER TABLE [dbo].[TeamCrewRegisteredUsers]  WITH CHECK ADD FOREIGN KEY([TeamId])
+REFERENCES [dbo].[Teams] ([Id])
+GO
+ALTER TABLE [dbo].[Teams]  WITH CHECK ADD FOREIGN KEY([EntryId])
+REFERENCES [dbo].[Entries] ([Id])
+GO
+ALTER TABLE [dbo].[Teams]  WITH CHECK ADD FOREIGN KEY([SkipperId])
+REFERENCES [dbo].[RegisteredUsers] ([Id])
+GO
+ALTER TABLE [dbo].[Users]  WITH CHECK ADD FOREIGN KEY([AddressContactId])
+REFERENCES [dbo].[AddressContacts] ([Id])
+GO
+USE [master]
+GO
+ALTER DATABASE [schoolProject] SET  READ_WRITE 
+GO
