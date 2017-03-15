@@ -33,12 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\TypeNotImplementedException.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\SqlReaderExtension.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="Interfaces\IDatabaseConnection.cs" />
     <Compile Include="Models\MSSQLLoginCredentials.cs" />
@@ -57,10 +61,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DatabaseConnection.cs" />
     <Compile Include="Repositories\Interfaces\IDatabaseConnection.cs" />
+    <Compile Include="Repositories\Interfaces\IReposetory.cs" />
+    <Compile Include="Repositories\MasterReposetory.cs" />
     <Compile Include="Services\Interfaces\RobinArElak.cs" />
     <Compile Include="Services\RobinArElak.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
