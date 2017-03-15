@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ROS.Models
 {
-    class RobinArElak
+    class ContactPerson
     {
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

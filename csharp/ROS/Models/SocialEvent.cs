@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ROS.Repositories.Interfaces
+namespace ROS.Models
 {
-    class RobinArElak
+    class SocialEvent
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
