@@ -43,6 +43,13 @@
     <Compile Include="Interfaces\IDatabaseConnection.cs" />
     <Compile Include="Models\MSSQLLoginCredentials.cs" />
     <Compile Include="Models\RobinArElak.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\AddressContact.cs" />
+    <Compile Include="Models\Boat.cs" />
+    <Compile Include="Models\Entry.cs" />
+    <Compile Include="Models\Name.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Interfaces\RobinArElak.cs" />
     <Compile Include="Repositories\RobinArElak.cs" />
