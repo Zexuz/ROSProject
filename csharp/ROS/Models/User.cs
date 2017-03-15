@@ -14,5 +14,12 @@ namespace ROS.Models
         public Name Name { get; set; }
 
         public DateTime DateOfBirth { get; set; }
+
+        public void SetName(string firstName, string lastName)
+        {
+            Name.FirstName = firstName;
+            Name.LastName = lastName;
+        }
     }
+    
 }
