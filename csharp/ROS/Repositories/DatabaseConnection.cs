@@ -6,9 +6,9 @@ namespace ROS.Repositories
 {
     public class DatabaseConnection : IDatabaseConnection
     {
-        private readonly MSSQLLoginCredentials _loginCredentialsCred;
+        private readonly MsSqlLoginCredentials _loginCredentialsCred;
 
-        public DatabaseConnection(MSSQLLoginCredentials loginCredentialsCred)
+        public DatabaseConnection(MsSqlLoginCredentials loginCredentialsCred)
         {
             _loginCredentialsCred = loginCredentialsCred;
         }
@@ -19,11 +19,10 @@ namespace ROS.Repositories
                                    Initial Catalog={_loginCredentialsCred.Database};
                                    User id={_loginCredentialsCred.LoginName};
                                    Password={_loginCredentialsCred.Password};";
-            using (var conn = new SqlConnection(connectionString))
-            {
-                var command = new SqlCommand(query, conn);
-                return command;
-            }
+            var conn = new SqlConnection(connectionString);
+            conn.Open();
+            var command = new SqlCommand(query, conn);
+            return command;
         }
     }
 }
