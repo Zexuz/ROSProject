@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ROS.Models
 {
-    class RobinArElak
+    class SocialEvent
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
