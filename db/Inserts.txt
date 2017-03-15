@@ -87,10 +87,10 @@ VALUES
 
 INSERT INTO RaceEvents (EventId, [Type], Class, MinHandicap, MaxHandicap)
 VALUES
-(1, '48 timmars', 1, 1, 1.5),
-(2, '48 timmars', 2, 1.6, 2),
-(4, 'Given sträcka', 1, 1, 1.5),
-(5, 'Given sträcka', 2, 1.6, 2),
+(1, '48 timmars', '1', 1, 1.5),
+(2, '48 timmars', '2', 1.6, 2),
+(4, 'Given sträcka', '1', 1, 1.5),
+(5, 'Given sträcka', '2', 1.6, 2),
 (6, 'Given sträcka', NULL, NULL, NULL);
 
 INSERT INTO RaceEvents (EventId, [Name])
