@@ -43,13 +43,10 @@
     <Compile Include="Exceptions\TypeNotImplementedException.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\SqlReaderExtension.cs" />
-    <Compile Include="DatabaseConnection.cs" />
-    <Compile Include="Interfaces\IDatabaseConnection.cs" />
     <Compile Include="Models\MSSQLLoginCredentials.cs" />
     <Compile Include="Models\Race.cs" />
     <Compile Include="Models\Regatta.cs" />
     <Compile Include="Models\Result.cs" />
-    <Compile Include="Models\RobinArElak.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AddressContact.cs" />
     <Compile Include="Models\Boat.cs" />
