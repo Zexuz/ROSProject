@@ -43,7 +43,6 @@
     <Compile Include="Exceptions\TypeNotImplementedException.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\SqlReaderExtension.cs" />
-    <Compile Include="Models\MSSQLLoginCredentials.cs" />
     <Compile Include="Models\Race.cs" />
     <Compile Include="Models\Regatta.cs" />
     <Compile Include="Models\Result.cs" />
