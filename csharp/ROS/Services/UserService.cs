@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using ROS.Models;
 using ROS.Repositories.Interfaces;
@@ -20,7 +21,7 @@ namespace ROS.Services
 
         public User GetById(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public bool RemoveById(int id)
