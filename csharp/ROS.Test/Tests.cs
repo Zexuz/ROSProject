@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using ROS.Models;
+using ROS.Services;
 
 namespace ROS.Test
 {
