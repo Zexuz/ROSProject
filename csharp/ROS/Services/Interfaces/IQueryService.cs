@@ -1,4 +1,4 @@
-﻿namespace ROS.Repositories
+﻿namespace ROS.Services.Interfaces
 {
     public interface IQueryService<in TType>
     {

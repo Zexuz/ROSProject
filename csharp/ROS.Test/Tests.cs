@@ -1,7 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
 using ROS.Models;
-using ROS.Repositories;
 
 namespace ROS.Test
 {
@@ -34,30 +33,5 @@ namespace ROS.Test
             Assert.AreEqual(realQuery,query);
         }
 
-    }
-
-
-    class UserQueryService:IQueryService<User>
-    {
-        public string GetSelecByIdQuery(User user)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public string GetDeleteQuery(User user)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public string GetUpdateQuery(User user)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public string GetInsertQuery(User user)
-        {
-            return "INSERT INTO Users (AddressContactId, Email, Password, FirstName, LastName, DateOfBirth) VALUES "+
-                   $"(1, '{user.Email}', '{user.Password}', '{user.Name.FirstName}', '{user.Name.LastName}', '{user.DateOfBirth:yyyy-MM-dd}');";
-        }
     }
 }
