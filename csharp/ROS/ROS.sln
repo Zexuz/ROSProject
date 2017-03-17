@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS", "ROS.csproj", "{7249763C-F8BE-44A7-B751-8964FBDFAE24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Test", "ROS.Test\ROS.Test.csproj", "{7841E94C-D82B-47F2-89FD-627793105090}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Test", "..\ROS.Test\ROS.Test.csproj", "{742F68EF-C44C-49A6-AF11-FB3DBA86F59D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{7249763C-F8BE-44A7-B751-8964FBDFAE24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7249763C-F8BE-44A7-B751-8964FBDFAE24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7249763C-F8BE-44A7-B751-8964FBDFAE24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7841E94C-D82B-47F2-89FD-627793105090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7841E94C-D82B-47F2-89FD-627793105090}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7841E94C-D82B-47F2-89FD-627793105090}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7841E94C-D82B-47F2-89FD-627793105090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{742F68EF-C44C-49A6-AF11-FB3DBA86F59D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742F68EF-C44C-49A6-AF11-FB3DBA86F59D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742F68EF-C44C-49A6-AF11-FB3DBA86F59D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742F68EF-C44C-49A6-AF11-FB3DBA86F59D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
