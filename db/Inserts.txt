@@ -45,3 +45,81 @@ INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (7,
 INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (8, 'some.email@gmail.com', '0754843316');
 INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (9, 'some.email@gmail.com', '0732165489');
 INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (10, 'some.email@gmail.com', '0715457484');
+
+INSERT INTO Users (AddressContactId, Email, [Password], FirstName, LastName, DateOfBirth)
+VALUES
+(1, 'mail1@mail.com', '0000', 'Anders', 'Andersson', '1976-01-01'),
+(2, 'mail2@mail.com', '0000', 'Ann', 'Ahl', '1976-01-02'),
+(3, 'mail3@mail.com', '0000', 'Bengt', 'Bengtsson', '1946-01-03'),
+(4, 'mail4@mail.com', '0000', 'Göte', 'Borg', '1966-01-14'),
+(5, 'mail5@mail.com', '0000', 'Bobby', 'Brown', '1974-01-01'),
+(6, 'mail6@mail.com', '0000', 'Mats', 'Matsson', '1976-01-01'),
+(7, 'mail7@mail.com', '0000', 'Britta', 'Bengtsson', '1946-02-01'),
+(8, 'mail8@mail.com', '0000', 'Bosse', 'Johansson', '1976-01-20'),
+(9, 'mail9@mail.com', '0000', 'Nicklas', 'Svensson', '1986-03-01'),
+(10, 'mail10@mail.com', '0000', 'Hans', 'Andersson', '1956-01-10');
+
+
+INSERT INTO Clubs (ContactPersonsId, [Name], RegistrationDate, Email, Logo, HomePage, [Description], AddressContactId)
+VALUES
+(1, 'Klubb1', '1976-01-01', 'klubbmail1@mail.com', 'www.logo1.com', 'www.homepage1.com', 'En klubb', 11),
+(2, 'Klubb2', '1996-01-01', 'klubbmail2@mail.com', 'www.logo2.com', 'www.homepage2.com', 'En annan klubb', 12),
+(3, 'Klubb3', '2006-01-01', 'klubbmail3@mail.com', 'www.logo3.com', 'www.homepage3.com', 'En bra klubb', 13),
+(4, 'Klubb4', '1999-01-01', 'klubbmail4@mail.com', 'www.logo4.com', 'www.homepage4.com', 'En dålig klubb', 14),
+(5, 'Klubb5', '1976-01-01', 'klubbmail5@mail.com', NULL, 'www.homepage5.com', NULL, 15);
+
+
+INSERT INTO Regattas (HostingClubId, ContactPersonsId, [Name], StartDateTime, EndDateTime, Fee, [Description], AddressContactId)
+VALUES
+(1, 6, 'Tjörn runt', '2017-01-01:09.30.00', '2017-01-03:18.30.00', NULL, 'En gratis regatta', 21),
+(1, 6, 'Vårregattan 2017', '2017-03-01:09.00.00', '2017-03-07:18.30.00', 1000, 'En dyr regatta', 22);
+
+
+INSERT INTO [Events] (RegattasId, ContactPersonsId, Number, StartDateTime, EndDateTime, [Location], MaxParticipants, Fee, [Description])
+VALUES
+(1, 6, 1, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Tjörn', 50, NULL, 'Race klass 1'),
+(1, 7, 2, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Tjörn', 50, NULL, 'Race klass 2'),
+(1, 8, 3, '2017-01-03:09.30.00', '2017-01-03:18.30.00', 'Tjörn', 500, NULL, 'Korvgrillning'),
+(2, 9, 1, '2017-03-01:09.00.00', '2017-03-05:18.30.00', 'Köpenhamn', NULL, 500, 'Race klass 1'),
+(2, 10, 2, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Vinga', NULL, 500, 'Race klass 2'),
+(2, 9, 3, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Vinga', NULL, 500, 'Race öppen'),
+(2, 1, 4, '2017-01-03:09.30.00', '2017-01-03:18.30.00', 'Berlin', 500, 1000, 'Bordellbesök');
+
+INSERT INTO RaceEvents (EventId, [Type], Class, MinHandicap, MaxHandicap)
+VALUES
+(1, '48 timmars', '1', 1, 1.5),
+(2, '48 timmars', '2', 1.6, 2),
+(4, 'Given sträcka', '1', 1, 1.5),
+(5, 'Given sträcka', '2', 1.6, 2),
+(6, 'Given sträcka', NULL, NULL, NULL);
+
+INSERT INTO RaceEvents (EventId, [Name])
+VALUES
+(3, 'Grillning'),
+(7, 'Hemlig aktivitet');
+
+INSERT INTO Memberships (UserId, ClubId)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 1),
+(7, 2),
+(8, 3),
+(9, 4),
+(10, 5);
+
+INSERT INTO Admins (UserId, ClubId, EventId, RegattaId)
+VALUES
+(1, 1, NULL, NULL),
+(2, 2, NULL, NULL),
+(3, 3, NULL, NULL),
+(4, 4, NULL, NULL),
+(5, 5, NULL, NULL),
+(6, 1, NULL, NULL),
+(7, NULL, NULL, 1),
+(1, NULL, NULL, 2),
+(2, NULL, 1, NULL),
+(6, NULL, 7, NULL);

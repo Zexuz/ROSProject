@@ -1,5 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
+using ROS.Models;
+using ROS.Repositories;
 
 namespace ROS.Test
 {
@@ -9,7 +11,9 @@ namespace ROS.Test
         [Test]
         public void Test1()
         {
-            Assert.True(true);
+//            var userREpo = new MasterReposetory<User>(null);
+//            userREpo.GetAll();
+//            Assert.True(true);
         }
     }
 }

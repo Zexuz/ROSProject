@@ -1,0 +1,8 @@
+language: csharp
+solution: csharp/ROS/ROS.sln
+install:
+  - nuget restore csharp/ROS/ROS.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release csharp/ROS/ROS.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./csharp/ROS/ROS.Test/bin/Debug/ROS.Test.dll
