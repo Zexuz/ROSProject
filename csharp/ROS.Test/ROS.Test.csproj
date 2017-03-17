@@ -36,16 +36,24 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests.cs" />
+    <Compile Include="UserControllerTests.cs" />
+    <Compile Include="UserQueryServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ROS.MVC\ROS.MVC.csproj">
+      <Project>{7F36A234-BEC8-4646-A2E7-6C46707879A2}</Project>
+      <Name>ROS.MVC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ROS\ROS.csproj">
       <Project>{7249763C-F8BE-44A7-B751-8964FBDFAE24}</Project>
       <Name>ROS</Name>

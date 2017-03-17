@@ -1,5 +1,5 @@
 using ROS.Models;
-using ROS.Repositories;
+using ROS.Services.Interfaces;
 
 namespace ROS.Services
 {
