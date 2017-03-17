@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace ROS.Repositories.Interfaces
 {
-    public interface IReposetory<TType>
+    public interface IServiceReposetory<TType>
     {
 
         List<TType> GetAll();

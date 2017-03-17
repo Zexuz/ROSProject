@@ -57,10 +57,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DatabaseConnection.cs" />
     <Compile Include="Repositories\Interfaces\IDatabaseConnection.cs" />
-    <Compile Include="Repositories\Interfaces\IReposetory.cs" />
-    <Compile Include="Repositories\MasterReposetory.cs" />
+    <Compile Include="Repositories\Interfaces\IServiceReposetory.cs" />
     <Compile Include="Services\Interfaces\IQueryService.cs" />
     <Compile Include="Services\UserQueryService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

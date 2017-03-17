@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using NUnit.Framework;
+using ROS.Models;
 using ROS.MVC.Controllers;
 
 namespace ROS.Test
@@ -8,13 +10,15 @@ namespace ROS.Test
     public class UserControllerTests
     {
 
-
         [Test]
         public void Test()
         {
+
             var controller = new UserController();
-            var result = controller.Details(2) as ViewResult;
-            Assert.AreEqual("Details", result.ViewName);
+            var result = controller.Index() as ViewResult;
+
+            var models = (List<User>) result.Model;
+            Assert.AreEqual(0, models.Count);
         }
 
     }

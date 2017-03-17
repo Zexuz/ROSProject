@@ -1,8 +1,5 @@
 ﻿using ROS.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ROS.MVC.Controllers
@@ -13,7 +10,7 @@ namespace ROS.MVC.Controllers
         public ActionResult Index()
         {
             var listOfUsers = new List<User>();
-            
+
             return View(listOfUsers);
         }
 
