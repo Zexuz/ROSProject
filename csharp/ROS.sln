@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS", "ROS.csproj", "{7249763C-F8BE-44A7-B751-8964FBDFAE24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS", ".\ROS\ROS.csproj", "{7249763C-F8BE-44A7-B751-8964FBDFAE24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Test", "..\ROS.Test\ROS.Test.csproj", "{742F68EF-C44C-49A6-AF11-FB3DBA86F59D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Test", ".\ROS.Test\ROS.Test.csproj", "{742F68EF-C44C-49A6-AF11-FB3DBA86F59D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
