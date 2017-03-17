@@ -40,6 +40,16 @@ namespace ROS.Repositories
             return numberOfRecords == 1;
         }
 
+        public bool Insert(TType type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(TType type)
+        {
+            throw new NotImplementedException();
+        }
+
         public SqlDataReader SendQuery(string query)
         {
             SqlCommand command = _databaseConnection.PrepareQuery(query);

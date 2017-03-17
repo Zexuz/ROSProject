@@ -1,0 +1,63 @@
+﻿using System;
+using NUnit.Framework;
+using ROS.Models;
+using ROS.Repositories;
+
+namespace ROS.Test
+{
+    [TestFixture]
+    public class Test
+    {
+
+        [Test]
+        public void UserSerivice_Create_InsertQuery()
+        {
+            var user = new User
+            {
+                AddressContactId = 1,
+                DateOfBirth = new DateTime(1996,11,07),
+                Email = "Test@test.com",
+                Name = new Name
+                {
+                    FirstName = "Robin",
+                    LastName = "Edbom"
+                },
+                Password = "password"
+            };
+
+            var userService = new UserQueryService();
+
+            var query = userService.GetInsertQuery(user);
+
+            var realQuery =
+                "INSERT INTO Users (AddressContactId, Email, Password, FirstName, LastName, DateOfBirth) VALUES (1, 'Test@test.com', 'password', 'Robin', 'Edbom', '1996-11-07');";
+            Assert.AreEqual(realQuery,query);
+        }
+
+    }
+
+
+    class UserQueryService:IQueryService<User>
+    {
+        public string GetSelecByIdQuery(User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string GetDeleteQuery(User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string GetUpdateQuery(User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string GetInsertQuery(User user)
+        {
+            return "INSERT INTO Users (AddressContactId, Email, Password, FirstName, LastName, DateOfBirth) VALUES "+
+                   $"(1, '{user.Email}', '{user.Password}', '{user.Name.FirstName}', '{user.Name.LastName}', '{user.DateOfBirth:yyyy-MM-dd}');";
+        }
+    }
+}

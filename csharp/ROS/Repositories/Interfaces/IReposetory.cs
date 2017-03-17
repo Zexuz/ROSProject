@@ -9,6 +9,9 @@ namespace ROS.Repositories.Interfaces
         List<TType> GetAll();
         TType GetById(int id);
         bool RemoveById(int id);
+        bool Insert(TType type);
+        bool Update(TType type);
+
         SqlDataReader SendQuery(string query);
 
     }

@@ -58,6 +58,7 @@
     <Compile Include="Repositories\DatabaseConnection.cs" />
     <Compile Include="Repositories\Interfaces\IDatabaseConnection.cs" />
     <Compile Include="Repositories\Interfaces\IReposetory.cs" />
+    <Compile Include="Repositories\IQueryService.cs" />
     <Compile Include="Repositories\MasterReposetory.cs" />
     <Compile Include="Services\Interfaces\RobinArElak.cs" />
     <Compile Include="Services\RobinArElak.cs" />
