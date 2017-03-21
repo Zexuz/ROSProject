@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7249763C-F8BE-44A7-B751-8964FBDFAE24}</ProjectGuid>
+    <ProjectGuid>{6715FF88-5AA9-4B78-AE6B-100936D75116}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ROS</RootNamespace>
-    <AssemblyName>ROS</AssemblyName>
+    <RootNamespace>ROS.Test</RootNamespace>
+    <AssemblyName>ROS.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,34 +33,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\ROS.MVC\Bin\System.Web.WebPages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
+      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\TypeNotImplementedException.cs" />
-    <Compile Include="Extensions\ObjectExtensions.cs" />
-    <Compile Include="Extensions\SqlReaderExtension.cs" />
-    <Compile Include="Models\Race.cs" />
-    <Compile Include="Models\Regatta.cs" />
-    <Compile Include="Models\Result.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\AddressContact.cs" />
-    <Compile Include="Models\Boat.cs" />
-    <Compile Include="Models\Entry.cs" />
-    <Compile Include="Models\Name.cs" />
-    <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\MSSQLLoginCredentials.cs" />
+    <Compile Include="UserControllerTests.cs" />
+    <Compile Include="UserQueryServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\DatabaseConnection.cs" />
-    <Compile Include="Repositories\Interfaces\IDatabaseConnection.cs" />
-    <Compile Include="Repositories\Interfaces\IServiceReposetory.cs" />
-    <Compile Include="Services\Interfaces\IQueryService.cs" />
-    <Compile Include="Services\UserQueryService.cs" />
-    <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ROS.MVC\ROS.MVC.csproj">
+      <Project>{7F36A234-BEC8-4646-A2E7-6C46707879A2}</Project>
+      <Name>ROS.MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ROS\ROS.csproj">
+      <Project>{7249763C-F8BE-44A7-B751-8964FBDFAE24}</Project>
+      <Name>ROS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

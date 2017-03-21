@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace RoS.MVC.Controllers
+namespace ROS.MVC.Controllers
 {
     public class HomeController : Controller
     {
