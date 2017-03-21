@@ -1,125 +1,127 @@
-INSERT INTO AddressContacts (Number, NextOfKin, PhoneNumber, Country, BoxNumber, StreetAddress, City, ZipCode)
+INSERT INTO AddressContacts (NextOfKin, PhoneNumber, Country, BoxNumber, StreetAddress, City, ZipCode)
 VALUES
-(1, 'AnhÃ¶rig1', '070-11111111', 'Sverige', 101, NULL, 'GÃ¶teborg', 41511),
-(2, 'AnhÃ¶rig2', '070-22222222', 'Sverige', 102, NULL, 'GÃ¶teborg', 41514),
-(3, 'AnhÃ¶rig3', '070-33333333', 'USA', NULL, 'A gatan 1', 'Chicago', 7383489),
-(4, 'AnhÃ¶rig4', '070-44444444', 'Sverige', NULL, 'B gatan 4', 'VÃ¤xjÃ¶', 36050),
-(5, 'AnhÃ¶rig5', '070-55555555', 'Sverige', NULL, 'C gatan 67', 'GÃ¶teborg', 41524),
-(6, NULL, '070-66666666', 'Sverige', NULL, 'D gatan 83', 'Stockholm', 12316),
-(7, NULL, '070-77777777', 'Sverige', NULL, 'E gatan 33', 'Stockholm', 12267),
-(8, NULL, '070-88888888', 'Sverige', 108, NULL, 'Visby', 17890),
-(9, 'AnhÃ¶rig9', '070-99999999', 'Sverige', NULL, 'F gatan 5', 'Pungpinan', 34323),
-(10, NULL, '070-10101010', 'Tibet', 1010, NULL, 'Bergstopp14', 00000),
-(11, NULL, '073-11111111', 'Sverige', 100, NULL, 'GÃ¶teborg', 41512),
-(12, NULL, '073-22222222', 'Sverige', 102, NULL, 'Karlskrona', 31290),
-(13, NULL, '073-33333333', 'Sverige', 103, NULL, 'Kiruna', 92733),
-(14, NULL, '073-44444444', 'Sverige', 104, NULL, 'MalmÃ¶', 23479),
-(15, NULL, '073-55555555', 'Sverige', 105, NULL, 'GÃ¶teborg', 41518),
-(16, NULL, '073-66666666', 'Sverige', 106, NULL, 'GÃ¶teborg', 41513),
-(17, NULL, '073-77777777', 'Sverige', 107, NULL, 'Stockholm', 12267),
-(18, NULL, '073-88888888', 'Sverige', 108, NULL, 'Stockholm', 14367),
-(19, NULL, '073-99999999', 'Sverige', NULL, 'F gatan 34', 'Stockholm', 14236),
-(20, NULL, '073-20202020', 'Norge', NULL, 'G gatan 45', 'Bergen', 98874),
-(21, NULL, '076-11111111', 'Sverige', NULL, 'H gatan 7', 'GÃ¶teborg', 41521),
-(22, NULL, '076-22222222', 'Sverige', 789, NULL, 'GÃ¶teborg', 41524);
+  ('Relativ1', '070-11111111', 'Sverige', 101, NULL, 'Göteborg', 41511),
+  ('Relativ2', '070-22222222', 'Sverige', 102, NULL, 'Göteborg', 41514),
+  ('Relativ3', '070-33333333', 'USA', NULL, 'A gatan 1', 'Chicago', 7383489),
+  ('Relativ4', '070-44444444', 'Sverige', NULL, 'B gatan 4', 'Växsjö', 36050),
+  ('Relativ5', '070-55555555', 'Sverige', NULL, 'C gatan 67', 'Göteborg', 41524),
+  (NULL, '070-66666666', 'Sverige', NULL, 'D gatan 83', 'Stockholm', 12316),
+  (NULL, '070-77777777', 'Sverige', NULL, 'E gatan 33', 'Stockholm', 12267),
+  (NULL, '070-88888888', 'Sverige', 108, NULL, 'Visby', 17890),
+  ('Relativ9', '070-99999999', 'Sverige', NULL, 'F gatan 5', 'Pungpinan', 34323),
+  (NULL, '070-10101010', 'Tibet', 1010, NULL, 'Bergstopp14', 00000),
+  (NULL, '073-11111111', 'Sverige', 100, NULL, 'Göteborg', 41512),
+  (NULL, '073-22222222', 'Sverige', 102, NULL, 'Karlskrona', 31290),
+  (NULL, '073-33333333', 'Sverige', 103, NULL, 'Kiruna', 92733),
+  (NULL, '073-44444444', 'Sverige', 104, NULL, 'Malmö', 23479),
+  (NULL, '073-55555555', 'Sverige', 105, NULL, 'Göteborg', 41518),
+  (NULL, '073-66666666', 'Sverige', 106, NULL, 'Göteborg', 41513),
+  (NULL, '073-77777777', 'Sverige', 107, NULL, 'Stockholm', 12267),
+  (NULL, '073-88888888', 'Sverige', 108, NULL, 'Stockholm', 14367),
+  (NULL, '073-99999999', 'Sverige', NULL, 'F gatan 34', 'Stockholm', 14236),
+  (NULL, '073-20202020', 'Norge', NULL, 'G gatan 45', 'Bergen', 98874),
+  (NULL, '076-11111111', 'Sverige', NULL, 'H gatan 7', 'Göteborg', 41521),
+  (NULL, '076-22222222', 'Sverige', 789, NULL, 'Göteborg', 41524);
 
-INSERT INTO Boats (RegistrationNumber, Name, Type, Handicap, Description) VALUES 
-('oqJdkqW44', 'Margareta', null, null, 'Detta Ã¤r en ''description'' om en bÃ¥t '),
-('548Awfkle', 'Carina', null, null, 'Ã„nnu en description'),
-('qweASDio', 'Sara', null, null, null),
-('mkmkxcjJ', 'Emely', null, null, 'SÃ¥ vacker'),
-('5484asdj', 'Undefined', null, null, null),
-('bC3F5Wa', 'The beauty', null, null, null),
-('RaUrUWR', 'Speedster', null, null, 'Snabbaste bÃ¥ten nÃ¥gonsin'),
-('V8qdpG8', 'Kajsa', null, null, null),
-('smJAUJs', 'Mimmi', null, null, null),
-('dE41v88', 'Donald', null, null, 'Duck');
-
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (1, 'some.email@gmail.com', '0722050085');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (2, 'some.email@gmail.com', '0785484548');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (3, 'some.email@gmail.com', '0754854854');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (4, 'some.email@gmail.com', '0754586233');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (5, 'some.email@gmail.com', '0712354689');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (6, 'some.email@gmail.com', '0754854879');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (7, 'some.email@gmail.com', '0732654874');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (8, 'some.email@gmail.com', '0754843316');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (9, 'some.email@gmail.com', '0732165489');
-INSERT INTO [Olas db].dbo.ContactPersons (UserId, Email, PhoneNumber) VALUES (10, 'some.email@gmail.com', '0715457484');
+INSERT INTO Boats (SailNumber, Name, Type, Handicap, Description) VALUES
+  ('oqJdkqW44', 'Margareta', 'Open', NULL, 'Detta Är en ''description'' om en båt'),
+  ('548Awfkle', 'Carina','Open', NULL, 'Ännu en description'),
+  ('qweASDio', 'Sara','Open', NULL, NULL),
+  ('mkmkxcjJ', 'Emely','Open', NULL, 'Så vacker'),
+  ('5484asdj', 'Undefined','Open', NULL, NULL),
+  ('bC3F5Wa', 'The beauty','Open', NULL, NULL),
+  ('RaUrUWR', 'Speedster','Open', NULL, 'Snabbaste båten någonsin'),
+  ('V8qdpG8', 'Kajsa','Open', NULL, NULL),
+  ('smJAUJs', 'Mimmi','Open', NULL, NULL),
+  ('dE41v88', 'Donald','Open', NULL, 'Duck');
 
 INSERT INTO Users (AddressContactId, Email, [Password], FirstName, LastName, DateOfBirth)
 VALUES
-(1, 'mail1@mail.com', '0000', 'Anders', 'Andersson', '1976-01-01'),
-(2, 'mail2@mail.com', '0000', 'Ann', 'Ahl', '1976-01-02'),
-(3, 'mail3@mail.com', '0000', 'Bengt', 'Bengtsson', '1946-01-03'),
-(4, 'mail4@mail.com', '0000', 'Göte', 'Borg', '1966-01-14'),
-(5, 'mail5@mail.com', '0000', 'Bobby', 'Brown', '1974-01-01'),
-(6, 'mail6@mail.com', '0000', 'Mats', 'Matsson', '1976-01-01'),
-(7, 'mail7@mail.com', '0000', 'Britta', 'Bengtsson', '1946-02-01'),
-(8, 'mail8@mail.com', '0000', 'Bosse', 'Johansson', '1976-01-20'),
-(9, 'mail9@mail.com', '0000', 'Nicklas', 'Svensson', '1986-03-01'),
-(10, 'mail10@mail.com', '0000', 'Hans', 'Andersson', '1956-01-10');
+  (1, 'mail1@mail.com', '0000', 'Anders', 'Andersson', '1976-01-01'),
+  (2, 'mail2@mail.com', '0000', 'Ann', 'Ahl', '1976-01-02'),
+  (3, 'mail3@mail.com', '0000', 'Bengt', 'Bengtsson', '1946-01-03'),
+  (4, 'mail4@mail.com', '0000', 'Göte', 'Borg', '1966-01-14'),
+  (5, 'mail5@mail.com', '0000', 'Bobby', 'Brown', '1974-01-01'),
+  (6, 'mail6@mail.com', '0000', 'Mats', 'Matsson', '1976-01-01'),
+  (7, 'mail7@mail.com', '0000', 'Britta', 'Bengtsson', '1946-02-01'),
+  (8, 'mail8@mail.com', '0000', 'Bosse', 'Johansson', '1976-01-20'),
+  (9, 'mail9@mail.com', '0000', 'Nicklas', 'Svensson', '1986-03-01'),
+  (10, 'mail10@mail.com', '0000', 'Hans', 'Andersson', '1956-01-10');
+
+INSERT INTO ContactPersons (UserId, Email, PhoneNumber)
+VALUES
+  (1, 'some1.email@gmail.com', '0722050085')
+  ,(2, 'some2.email@gmail.com', '0785484548')
+  ,(3, 'some3.email@gmail.com', '0754854854')
+  ,(4, 'some4.email@gmail.com', '0754586233')
+  ,(5, 'some5.email@gmail.com', '0712354689')
+  ,(6, 'some6.email@gmail.com', '0754854879')
+  ,(7, 'some7.email@gmail.com', '0732654874')
+  ,(8, 'some8.email@gmail.com', '0754843316')
+  ,(9, 'some9.email@gmail.com', '0732165489')
+  ,(10, 'some10.email@gmail.com', '0715457484');
 
 
 INSERT INTO Clubs (ContactPersonsId, [Name], RegistrationDate, Email, Logo, HomePage, [Description], AddressContactId)
 VALUES
-(1, 'Klubb1', '1976-01-01', 'klubbmail1@mail.com', 'www.logo1.com', 'www.homepage1.com', 'En klubb', 11),
-(2, 'Klubb2', '1996-01-01', 'klubbmail2@mail.com', 'www.logo2.com', 'www.homepage2.com', 'En annan klubb', 12),
-(3, 'Klubb3', '2006-01-01', 'klubbmail3@mail.com', 'www.logo3.com', 'www.homepage3.com', 'En bra klubb', 13),
-(4, 'Klubb4', '1999-01-01', 'klubbmail4@mail.com', 'www.logo4.com', 'www.homepage4.com', 'En dålig klubb', 14),
-(5, 'Klubb5', '1976-01-01', 'klubbmail5@mail.com', NULL, 'www.homepage5.com', NULL, 15);
+  (11, 'Klubb1', '1976-01-01', 'klubbmail1@mail.com', 'www.logo1.com', 'www.homepage1.com', 'En klubb', 11),
+  (12, 'Klubb2', '1996-01-01', 'klubbmail2@mail.com', 'www.logo2.com', 'www.homepage2.com', 'En annan klubb', 12),
+  (13, 'Klubb3', '2006-01-01', 'klubbmail3@mail.com', 'www.logo3.com', 'www.homepage3.com', 'En bra klubb', 13),
+  (14, 'Klubb4', '1999-01-01', 'klubbmail4@mail.com', 'www.logo4.com', 'www.homepage4.com', 'En dålig klubb', 14),
+  (15, 'Klubb5', '1976-01-01', 'klubbmail5@mail.com', NULL, 'www.homepage5.com', NULL, 15);
 
 
 INSERT INTO Regattas (HostingClubId, ContactPersonsId, [Name], StartDateTime, EndDateTime, Fee, [Description], AddressContactId)
 VALUES
-(1, 6, 'Tjörn runt', '2017-01-01:09.30.00', '2017-01-03:18.30.00', NULL, 'En gratis regatta', 21),
-(1, 6, 'Vårregattan 2017', '2017-03-01:09.00.00', '2017-03-07:18.30.00', 1000, 'En dyr regatta', 22);
+  (3, 16, 'Tjörn runt', '2017-01-01 09:30:00', '2017-01-03 18:30:00', 0, 'En gratis regatta', 21),
+  (3, 16, 'Vårregattan 2017', '2017-03-01 09:00:00', '2017-03-07 18:30:00', 1000, 'En dyr regatta', 22);
 
 
-INSERT INTO [Events] (RegattasId, ContactPersonsId, Number, StartDateTime, EndDateTime, [Location], MaxParticipants, Fee, [Description])
+INSERT INTO [Events] (RegattaId, ContactPersonsId, Number, StartDateTime, EndDateTime, [Location], MaxParticipants, Fee, [Description])
 VALUES
-(1, 6, 1, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Tjörn', 50, NULL, 'Race klass 1'),
-(1, 7, 2, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Tjörn', 50, NULL, 'Race klass 2'),
-(1, 8, 3, '2017-01-03:09.30.00', '2017-01-03:18.30.00', 'Tjörn', 500, NULL, 'Korvgrillning'),
-(2, 9, 1, '2017-03-01:09.00.00', '2017-03-05:18.30.00', 'Köpenhamn', NULL, 500, 'Race klass 1'),
-(2, 10, 2, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Vinga', NULL, 500, 'Race klass 2'),
-(2, 9, 3, '2017-01-01:09.30.00', '2017-01-03:09.00.00', 'Vinga', NULL, 500, 'Race öppen'),
-(2, 1, 4, '2017-01-03:09.30.00', '2017-01-03:18.30.00', 'Berlin', 500, 1000, 'Bordellbesök');
+  (5, 16, 1, '2017-01-01 09:30:00', '2017-01-03 09:00:00', 'Tjörn', 50, 0, 'Race klass 1'),
+  (5, 17, 2, '2017-01-01 09:30:00', '2017-01-03 09:00:00', 'Tjörn', 50, 0, 'Race klass 2'),
+  (5, 18, 3, '2017-01-03 09:30:00', '2017-01-03 18:30:00', 'Tjörn', 500, 0, 'Korvgrillning'),
+  (6, 19, 1, '2017-03-01 09:00:00', '2017-03-05 18:30:00', 'Köpenhamn', NULL, 500, 'Race klass 1'),
+  (6, 11, 2, '2017-01-01 09:30:00', '2017-01-03 09:00:00', 'Vinga', NULL, 500, 'Race klass 2'),
+  (6, 19, 3, '2017-01-01 09:30:00', '2017-01-03 09:00:00', 'Vinga', NULL, 500, 'Race öppen'),
+  (6, 11, 4, '2017-01-03 09:30:00', '2017-01-03 18:30:00', 'Berlin', 500, 1000, 'Bordellbesök');
 
 INSERT INTO RaceEvents (EventId, [Type], Class, MinHandicap, MaxHandicap)
 VALUES
-(1, '48 timmars', '1', 1, 1.5),
-(2, '48 timmars', '2', 1.6, 2),
-(4, 'Given sträcka', '1', 1, 1.5),
-(5, 'Given sträcka', '2', 1.6, 2),
-(6, 'Given sträcka', NULL, NULL, NULL);
+  (2, '48 timmars', 'Open', 1, 1.5),
+  (3, '48 timmars', 'Open', 1.6, 2),
+  (4, 'Given sträcka', 'Open', 1, 1.5),
+  (5, 'Given sträcka', 'Open', 1.6, 2),
+  (6, 'Given sträcka', 'Open', NULL, 2);
 
-INSERT INTO RaceEvents (EventId, [Name])
+INSERT INTO SocialEvents (EventId, [Name])
 VALUES
-(3, 'Grillning'),
-(7, 'Hemlig aktivitet');
+  (3, 'Grillning'),
+  (7, 'Hemlig aktivitet');
 
 INSERT INTO Memberships (UserId, ClubId)
 VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 1),
-(7, 2),
-(8, 3),
-(9, 4),
-(10, 5);
+  (1, 3),
+  (2, 4),
+  (3, 4),
+  (4, 5),
+  (5, 6),
+  (6, 3),
+  (7, 4),
+  (8, 5),
+  (9, 6),
+  (10, 7);
 
-INSERT INTO Admins (UserId, ClubId, EventId, RegattaId)
+INSERT INTO ClubAdmins (UserId, ClubId)
 VALUES
-(1, 1, NULL, NULL),
-(2, 2, NULL, NULL),
-(3, 3, NULL, NULL),
-(4, 4, NULL, NULL),
-(5, 5, NULL, NULL),
-(6, 1, NULL, NULL),
-(7, NULL, NULL, 1),
-(1, NULL, NULL, 2),
-(2, NULL, 1, NULL),
-(6, NULL, 7, NULL);
+  (1, 3),
+  (2, 4),
+  (3, 5),
+  (4, 6),
+  (5, 7),
+  (6, 3);
+
+INSERT INTO SysAdmins (UserId)
+VALUES
+  (1)
