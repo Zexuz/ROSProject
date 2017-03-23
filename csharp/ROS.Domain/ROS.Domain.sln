@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Domain", "ROS.Domain\ROS.Domain.csproj", "{C2CDCEAA-3B87-4A39-A1A0-417F2EF623AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Test", "ROS.Test\ROS.Test.csproj", "{13E4BC12-7E78-4901-B32C-7811179D2D04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C2CDCEAA-3B87-4A39-A1A0-417F2EF623AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2CDCEAA-3B87-4A39-A1A0-417F2EF623AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2CDCEAA-3B87-4A39-A1A0-417F2EF623AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E4BC12-7E78-4901-B32C-7811179D2D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E4BC12-7E78-4901-B32C-7811179D2D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E4BC12-7E78-4901-B32C-7811179D2D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E4BC12-7E78-4901-B32C-7811179D2D04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
