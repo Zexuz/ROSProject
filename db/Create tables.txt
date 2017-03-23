@@ -2,29 +2,27 @@ CREATE TABLE AddressContacts
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	[Number] int NOT NULL,
 	NextOfKin varchar(50) NULL,
-	PhoneNumber varchar(50) NOT NULL,
-	Country varchar(50) NOT NULL,
+	PhoneNumber varchar(50) NULL,
+	Country varchar(50) NULL,
 	BoxNumber varchar(50) NULL,
 	StreetAddress varchar(50) NULL,
-	City varchar(50) NOT NULL,
-	ZipCode varchar(50) NOT NULL,
+	City varchar(50) NULL,
+	ZipCode varchar(50) NULL,
 
-	CONSTRAINT UC_AddressContactNumber UNIQUE([Number])
 );
 
 CREATE TABLE Boats
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	RegistrationNumber varchar(50) NOT NULL,
+	SailNumber varchar(50) NOT NULL,
 	Name varchar(50) NOT NULL,
-	[Type] varchar(50) NULL,
+	[Type] varchar(50) NOT NULL,
 	Handicap float NULL,
 	Description varchar (512) NULL
 
-	CONSTRAINT UC_RegistrationNumber UNIQUE(RegistrationNumber)
+	CONSTRAINT UC_SailNumber_Type UNIQUE(SailNumber,[Type])
 );
 
 
@@ -33,7 +31,7 @@ CREATE TABLE Users
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	AddressContactId int FOREIGN KEY REFERENCES AddressContacts(Id) NOT NULL,
+	AddressContactId int NOT NULL FOREIGN KEY REFERENCES AddressContacts(Id),
 
 	Email varchar(50) NOT NULL,
 	[Password] varchar(50) NOT NULL,
@@ -48,25 +46,28 @@ CREATE TABLE ContactPersons
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	UserId int FOREIGN KEY REFERENCES Users(Id) NOT NULL,
+	UserId int NOT NULL FOREIGN KEY REFERENCES Users(Id),
 
-	Email varchar(100) NULL,
-	PhoneNumber varchar(50) NULL,
+	Email varchar(100) NOT NULL,
+	PhoneNumber varchar(50) NOT NULL,
 
 	CONSTRAINT UC_ContactPersonEmail UNIQUE(Email)
 );
 
 CREATE TABLE Clubs
 (
-    Id INT PRIMARY KEY NOT NULL IDENTITY,
-    ContactPersonsId INT,
-    Name VARCHAR(50) NOT NULL,
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+
+    ContactPersonsId INT NULL,
+  	AddressContactId INT NULL,
+
+		Name VARCHAR(50) NOT NULL,
     RegistrationDate DATE NOT NULL,
     Email VARCHAR(100),
     Logo VARCHAR(2083),
     HomePage VARCHAR(2083),
     Description VARCHAR(1024),
-    AddressContactId INT,
+
     CONSTRAINT FK__Clubs__ContactPe__31EC6D26 FOREIGN KEY (ContactPersonsId) REFERENCES ContactPersons (Id),
     CONSTRAINT Clubs_AddressContacts_Id_fk FOREIGN KEY (AddressContactId) REFERENCES AddressContacts (Id)
 );
@@ -75,17 +76,16 @@ CREATE UNIQUE INDEX UC_ClubName ON Clubs (Name);
 CREATE TABLE Regattas
 (
     Id INT PRIMARY KEY NOT NULL IDENTITY,
-    HostingClubId INT,
-    ContactPersonsId INT,
+
+    ContactPersonsId int NULL FOREIGN KEY REFERENCES ContactPersons(Id),
+    HostingClubId int NOT NULL FOREIGN KEY REFERENCES Clubs(Id),
+    AddressContactId int NULL FOREIGN KEY REFERENCES AddressContacts(Id),
+
     Name VARCHAR(50) NOT NULL,
     StartDateTime DATETIME NOT NULL,
     EndDateTime DATETIME NOT NULL,
-    Fee INT,
-    Description VARCHAR(1024),
-    AddressContactId INT,
-    CONSTRAINT FK__Regattas__Hostin__35BCFE0A FOREIGN KEY (HostingClubId) REFERENCES Clubs (Id),
-    CONSTRAINT FK__Regattas__Contac__36B12243 FOREIGN KEY (ContactPersonsId) REFERENCES ContactPersons (Id),
-    CONSTRAINT Regattas_AddressContacts_Id_fk FOREIGN KEY (AddressContactId) REFERENCES AddressContacts (Id)
+    Fee int NOT NULL DEFAULT 0,
+    Description VARCHAR(1024) NULL
 );
 CREATE UNIQUE INDEX UC_name_startDateTime ON Regattas (Name, StartDateTime);
 
@@ -93,16 +93,16 @@ CREATE TABLE [Events]
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	RegattaId int FOREIGN KEY REFERENCES Regattas(Id),
-	ContactPersonsId int FOREIGN KEY REFERENCES ContactPersons(Id),
+	RegattaId int NOT NULL FOREIGN KEY REFERENCES Regattas(Id),
+	ContactPersonsId int NULL FOREIGN KEY REFERENCES ContactPersons(Id),
 
 	[Number] int NOT NULL,
 	StartDateTime dateTime NOT NULL,
 	EndDateTime dateTime NOT NULL,
 	Location varchar(100) NOT NULL,
-	MaxParticipants int,
-	Fee int,
-	Description varchar(1024),
+	MaxParticipants int NULL,
+	Fee int NOT NULL DEFAULT 0,
+	Description varchar(1024) NULL,
 
 	CONSTRAINT UC_EventNumber UNIQUE(RegattaId, [Number])
 );
@@ -111,19 +111,19 @@ CREATE TABLE RaceEvents
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	EventId int FOREIGN KEY REFERENCES [Events](Id) NOT NULL,
+	EventId int NOT NULL FOREIGN KEY REFERENCES [Events](Id),
 
 	[Type] varchar (100) NOT NULL,
-	[Class] varchar (50) DEFAULT 'Öpen',
-	MinHandicap float,
-	MaxHandicap float
+	[Class] varchar (50) NOT NULL DEFAULT 'Open',
+	MinHandicap float NULL,
+	MaxHandicap float NULL
 );
 
 CREATE TABLE SocialEvents
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	EventId int FOREIGN KEY REFERENCES [Events](Id) NOT NULL,
+	EventId int NOT NULL FOREIGN KEY REFERENCES [Events](Id),
 
 	Name varchar(100) NOT NULL
 
@@ -135,28 +135,23 @@ CREATE TABLE Entries
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	BoatId int FOREIGN KEY REFERENCES Boats(Id) NOT NULL,
-	ResponsibleUser int FOREIGN KEY REFERENCES Users(Id) NOT NULL,
-	RegattaId int FOREIGN KEY REFERENCES Regattas(Id) NOT NULL,
+	BoatId int NOT NULL FOREIGN KEY REFERENCES Boats(Id) ,
+	SkipperId int NOT NULL FOREIGN KEY REFERENCES Users(Id),
+	RegattaId int NOT NULL FOREIGN KEY REFERENCES Regattas(Id),
 
 	[Number] int NOT NULL,
 	RegistrationDate date NOT NULL,
-	HasPayed Bit NOT NULL,
-	TotalFee int NULL,
+	HasPayed bit NULL,
 
 	CONSTRAINT UC_EntryNumber UNIQUE([Number])
 );
 
 CREATE TABLE RegisteredUsers
 (
-	Id int IDENTITY PRIMARY KEY NOT NULL ,
+	Id int NOT NULL IDENTITY PRIMARY KEY ,
 
-	EntryId int FOREIGN KEY REFERENCES Entries(Id) NOT NULL,
-	UserId int FOREIGN KEY REFERENCES Users(Id) NOT NULL,
-
-	[Number] int NOT NULL,
-
-	CONSTRAINT UC_RegisteredUserNumber UNIQUE([Number])
+	EntryId int NOT NULL FOREIGN KEY REFERENCES Entries(Id),
+	UserId int NOT NULL FOREIGN KEY REFERENCES Users(Id)
 );
 
 
@@ -164,8 +159,7 @@ CREATE TABLE Teams
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	EntryId int FOREIGN KEY REFERENCES Entries(Id) NOT NULL,
-	SkipperId int FOREIGN KEY REFERENCES RegisteredUsers(Id) NOT NULL,
+	EntryId int NOT NULL FOREIGN KEY REFERENCES Entries(Id),
 
 	Name varchar(50) NOT NULL
 );
@@ -174,23 +168,27 @@ CREATE TABLE TeamBoatResults
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	BoatId int FOREIGN KEY REFERENCES Boats(Id) NOT NULL,
-	TeamId int FOREIGN KEY REFERENCES Teams(Id) NOT NULL
+	BoatId int NOT NULL FOREIGN KEY REFERENCES Boats(Id),
+	TeamId int NOT NULL FOREIGN KEY REFERENCES Teams(Id)
 );
 
 CREATE TABLE Results
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	TeamBoatResultsId int FOREIGN KEY REFERENCES TeamBoatResults(Id),
+	TeamBoatResultsId int NOT NULL FOREIGN KEY REFERENCES TeamBoatResults(Id),
+  EntryId int NOT NULL FOREIGN KEY REFERENCES Entries(Id),
+  RaceEventId int NOT NULL FOREIGN KEY REFERENCES RaceEvents(Id),
 
-	[Number] int NOT NULL,
-	Distace int,
-	CalculatedDistance int,
-	[Time] int,
-	CalculatedTime int,
+	Distace int NULL,
+	CalculatedDistance int NULL,
+	[Time] int NULL,
+	CalculatedTime int NULL,
+  Rank int NULL,
+  Remark varchar(3) NULL,
+  Points int NULL,
 
-	CONSTRAINT UC_ResultNumber UNIQUE([Number])
+	CONSTRAINT UC_EntryId_RaceEventId UNIQUE(EntryId, RaceEventId)
 );
 
 
@@ -198,16 +196,16 @@ CREATE TABLE TeamCrewRegisteredUsers
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	TeamId int FOREIGN KEY REFERENCES Teams(Id) NOT NULL,
-	RegisteredUserId int FOREIGN KEY REFERENCES RegisteredUsers(Id) NOT NULL
+	TeamId int NOT NULL FOREIGN KEY REFERENCES Teams(Id),
+	RegisteredUserId int NOT NULL FOREIGN KEY REFERENCES RegisteredUsers(Id)
 );
 
 CREATE TABLE Memberships
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	UserId int FOREIGN KEY REFERENCES Users(Id) NOT NULL,
-	ClubId int FOREIGN KEY REFERENCES Clubs(Id) NOT NULL
+	UserId int NOT NULL FOREIGN KEY REFERENCES Users(Id) ,
+	ClubId int NOT NULL FOREIGN KEY REFERENCES Clubs(Id)
 );
 
 
@@ -216,8 +214,8 @@ CREATE TABLE RaceEntries
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	TeamId int FOREIGN KEY REFERENCES Teams(Id) NOT NULL,
-	RaceId int FOREIGN KEY REFERENCES RaceEvents(Id) NOT NULL
+	TeamId int NOT NULL FOREIGN KEY REFERENCES Teams(Id),
+	RaceId int NOT NULL FOREIGN KEY REFERENCES RaceEvents(Id)
 );
 
 
@@ -225,19 +223,23 @@ CREATE TABLE SocialEntries
 (
 	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	RegisteredUserId int FOREIGN KEY REFERENCES RegisteredUsers(Id) NOT NULL,
-	SocialEventsId int FOREIGN KEY REFERENCES SocialEvents(Id) NOT NULL,
+	RegisteredUserId int NOT NULL FOREIGN KEY REFERENCES RegisteredUsers(Id),
+	SocialEventsId int NOT NULL FOREIGN KEY REFERENCES SocialEvents(Id) ,
 
 	Friends int NULL
 );
 
---Hur skriver man en xor i databasen?
-CREATE TABLE Admins
+CREATE TABLE ClubAdmins
 (
-	UserId int FOREIGN KEY REFERENCES Users(Id) NOT NULL,
-	ClubId int FOREIGN KEY REFERENCES Clubs(Id),
-	EventId int FOREIGN KEY REFERENCES Events(Id),
-	RegattaId int FOREIGN KEY REFERENCES Regattas(Id),
+	Id int NOT NULL IDENTITY PRIMARY KEY,
 
-	CONSTRAINT pk_User_Club_Evenet_Regattas_Id UNIQUE(UserId,ClubId,EventId,RegattaId)
+	UserId int NOT NULL FOREIGN KEY REFERENCES Users(Id),
+	ClubId int NOT NULL FOREIGN KEY REFERENCES Clubs(Id)
+
+);
+
+CREATE TABLE SysAdmins
+(
+	Id int NOT NULL IDENTITY PRIMARY KEY,
+	UserId int NOT NULL FOREIGN KEY REFERENCES Users(Id)
 );
