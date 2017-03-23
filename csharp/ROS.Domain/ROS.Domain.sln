@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Domain", "ROS.Domain\RO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.Test", "ROS.Test\ROS.Test.csproj", "{13E4BC12-7E78-4901-B32C-7811179D2D04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROS.MVC", "ROS.MVC\ROS.MVC.csproj", "{FCDB4B3C-1506-4B17-96AB-F26A510CF77C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{13E4BC12-7E78-4901-B32C-7811179D2D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13E4BC12-7E78-4901-B32C-7811179D2D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13E4BC12-7E78-4901-B32C-7811179D2D04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCDB4B3C-1506-4B17-96AB-F26A510CF77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCDB4B3C-1506-4B17-96AB-F26A510CF77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCDB4B3C-1506-4B17-96AB-F26A510CF77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCDB4B3C-1506-4B17-96AB-F26A510CF77C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
