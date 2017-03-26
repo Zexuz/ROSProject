@@ -15,19 +15,19 @@
             @Html.DisplayNameFor(model => model.Boat.SailNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Regatta.Name)
+            <p>Regatta</p>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Number)
+            <p>Entry Number</p>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RegistrationDate)
+            Registration Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HasPayed)
+            Payed
         </th>
         <th></th>
     </tr>
@@ -50,7 +50,7 @@
             @Html.DisplayFor(modelItem => item.RegistrationDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HasPayed)
+            @Html.DisplayFor(modelItem => item.HasPayedMessage)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -43,11 +43,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RegistrationDate)
+            @Html.DisplayNameFor(model => model.RegistrationDate.ToShortDateString())
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RegistrationDate)
+            @Html.DisplayFor(model => model.RegistrationDate.ToShortDateString())
         </dd>
 
         <dt>
@@ -55,7 +55,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.HasPayed)
+            @Html.DisplayFor(model => model.HasPayedMessage)
         </dd>
 
     </dl>
