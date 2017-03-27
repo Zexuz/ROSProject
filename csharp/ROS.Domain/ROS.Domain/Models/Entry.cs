@@ -29,7 +29,12 @@ namespace ROS.Domain.Models
         [Column(TypeName = "date")]
         public DateTime RegistrationDate { get; set; }
 
-        public bool? HasPayed { get; set; }
+        public bool HasPayed { get; set; }
+
+        public string HasPayedMessage
+        {
+            get { return HasPayed ? "Yes" : "No"; }
+        }
 
         public virtual Boat Boat { get; set; }
 
