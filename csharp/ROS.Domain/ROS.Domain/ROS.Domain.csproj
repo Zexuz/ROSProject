@@ -77,6 +77,13 @@
     <Compile Include="Models\TeamBoatResult.cs" />
     <Compile Include="Models\TeamCrewRegisteredUser.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="PocoClasses\Class1.cs" />
+    <Compile Include="PocoClasses\Clubs\Class1.cs" />
+    <Compile Include="PocoClasses\Entries\Class1.cs" />
+    <Compile Include="PocoClasses\Events\Class1.cs" />
+    <Compile Include="PocoClasses\Regattas\Class1.cs" />
+    <Compile Include="PocoClasses\Results\Class1.cs" />
+    <Compile Include="PocoClasses\Users\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EntryServie.cs" />
   </ItemGroup>
