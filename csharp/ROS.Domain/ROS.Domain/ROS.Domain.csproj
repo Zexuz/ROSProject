@@ -38,6 +38,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -73,7 +77,15 @@
     <Compile Include="Models\TeamBoatResult.cs" />
     <Compile Include="Models\TeamCrewRegisteredUser.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="PocoClasses\Class1.cs" />
+    <Compile Include="PocoClasses\Clubs\Class1.cs" />
+    <Compile Include="PocoClasses\Entries\Class1.cs" />
+    <Compile Include="PocoClasses\Events\Class1.cs" />
+    <Compile Include="PocoClasses\Regattas\Class1.cs" />
+    <Compile Include="PocoClasses\Results\Class1.cs" />
+    <Compile Include="PocoClasses\Users\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EntryServie.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
