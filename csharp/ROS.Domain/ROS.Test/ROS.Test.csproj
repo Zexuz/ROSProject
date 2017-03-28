@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="BoatServiceTests.cs" />
     <Compile Include="EntryServiceTests.cs" />
+    <Compile Include="RegattaServiceTests.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControllerTests.cs" />

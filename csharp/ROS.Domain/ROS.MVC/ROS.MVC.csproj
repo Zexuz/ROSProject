@@ -117,6 +117,7 @@
     <Compile Include="Controllers\BoatController.cs" />
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegattaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs" />
@@ -179,6 +180,7 @@
     <Content Include="Views\Boat\Create.cshtml" />
     <Content Include="Views\Boat\Delete.cshtml" />
     <Content Include="Views\Boat\Index.cshtml" />
+    <Content Include="Views\Regatta\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">

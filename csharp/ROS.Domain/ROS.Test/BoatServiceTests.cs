@@ -13,7 +13,6 @@ namespace ROS.Test
     [TestFixture]
     public class BoatServiceTests
     {
-
         private BoatService _boatService = new BoatService();
 
         [Test]
