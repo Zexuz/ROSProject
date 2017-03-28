@@ -5,16 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
+using ROS.Domain.Models;
 
 namespace ROS.MVC.Controllers
 {
     public class BoatController : Controller
     {
-        private BoatService _boatService = new BoatService();
+        public EntityDataModel db = new EntityDataModel();
+        public BoatService _boatService = new BoatService();
 
         public ActionResult Index()
         {
-            return View();
+            return View(db.Boats.ToList());
         }
 
         public ActionResult Details(int id)
@@ -41,48 +44,26 @@ namespace ROS.MVC.Controllers
             }
         }
 
-        // GET: Boat/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Boat boat = db.Boats.Find(id);
+            if (boat == null)
+            {
+                return HttpNotFound();
+            }
+            return View(boat);
         }
 
-        // POST: Boat/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Boat/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Boat/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _boatService.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -177,6 +177,8 @@
     <Content Include="Views\Entries\Edit.cshtml" />
     <Content Include="Views\Entries\Index.cshtml" />
     <Content Include="Views\Boat\Create.cshtml" />
+    <Content Include="Views\Boat\Delete.cshtml" />
+    <Content Include="Views\Boat\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">
