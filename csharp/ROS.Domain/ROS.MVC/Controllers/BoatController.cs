@@ -1,5 +1,4 @@
 ﻿using ROS.Domain.Services;
-using ROS.Domain.PocoClasses.Entries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +30,7 @@ namespace ROS.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "SailNumber,Name,Type,Handicap,Description")] PocoBoat newBoat)
+        public ActionResult Create([Bind(Include = "SailNumber,Name,Type,Handicap,Description")] Boat newBoat)
         {
             try
             {

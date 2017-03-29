@@ -111,7 +111,6 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="PocoClasses\Class1.cs" />
     <Compile Include="PocoClasses\Clubs\Class1.cs" />
-    <Compile Include="PocoClasses\Entries\PocoBoat.cs" />
     <Compile Include="PocoClasses\Events\Class1.cs" />
     <Compile Include="PocoClasses\Regattas\Class1.cs" />
     <Compile Include="PocoClasses\Results\Class1.cs" />
@@ -123,6 +122,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PocoClasses\Entries\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

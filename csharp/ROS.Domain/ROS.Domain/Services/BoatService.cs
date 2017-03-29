@@ -11,15 +11,11 @@ namespace ROS.Domain.Services
 {
     public class BoatService
     {
-        private MapperConfiguration config = new MapperConfiguration(cfg => {cfg.CreateMap<PocoBoat, Boat>(); });
         public EntityDataModel db = new EntityDataModel();
-        public Boat newBoat;
 
-        public void Add(PocoBoat boat)
+        public void Add(Boat boat)
         {
-            var mapper = config.CreateMapper();
-            newBoat = mapper.Map<Boat>(boat);
-            db.Boats.Add(newBoat);
+            db.Boats.Add(boat);
             db.SaveChanges();
         }
 
