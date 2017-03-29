@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using ROS.Domain.Models;
+using ROS.Domain.PocoClasses.Entries;
 
 namespace ROS.MVC.Controllers
 {
@@ -30,7 +31,7 @@ namespace ROS.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "SailNumber,Name,Type,Handicap,Description")] Boat newBoat)
+        public ActionResult Create(BoatCreate newBoat)
         {
             try
             {
