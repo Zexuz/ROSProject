@@ -7,6 +7,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
+using ROS.Domain.Services;
 
 
 namespace ROS.Test
@@ -56,20 +57,5 @@ namespace ROS.Test
             Assert.AreEqual("Edbom", users.First().LastName, "LastName Should be Edbom");
         }
 
-    }
-
-    public class UserService
-    {
-        private readonly UserContext _userContext;
-
-        public UserService(UserContext userContext)
-        {
-            _userContext = userContext;
-        }
-
-        public IEnumerable<User> GetAll()
-        {
-            return _userContext.Users;
-        }
     }
 }

@@ -1,89 +1,143 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ROS.Domain.Contexts;
+using ROS.Domain.Models;
+using ROS.Domain.Services;
+using ROS.MVC.ViewModel;
 
 namespace ROS.MVC.Controllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
-        // GET: User
+        private EntityDataModel db = new EntityDataModel();
+
+        // GET: Users
         public ActionResult Index()
         {
-            return View();
+            List<User> users;
+            using (var context = new UserContext())
+            {
+                var service = new UserService(context);
+                var x = service.GetAll();
+                users = x.ToList();
+            }
+
+            return View(users);
         }
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
+        // GET: Users/Details/5
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
-        // GET: User/Create
+        // GET: Users/Create
         public ActionResult Create()
         {
+            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin");
             return View();
         }
 
-        // POST: User/Create
+        // POST: Users/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateUserViewModel createUserViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Users.Add(createUserViewModel.User);
+                db.AddressContacts.Add(createUserViewModel.AddressContact);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+
+            return View(createUserViewModel);
+        }
+
+        // GET: Users/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-        }
-
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            User user = db.Users.Find(id);
+            if (user == null)
             {
-                // TODO: Add update logic here
+                return HttpNotFound();
+            }
+            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
+            return View(user);
+        }
 
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(
+            [Bind(Include = "Id,AddressContactId,Email,Password,FirstName,LastName,DateOfBirth")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
+            return View(user);
         }
 
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Users/Delete/5
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }
