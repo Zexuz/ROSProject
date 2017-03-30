@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Regatta_AddressContact_ContactPerson_Create = ROS.MVC.PocoClasses.Regattas.Regatta_AddressContact_ContactPerson_Create;
 
 namespace ROS.MVC.Controllers
 {

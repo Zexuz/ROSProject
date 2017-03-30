@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ROS.Domain.PocoClasses.Regattas
+namespace ROS.MVC.PocoClasses.Regattas
 {
     public class Regatta_AddressContact_ContactPerson_Create
     {
