@@ -319,5 +319,7 @@ namespace ROS.Domain.Models
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
         }
+
+        public System.Data.Entity.DbSet<ROS.Domain.PocoClasses.Clubs.PocoClub> PocoClubs { get; set; }
     }
 }

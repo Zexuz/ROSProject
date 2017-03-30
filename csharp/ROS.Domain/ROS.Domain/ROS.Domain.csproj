@@ -110,7 +110,7 @@
     <Compile Include="Models\TeamCrewRegisteredUser.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="PocoClasses\Class1.cs" />
-    <Compile Include="PocoClasses\Clubs\Class1.cs" />
+    <Compile Include="PocoClasses\Clubs\PocoClub.cs" />
     <Compile Include="PocoClasses\Entries\BoatCreate.cs" />
     <Compile Include="PocoClasses\Events\Class1.cs" />
     <Compile Include="PocoClasses\Regattas\Class1.cs" />
@@ -120,6 +120,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AddressContactService.cs" />
     <Compile Include="Services\BoatService.cs" />
+    <Compile Include="Services\ClubService.cs" />
     <Compile Include="Services\EntryServie.cs" />
   </ItemGroup>
   <ItemGroup>
