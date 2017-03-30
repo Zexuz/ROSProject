@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Net;
 using ROS.Domain.Models;
 using ROS.Domain.PocoClasses.Entries;
+using BoatCreate = ROS.MVC.PocoClasses.Entries.BoatCreate;
 
 namespace ROS.MVC.Controllers
 {

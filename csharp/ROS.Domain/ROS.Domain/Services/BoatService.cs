@@ -1,5 +1,4 @@
 ﻿using ROS.Domain.Models;
-using ROS.Domain.PocoClasses.Entries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
