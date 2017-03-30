@@ -114,9 +114,12 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AddressContactController.cs" />
     <Compile Include="Controllers\BoatController.cs" />
+    <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegattaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -176,8 +179,11 @@
     <Content Include="Views\Entries\Edit.cshtml" />
     <Content Include="Views\Entries\Index.cshtml" />
     <Content Include="Views\Boat\Create.cshtml" />
-    <Content Include="Views\Boat\Delete.cshtml" />
-    <Content Include="Views\Boat\Index.cshtml" />
+    <Content Include="Views\AddressContact\Create.cshtml" />
+    <Content Include="Views\Regatta\Create.cshtml" />
+    <Content Include="Views\Club\Create.cshtml" />
+    <Content Include="Views\Club\Index.cshtml" />
+    <Content Include="Views\Club\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">
