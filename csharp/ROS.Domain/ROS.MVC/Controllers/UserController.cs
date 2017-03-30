@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
@@ -15,8 +12,6 @@ namespace ROS.MVC.Controllers
 {
     public class UsersController : Controller
     {
-        private EntityDataModel db = new EntityDataModel();
-
         // GET: Users
         public ActionResult Index()
         {
@@ -43,7 +38,7 @@ namespace ROS.MVC.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin");
+//            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin");
             return View();
         }
 
@@ -56,9 +51,8 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(createUserViewModel.User);
-                db.AddressContacts.Add(createUserViewModel.AddressContact);
-                db.SaveChanges();
+                new UserService(new UserContext()).Add(createUserViewModel.User);
+                new AddressContactService().AddToDb(createUserViewModel.AddressContact);
                 return RedirectToAction("Index");
             }
 
@@ -72,12 +66,12 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = GetAllUsers().Find(u => u.Id == id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
+//            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
             return View(user);
         }
 
@@ -91,11 +85,10 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                new UserService(new UserContext()).Edit(user);
                 return RedirectToAction("Index");
             }
-            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
+//            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
             return View(user);
         }
 
@@ -106,7 +99,7 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = GetAllUsers().Find(u => u.Id == id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -119,19 +112,9 @@ namespace ROS.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
+            User user = GetAllUsers().Find(u => u.Id == id);
+            new UserService(new UserContext()).Remove(user);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         private List<User> GetAllUsers()
