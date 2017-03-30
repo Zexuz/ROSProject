@@ -20,14 +20,7 @@ namespace ROS.MVC.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            List<User> users;
-            using (var context = new UserContext())
-            {
-                var service = new UserService(context);
-                var x = service.GetAll();
-                users = x.ToList();
-            }
-
+            var users = GetAllUsers();
             return View(users);
         }
 
@@ -38,7 +31,8 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+
+            User user = GetAllUsers().Find(u => u.Id == id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -138,6 +132,16 @@ namespace ROS.MVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private List<User> GetAllUsers()
+        {
+            using (var context = new UserContext())
+            {
+                var service = new UserService(context);
+                var users = service.GetAll();
+                return users.ToList();
+            }
         }
     }
 }
