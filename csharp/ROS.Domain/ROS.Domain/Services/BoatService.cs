@@ -12,11 +12,9 @@ namespace ROS.Domain.Services
     {
         public EntityDataModel db = new EntityDataModel();
 
-        public void Add(BoatCreate boat)
+        public void Add(Boat boat)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<BoatCreate, Boat>());
-            Boat NewBoat = Mapper.Map<Boat>(boat);
-            db.Boats.Add(NewBoat);
+            db.Boats.Add(boat);
             db.SaveChanges();
         }
 
