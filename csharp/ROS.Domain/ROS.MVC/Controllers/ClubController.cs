@@ -1,5 +1,4 @@
 ﻿using ROS.Domain.Models;
-using ROS.Domain.PocoClasses.Clubs;
 using ROS.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -40,7 +39,7 @@ namespace ROS.MVC.Controllers
         {
             try
             {
-                clubService.Create(newClub);
+//                clubService.Create(newClub);
                 return RedirectToAction("Index");
             }
             catch

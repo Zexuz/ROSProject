@@ -51,8 +51,8 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                new UserService(new UserContext()).Add(createUserViewModel.User);
-                new AddressContactService().AddToDb(createUserViewModel.AddressContact);
+//                new UserService(new UserContext()).Add(createUserViewModel.User);
+//                new AddressContactService().AddToDb(createUserViewModel.AddressContact);
                 return RedirectToAction("Index");
             }
 

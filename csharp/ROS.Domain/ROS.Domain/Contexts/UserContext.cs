@@ -3,10 +3,9 @@ using ROS.Domain.Models;
 
 namespace ROS.Domain.Contexts
 {
-    public sealed class UserContext:DbContext
+    public class UserContext : DbContext
     {
-
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public UserContext()
         {
