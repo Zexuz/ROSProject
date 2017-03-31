@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 
@@ -35,10 +37,23 @@ namespace ROS.Domain.Services
 
         public User Edit(User user)
         {
-            var editedUser = _userContext.Users.Attach(user);
-            _userContext.Entry(user).State = EntityState.Modified;
+
+            var dbUser = _userContext.Users.SingleOrDefault(u => u.Id == user.Id);
+
+            if(dbUser == null)
+            {
+                throw new Exception("Can't find user in db!");
+            }
+
+            dbUser.AddressContactId = user.AddressContactId;
+            dbUser.DateOfBirth = user.DateOfBirth;
+            dbUser.Email = user.Email;
+            dbUser.FirstName= user.FirstName;
+            dbUser.LastName= user.LastName;
+            dbUser.Password= user.Password;
             _userContext.SaveChanges();
-            return editedUser;
+
+            return user;
         }
     }
 }
