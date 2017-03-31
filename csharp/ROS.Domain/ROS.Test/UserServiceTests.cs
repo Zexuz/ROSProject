@@ -62,10 +62,11 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>)fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
+            var fakeContext = A.Fake<RepoContext<User>>();
 
-            var userService = new UserService(fakeContext);
+            A.CallTo(() => fakeContext.Context).Returns(fakeDbSet);
+
+            var userService = new RepoService<User>(fakeContext);
 
             // Act
             var users = userService.GetAll().ToList();
@@ -102,12 +103,12 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>)fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
+            var fakeContext = A.Fake<RepoContext<User>>();
 
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
-            A.CallTo(() => fakeContext.Users.Add(userToInsert)).Returns(userToInsert);
+            A.CallTo(() => fakeContext.Context).Returns(fakeDbSet);
+            A.CallTo(() => fakeContext.Context.Add(userToInsert)).Returns(userToInsert);
 
-            var userService = new UserService(fakeContext);
+            var userService = new RepoService<User>(fakeContext);
 
             // Act
             var user = userService.Add(userToInsert);
@@ -177,12 +178,13 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>)fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
+            var fakeContext = A.Fake<RepoContext<User>>();
 
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
-            A.CallTo(() => fakeContext.Users.Remove(userToDelete)).Returns(userToDelete);
 
-            var userService = new UserService(fakeContext);
+            A.CallTo(() => fakeContext.Context).Returns(fakeDbSet);
+            A.CallTo(() => fakeContext.Context.Remove(userToDelete)).Returns(userToDelete);
+
+            var userService = new RepoService<User>(fakeContext);
 
             // Act
             var user = userService.Remove(userToDelete);
@@ -251,12 +253,13 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>)fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
+            var fakeContext = A.Fake<RepoContext<User>>();
 
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
-            A.CallTo(() => fakeContext.Users.Remove(userToUpdate)).Returns(userToUpdate);
 
-            var userService = new UserService(fakeContext);
+            A.CallTo(() => fakeContext.Context).Returns(fakeDbSet);
+            A.CallTo(() => fakeContext.Context.Remove(userToUpdate)).Returns(userToUpdate);
+
+            var userService = new RepoService<User>(fakeContext);
 
             // Act
             var user = userService.Edit(userToUpdate);
