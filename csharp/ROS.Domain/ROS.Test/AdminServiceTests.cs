@@ -8,6 +8,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
+using ROS.Domain.Services;
 
 namespace ROS.Test
 {

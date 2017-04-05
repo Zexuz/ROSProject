@@ -4,9 +4,9 @@ using System.Security.Authentication;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 
-namespace ROS.Test
+namespace ROS.Domain.Services
 {
-    public class AdminService
+    public class AdminService : IAdminService
     {
         private readonly SysAdminContext _context;
 
