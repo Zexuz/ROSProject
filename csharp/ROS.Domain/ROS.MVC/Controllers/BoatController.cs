@@ -6,23 +6,34 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using ROS.Domain.Models;
-using BoatCreate = ROS.MVC.PocoClasses.Entries.BoatCreate;
+using ROS.Domain.Contexts;
+using ROS.MVC.ViewModel;
+using AutoMapper;
 
 namespace ROS.MVC.Controllers
 {
     public class BoatController : Controller
     {
-        public EntityDataModel db = new EntityDataModel();
-        public BoatService _boatService = new BoatService();
 
         public ActionResult Index()
         {
-            return View(db.Boats.ToList());
+            var users = GetAllBoats();
+            return View(users);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Boat boat = GetAllBoats().Find(b => b.Id == id);
+            if (boat == null)
+            {
+                return HttpNotFound();
+            }
+            return View(boat);
         }
 
         public ActionResult Create()
@@ -30,18 +41,25 @@ namespace ROS.MVC.Controllers
             return View();
         }
 
+            
         [HttpPost]
-        public ActionResult Create(BoatCreate newBoat)
+        public ActionResult Create(PocoClasses.Entries.Boat newBoat)
         {
-            try
+            Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.Entries.Boat, Boat>());
+            Boat boat = Mapper.Map<Boat>(newBoat);
+
+            if (ModelState.IsValid)
             {
-//                _boatService.Add(newBoat);
+                
+                using (var context = new BoatContext())
+                {
+                    var service = new BoatService(context);
+                    service.Add(boat);
+                }
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(newBoat);
         }
 
         public ActionResult Delete(int? id)
@@ -50,7 +68,7 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Boat boat = db.Boats.Find(id);
+            Boat boat = GetAllBoats().Find(b => b.Id == id);
             if (boat == null)
             {
                 return HttpNotFound();
@@ -62,8 +80,23 @@ namespace ROS.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _boatService.Delete(id);
+            Boat boat = GetAllBoats().Find(b => b.Id == id);
+            using (var context = new BoatContext())
+            {
+                var service = new BoatService(context);
+                service.Remove(boat);
+            }
             return RedirectToAction("Index");
+        }
+
+        private List<Boat> GetAllBoats()
+        {
+            using (var context = new BoatContext())
+            {
+                var service = new BoatService(context);
+                var boats = service.GetAll();
+                return boats.ToList();
+            }
         }
     }
 }
