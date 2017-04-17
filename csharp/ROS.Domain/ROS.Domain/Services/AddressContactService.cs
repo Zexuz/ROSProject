@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ROS.Domain.Models;
-using ROS.Domain.PocoClasses.Regattas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +12,9 @@ namespace ROS.Domain.Services
     {
         public EntityDataModel db = new EntityDataModel();
 
-        public void Add(Regatta_AddressContact_ContactPerson_Create regattaAddressContact)
+        public void Add(AddressContact addressContact)
         {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<Regatta_AddressContact_ContactPerson_Create, AddressContact>();
-                cfg.RecognizePrefixes("AddressContact_");
-            });
-            AddressContact NewAddressContact = Mapper.Map<AddressContact>(regattaAddressContact);
-            AddToDb(NewAddressContact);
+            AddToDb(addressContact);
         }
 
         public void AddToDb (AddressContact addressContact)

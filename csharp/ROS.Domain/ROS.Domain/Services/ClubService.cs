@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ROS.Domain.Models;
-using ROS.Domain.PocoClasses.Clubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +11,9 @@ namespace ROS.Domain.Services
     public class ClubService
     {
         public EntityDataModel db = new EntityDataModel();
-        public void Create(PocoClub club)
+        public void Create(Club club)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<PocoClub, Club>());
-            Club NewClub = Mapper.Map<Club>(club);
-            db.Clubs.Add(NewClub);
+            db.Clubs.Add(club);
             db.SaveChanges();
         }
         public void Delete(int id)

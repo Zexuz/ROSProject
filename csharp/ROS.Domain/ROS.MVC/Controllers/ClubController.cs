@@ -1,5 +1,4 @@
 ﻿using ROS.Domain.Models;
-using ROS.Domain.PocoClasses.Clubs;
 using ROS.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PocoClub = ROS.MVC.PocoClasses.Clubs.PocoClub;
 
 namespace ROS.MVC.Controllers
 {
@@ -39,7 +39,7 @@ namespace ROS.MVC.Controllers
         {
             try
             {
-                clubService.Create(newClub);
+//                clubService.Create(newClub);
                 return RedirectToAction("Index");
             }
             catch

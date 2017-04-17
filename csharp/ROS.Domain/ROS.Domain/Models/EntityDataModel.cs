@@ -320,6 +320,5 @@ namespace ROS.Domain.Models
                 .WillCascadeOnDelete(false);
         }
 
-        public System.Data.Entity.DbSet<ROS.Domain.PocoClasses.Clubs.PocoClub> PocoClubs { get; set; }
     }
 }
