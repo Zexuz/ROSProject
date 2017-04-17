@@ -90,6 +90,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Contexts\EntryContext.cs" />
     <Compile Include="Contexts\RaceEventContext.cs" />
+    <Compile Include="Contexts\SocialEventContext.cs" />
     <Compile Include="Contexts\SysAdminContext.cs" />
     <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Models\AddressContact.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Services\EntryServie.cs" />
     <Compile Include="Services\IAdminService.cs" />
     <Compile Include="Services\RaceEventService.cs" />
+    <Compile Include="Services\SocialEventService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
