@@ -110,7 +110,7 @@ namespace ROS.Test
             var userService = new UserService(fakeContext);
 
             // Act
-            var user = userService.Add(userToInsert, TODO);
+            var user = userService.Add(userToInsert);
 
             // Assert
             A.CallTo(() => fakeContext.SaveChanges()).MustHaveHappened();
