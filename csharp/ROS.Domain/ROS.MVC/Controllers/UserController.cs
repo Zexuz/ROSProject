@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 using AutoMapper;
 using AutoMapper.Configuration;
 using ROS.Domain;
@@ -61,9 +62,16 @@ namespace ROS.MVC.Controllers
             }
 
             new SessionContext().SetAuthenticationToken(authUser.Id.ToString(), false, authUser);
-            ;
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
         // GET: Users/Create
         public ActionResult Create()
