@@ -18,15 +18,46 @@ namespace ROS.Domain.Services
             _addressContactContext = addressContactContext;
         }
 
-        public void Add(AddressContact addressContact)
+        public IEnumerable<AddressContact> GetAll()
         {
-            AddToDb(addressContact);
+            return _addressContactContext.AddressContacts;
         }
 
-        public void AddToDb (AddressContact addressContact)
+        public AddressContact Add(AddressContact addressContact)
         {
-            _addressContactContext.AddressContacts.Add(addressContact);
+            var returnedAddressContact = _addressContactContext.AddressContacts.Add(addressContact);
             _addressContactContext.SaveChanges();
+            return returnedAddressContact;
+        }
+
+        public AddressContact Remove(AddressContact addressContact)
+        {
+            var removedAddressContact = _addressContactContext.AddressContacts.Remove(addressContact);
+            _addressContactContext.SaveChanges();
+            return removedAddressContact;
+        }
+
+        public AddressContact Edit(AddressContact addressContact)
+        {
+
+            var dbAddressContact = _addressContactContext.AddressContacts.SingleOrDefault(a => a.Id == addressContact.Id);
+
+            if (dbAddressContact == null)
+            {
+                throw new Exception("Can't find address contact in db!");
+            }
+
+            dbAddressContact.BoxNumber = addressContact.BoxNumber;
+            dbAddressContact.StreetAddress = addressContact.StreetAddress;
+            dbAddressContact.City = addressContact.City;
+            dbAddressContact.ZipCode = addressContact.ZipCode;
+            dbAddressContact.PhoneNumber = addressContact.PhoneNumber;
+            dbAddressContact.NextOfKin = addressContact.NextOfKin;
+            dbAddressContact.Country = addressContact.Country;
+
+            _addressContactContext.SaveChanges();
+
+            return addressContact;
         }
     }
 }
