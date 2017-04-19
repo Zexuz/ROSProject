@@ -1,26 +1,40 @@
-﻿using ROS.Domain.Services;
+﻿using AutoMapper;
+using ROS.Domain.Contexts;
+using ROS.Domain.Models;
+using ROS.Domain.Services;
+using ROS.MVC.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Regatta_AddressContact_ContactPerson_Create = ROS.MVC.PocoClasses.Regattas.Regatta_AddressContact_ContactPerson_Create;
 
 namespace ROS.MVC.Controllers
 {
     public class RegattaController : Controller
     {
-        AddressContactService _addressContactService = new AddressContactService();
         // GET: Regatta
         public ActionResult Index()
         {
-            return View();
+            var regattas = GetAllRegattas();
+            return View(regattas);
         }
 
         // GET: Regatta/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Regatta regatta = GetAllRegattas().Find(r => r.Id == id);
+            if (regatta == null)
+            {
+                return HttpNotFound();
+            }
+            return View(regatta);
         }
 
         // GET: Regatta/Create
@@ -31,62 +45,116 @@ namespace ROS.MVC.Controllers
 
         // POST: Regatta/Create
         [HttpPost]
-        public ActionResult Create(Regatta_AddressContact_ContactPerson_Create collection)
+        public ActionResult Create(CreateRegattaViewModel createRegattaViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-//                _addressContactService.Add(collection);
+                AddressContact addressContact = CreateAddressContact(createRegattaViewModel);
+                ContactPerson contactPerson = CreateContactPerson(createRegattaViewModel);
+
+                Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.Regattas.Regatta, Regatta>());
+                Regatta regatta = Mapper.Map<Regatta>(createRegattaViewModel.Regatta);
+                regatta.AddressContactId = addressContact.Id;
+                regatta.ContactPersonsId = contactPerson.Id;
+
+                using (var context = new RegattaContext())
+                {
+                    var service = new RegattaService(context);
+                              service.Add(regatta);
+                }
+
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(createRegattaViewModel);
         }
 
         // GET: Regatta/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Regatta regatta = GetAllRegattas().Find(r => r.Id == id);
+            if (regatta == null)
+            {
+                return HttpNotFound();
+            }
+            return View(regatta);
         }
 
         // POST: Regatta/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(
+           [Bind(Include = "Id,AddressContactId,ContactPersonId,Name,StartDateTime,EndDateTime,Fee,Description")] Regatta regatta)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                new RegattaService(new RegattaContext()).Edit(regatta);
                 return RedirectToAction("Index");
             }
-            catch
+            return View(regatta);
+        }
+
+        // GET: Users/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Regatta regatta = GetAllRegattas().Find(r => r.Id == id);
+            if (regatta == null)
+            {
+                return HttpNotFound();
+            }
+            return View(regatta);
+        }
+
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Regatta regatta = GetAllRegattas().Find(r => r.Id == id);
+            new RegattaService(new RegattaContext()).Remove(regatta);
+            return RedirectToAction("Index");
+        }
+
+        private List<Regatta> GetAllRegattas()
+        {
+            using (var context = new RegattaContext())
+            {
+                var service = new RegattaService(context);
+                var regattas = service.GetAll();
+                return regattas.ToList();
             }
         }
 
-        // GET: Regatta/Delete/5
-        public ActionResult Delete(int id)
+        private AddressContact CreateAddressContact(CreateRegattaViewModel createRegattaViewModel)
         {
-            return View();
+            Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.AddressContacts.AddressContact, AddressContact>());
+            AddressContact addressContact = Mapper.Map<AddressContact>(createRegattaViewModel.AddressContact);
+            using (var context = new AddressContactContext())
+            {
+                var service = new AddressContactService(context);
+                service.Add(addressContact);
+            }
+            return addressContact;
         }
 
-        // POST: Regatta/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        private ContactPerson CreateContactPerson(CreateRegattaViewModel createRegattaViewModel)
         {
-            try
+            Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.ContactPerson, ContactPerson>());
+            ContactPerson contactPerson = Mapper.Map<ContactPerson>(createRegattaViewModel.ContactPerson);
+            using (var context = new ContactPersonContext())
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var service = new ContactPersonService(context);
+                service.Add(contactPerson);
             }
-            catch
-            {
-                return View();
-            }
+            return contactPerson;
         }
     }
 }

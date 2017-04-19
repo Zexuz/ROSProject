@@ -4,25 +4,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
+using ROS.Domain.Contexts;
 
 namespace ROS.Domain.Services
 {
     public class BoatService
     {
-        public EntityDataModel db = new EntityDataModel();
+        private readonly BoatContext _boatContext;
 
-        public void Add(Boat boat)
+        public BoatService(BoatContext boatContext)
         {
-            db.Boats.Add(boat);
-            db.SaveChanges();
+            _boatContext = boatContext;
         }
 
-        public void Delete(int id)
+        public IEnumerable<Boat> GetAll()
         {
-            Boat boat = db.Boats.Find(id);
-            db.Boats.Remove(boat);
-            db.SaveChanges();
+            return _boatContext.Boats;
+        }
+
+        public Boat Add(Boat boat)
+        {
+            var returnedBoat = _boatContext.Boats.Add(boat);
+            _boatContext.SaveChanges();
+            return returnedBoat;
+        }
+
+        public Boat Remove(Boat boat)
+        {
+            var removedBoat = _boatContext.Boats.Remove(boat);
+            _boatContext.SaveChanges();
+            return removedBoat;
         }
     }
 }
