@@ -99,7 +99,6 @@ namespace ROS.MVC.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -115,7 +114,8 @@ namespace ROS.MVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AddressContactId = new SelectList(new AddressContactService().db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
+            ViewBag.AddressContactId = new SelectList(new AddressContactService(new AddressContactContext()).GetAll(), "Id", "NextOfKin",
+                user.AddressContactId);
             return View(user);
         }
 
