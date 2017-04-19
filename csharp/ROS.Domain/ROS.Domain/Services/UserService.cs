@@ -23,9 +23,18 @@ namespace ROS.Domain.Services
 
         public User Add(User user)
         {
+            if(!isUserValid(user))
+                throw new ArgumentException();
+
             var returnedUser = _userContext.Users.Add(user);
             _userContext.SaveChanges();
             return returnedUser;
+        }
+
+
+        private bool isUserValid(User user)
+        {
+
         }
 
         public User Remove(User user)
