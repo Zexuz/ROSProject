@@ -95,8 +95,9 @@ namespace ROS.MVC.Controllers
                 Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.AddressContacts.AddressContact, AddressContact>());
                 var addressContact = Mapper.Map<AddressContact>(createUserViewModel.AddressContact);
 
+                var address = new AddressContactService(new AddressContactContext()).Add(addressContact);
+                user.AddressContactId = address.Id;
                 new UserService(new UserContext()).Add(user);
-                new AddressContactService(new AddressContactContext()).Add(addressContact);
                 return RedirectToAction("Index");
             }
 

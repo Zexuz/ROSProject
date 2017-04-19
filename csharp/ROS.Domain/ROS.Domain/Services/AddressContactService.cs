@@ -26,7 +26,7 @@ namespace ROS.Domain.Services
         public AddressContact Add(AddressContact addressContact)
         {
             var returnedAddressContact = _addressContactContext.AddressContacts.Add(addressContact);
-            _addressContactContext.SaveChanges();
+            _addressContactContext.Context.SaveChanges();
             return returnedAddressContact;
         }
 
