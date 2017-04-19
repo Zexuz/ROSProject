@@ -10,7 +10,6 @@ namespace ROS.MVC.Controllers
 {
     public class AddressContactController : Controller
     {
-        private AddressContactService _service = new AddressContactService();
         // GET: AddressContact
         public ActionResult Index()
         {
