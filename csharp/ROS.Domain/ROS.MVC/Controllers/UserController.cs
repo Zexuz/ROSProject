@@ -56,7 +56,7 @@ namespace ROS.MVC.Controllers
                 var addressContact = Mapper.Map<PocoClasses.AddressContacts.AddressContact,AddressContact>(createUserViewModel.AddressContact);
 
                 new UserService(new UserContext()).Add(user);
-                new AddressContactService().AddToDb(addressContact);
+                new AddressContactService(new AddressContactContext()).Add(addressContact);
                 return RedirectToAction("Index");
             }
 
