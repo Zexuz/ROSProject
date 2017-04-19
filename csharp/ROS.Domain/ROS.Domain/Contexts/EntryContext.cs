@@ -5,7 +5,7 @@ namespace ROS.Domain.Contexts
 {
     public class EntryContext:DbContext
     {
-        public DbSet<Entry> Entries { get; set; }
+        public virtual DbSet<Entry> Entries { get; set; }
 
         public EntryContext()
         {

@@ -15,7 +15,6 @@ namespace ROS.Test
     [TestFixture]
     public class UserServiceTests
     {
-
         [Test]
         public void Get_Users_Returns_three_Users_Successfuly_Test()
         {
@@ -57,12 +56,13 @@ namespace ROS.Test
             var fakeDbSet = A.Fake<DbSet<User>>(o => o.Implements(typeof(IQueryable<User>)).Implements(typeof(IDbAsyncEnumerable<User>)));
 
 
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).Provider).Returns(data.Provider);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).Expression).Returns(data.Expression);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).ElementType).Returns(data.ElementType);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Provider).Returns(data.Provider);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Expression).Returns(data.Expression);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
             var fakeContext = A.Fake<UserContext>();
+
             A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
 
             var userService = new UserService(fakeContext);
@@ -97,10 +97,10 @@ namespace ROS.Test
             // Arrange
             var fakeDbSet = A.Fake<DbSet<User>>(o => o.Implements(typeof(IQueryable<User>)).Implements(typeof(IDbAsyncEnumerable<User>)));
 
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).Provider).Returns(data.Provider);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).Expression).Returns(data.Expression);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).ElementType).Returns(data.ElementType);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Provider).Returns(data.Provider);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Expression).Returns(data.Expression);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
             var fakeContext = A.Fake<UserContext>();
 
@@ -117,13 +117,11 @@ namespace ROS.Test
             Assert.AreEqual(1, user.Id, "Id Should be 1");
             Assert.AreEqual("Robin", user.FirstName, "FirstName Should be Robin");
             Assert.AreEqual("Edbom", user.LastName, "LastName Should be Edbom");
-
         }
 
         [Test]
         public void Remove_User_From_Database_Success()
         {
-
             var data = new List<User>
             {
                 new User()
@@ -172,12 +170,13 @@ namespace ROS.Test
             // Arrange
             var fakeDbSet = A.Fake<DbSet<User>>(o => o.Implements(typeof(IQueryable<User>)).Implements(typeof(IDbAsyncEnumerable<User>)));
 
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).Provider).Returns(data.Provider);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).Expression).Returns(data.Expression);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).ElementType).Returns(data.ElementType);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Provider).Returns(data.Provider);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Expression).Returns(data.Expression);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
             var fakeContext = A.Fake<UserContext>();
+
 
             A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
             A.CallTo(() => fakeContext.Users.Remove(userToDelete)).Returns(userToDelete);
@@ -197,7 +196,6 @@ namespace ROS.Test
         [Test]
         public void Edit_User_In_Database_Success()
         {
-
             var data = new List<User>
             {
                 new User()
@@ -246,15 +244,15 @@ namespace ROS.Test
             // Arrange
             var fakeDbSet = A.Fake<DbSet<User>>(o => o.Implements(typeof(IQueryable<User>)).Implements(typeof(IDbAsyncEnumerable<User>)));
 
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).Provider).Returns(data.Provider);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).Expression).Returns(data.Expression);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).ElementType).Returns(data.ElementType);
-            A.CallTo(() => ((IQueryable<User>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Provider).Returns(data.Provider);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Expression).Returns(data.Expression);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
             var fakeContext = A.Fake<UserContext>();
 
+
             A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
-            A.CallTo(() => fakeContext.Users.Remove(userToUpdate)).Returns(userToUpdate);
 
             var userService = new UserService(fakeContext);
 
@@ -266,8 +264,47 @@ namespace ROS.Test
             Assert.AreEqual(1, user.Id, "Id Should be 1");
             Assert.AreEqual("ola", user.FirstName, "FirstName Should be ola");
             Assert.AreEqual("Edbom", user.LastName, "LastName Should be Edbom");
-            Assert.AreEqual("newEmail@gmail.com",user.Email,"Email is wrong");
+            Assert.AreEqual("newEmail@gmail.com", user.Email, "Email is wrong");
         }
 
+
+        [Test]
+        public void Edit_User_In_Database_Fails()
+        {
+            var data = new List<User>().AsQueryable();
+
+            var userToUpdate = new User
+            {
+                AddressContactId = 1,
+                Email = "newEmail@gmail.com",
+                FirstName = "ola",
+                LastName = "Edbom",
+                Password = "pw",
+                DateOfBirth = DateTime.Parse("1996-11-07"),
+                Id = 1
+            };
+
+            // Arrange
+            var fakeDbSet = A.Fake<DbSet<User>>(o => o.Implements(typeof(IQueryable<User>)).Implements(typeof(IDbAsyncEnumerable<User>)));
+
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Provider).Returns(data.Provider);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).Expression).Returns(data.Expression);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
+            A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
+
+            var fakeContext = A.Fake<UserContext>();
+
+
+            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
+
+            var userService = new UserService(fakeContext);
+
+            // Act
+            var x = new TestDelegate(() => userService.Edit(userToUpdate));
+
+            // Assert
+            A.CallTo(() => fakeContext.SaveChanges()).MustNotHaveHappened();
+            Assert.Throws(typeof(Exception), x);
+        }
     }
 }
