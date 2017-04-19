@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using AutoMapper;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 using ROS.Domain.Services;
@@ -51,8 +52,11 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-//                new UserService(new UserContext()).Add(createUserViewModel.User);
-//                new AddressContactService().AddToDb(createUserViewModel.AddressContact);
+                var user = Mapper.Map<PocoClasses.Users.User,User>(createUserViewModel.User);
+                var addressContact = Mapper.Map<PocoClasses.AddressContacts.AddressContact,AddressContact>(createUserViewModel.AddressContact);
+
+                new UserService(new UserContext()).Add(user);
+                new AddressContactService().AddToDb(addressContact);
                 return RedirectToAction("Index");
             }
 
