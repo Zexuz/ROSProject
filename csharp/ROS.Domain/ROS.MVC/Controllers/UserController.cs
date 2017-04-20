@@ -3,10 +3,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 using AutoMapper;
+using AutoMapper.Configuration;
+using ROS.Domain;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 using ROS.Domain.Services;
+using ROS.MVC.PocoClasses;
 using ROS.MVC.ViewModel;
 
 namespace ROS.MVC.Controllers
@@ -36,6 +40,39 @@ namespace ROS.MVC.Controllers
             return View(user);
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserLogin userLogin)
+        {
+            var userService = new UserService(new UserContext());
+            var authUser = userService.GetAll()
+                .SingleOrDefault(user =>
+                    user.Email == userLogin.Email &&
+                    user.Password == userLogin.Password
+                );
+
+            if (authUser == null)
+            {
+                return View("Login");
+            }
+
+            new SessionContext().SetAuthenticationToken(authUser.Id.ToString(), false, authUser);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
         // GET: Users/Create
         public ActionResult Create()
         {
@@ -44,7 +81,7 @@ namespace ROS.MVC.Controllers
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you wzant to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -52,11 +89,15 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = Mapper.Map<PocoClasses.Users.User,User>(createUserViewModel.User);
-                var addressContact = Mapper.Map<PocoClasses.AddressContacts.AddressContact,AddressContact>(createUserViewModel.AddressContact);
+                Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.Users.User, User>());
+                var user = Mapper.Map<User>(createUserViewModel.User);
 
+                Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.AddressContacts.AddressContact, AddressContact>());
+                var addressContact = Mapper.Map<AddressContact>(createUserViewModel.AddressContact);
+
+                var address = new AddressContactService(new AddressContactContext()).Add(addressContact);
+                user.AddressContactId = address.Id;
                 new UserService(new UserContext()).Add(user);
-                new AddressContactService().AddToDb(addressContact);
                 return RedirectToAction("Index");
             }
 
@@ -64,18 +105,26 @@ namespace ROS.MVC.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (id != int.Parse(User.Identity.Name))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             User user = GetAllUsers().Find(u => u.Id == id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-//            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
+            ViewBag.AddressContactId = new SelectList(new AddressContactService(new AddressContactContext()).GetAll(), "Id", "NextOfKin",
+                user.AddressContactId);
             return View(user);
         }
 
@@ -84,9 +133,14 @@ namespace ROS.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(
             [Bind(Include = "Id,AddressContactId,Email,Password,FirstName,LastName,DateOfBirth")] User user)
         {
+            if (user.Id != int.Parse(User.Identity.Name))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             if (ModelState.IsValid)
             {
                 new UserService(new UserContext()).Edit(user);

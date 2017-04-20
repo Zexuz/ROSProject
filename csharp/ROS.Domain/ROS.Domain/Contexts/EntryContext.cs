@@ -3,13 +3,14 @@ using ROS.Domain.Models;
 
 namespace ROS.Domain.Contexts
 {
-    public class EntryContext:DbContext
+    public class EntryContext:MasterContext
     {
-        public virtual DbSet<Entry> Entries { get; set; }
+
+        public virtual DbSet<Entry>Entries { get; set; }
 
         public EntryContext()
         {
-            Entries = new EntityDataModel().Entries;
+            Entries = Context.Set<Entry>();
         }
     }
 }
