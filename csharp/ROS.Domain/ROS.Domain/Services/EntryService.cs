@@ -56,5 +56,11 @@ namespace ROS.Domain.Services
         {
             return _context.Entries.First(e => e.Id == id);
         }
+
+        public Entry GetByEntryNumber(int entryNumber)
+        {
+
+            return _context.Entries.First(e => e.Number == entryNumber);
+        }
     }
 }
