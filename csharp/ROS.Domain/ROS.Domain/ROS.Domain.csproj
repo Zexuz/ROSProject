@@ -92,6 +92,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Contexts\AddressContactContext.cs" />
     <Compile Include="Contexts\BoatContext.cs" />
+    <Compile Include="Contexts\ClubAdminContext.cs" />
     <Compile Include="Contexts\ClubContext.cs" />
     <Compile Include="Contexts\ContactPersonContext.cs" />
     <Compile Include="Contexts\MasterContext.cs" />
@@ -102,7 +103,6 @@
     <Compile Include="Contexts\SocialEventContext.cs" />
     <Compile Include="Contexts\RegattaContext.cs" />
     <Compile Include="Contexts\SysAdminContext.cs" />
-    <Compile Include="Contexts\TeamContext.cs" />
     <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Models\AddressContact.cs" />
     <Compile Include="Models\Boat.cs" />
@@ -129,6 +129,7 @@
     <Compile Include="Services\AddressContactService.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\BoatService.cs" />
+    <Compile Include="Services\ClubAdminService.cs" />
     <Compile Include="Services\ClubService.cs" />
     <Compile Include="Services\ContactPersonService.cs" />
     <Compile Include="Services\EntryService.cs" />
@@ -137,7 +138,6 @@
     <Compile Include="Services\RegisteredUserService.cs" />
     <Compile Include="Services\SocialEventService.cs" />
     <Compile Include="Services\RegattaService.cs" />
-    <Compile Include="Services\TeamService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="SessionContext.cs" />
   </ItemGroup>

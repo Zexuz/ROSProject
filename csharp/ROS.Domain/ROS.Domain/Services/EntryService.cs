@@ -59,11 +59,10 @@ namespace ROS.Domain.Services
 
         public Entry GetByEntryNumber(int entryNumber)
         {
-
             return _context.Entries.First(e => e.Number == entryNumber);
         }
-        private Random random = new Random();
 
+        private Random random = new Random();
 
         public int GetEntryNumber()
         {
