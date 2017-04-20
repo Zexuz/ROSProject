@@ -23,9 +23,19 @@ namespace ROS.Domain.Services
 
         public User Add(User user)
         {
+            if (!isUserValid(user))
+                throw new ArgumentException();
+
             var returnedUser = _userContext.Users.Add(user);
-            _userContext.SaveChanges();
+            _userContext.Context.SaveChanges();
             return returnedUser;
+        }
+
+
+        private bool isUserValid(User user)
+        {
+            //todo validate user
+            return true;
         }
 
         public User Remove(User user)
@@ -37,10 +47,9 @@ namespace ROS.Domain.Services
 
         public User Edit(User user)
         {
-
             var dbUser = _userContext.Users.SingleOrDefault(u => u.Id == user.Id);
 
-            if(dbUser == null)
+            if (dbUser == null)
             {
                 throw new Exception("Can't find user in db!");
             }
@@ -48,9 +57,9 @@ namespace ROS.Domain.Services
             dbUser.AddressContactId = user.AddressContactId;
             dbUser.DateOfBirth = user.DateOfBirth;
             dbUser.Email = user.Email;
-            dbUser.FirstName= user.FirstName;
-            dbUser.LastName= user.LastName;
-            dbUser.Password= user.Password;
+            dbUser.FirstName = user.FirstName;
+            dbUser.LastName = user.LastName;
+            dbUser.Password = user.Password;
             _userContext.SaveChanges();
 
             return user;
