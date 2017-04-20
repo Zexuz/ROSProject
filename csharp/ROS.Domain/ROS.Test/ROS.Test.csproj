@@ -94,6 +94,7 @@
     <Compile Include="BoatServiceTests.cs" />
     <Compile Include="EntryServiceTests.cs" />
     <Compile Include="RaceServiceTests.cs" />
+    <Compile Include="RandomEntryNrCreatorTest.cs" />
     <Compile Include="SocialEventServiceTests.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
