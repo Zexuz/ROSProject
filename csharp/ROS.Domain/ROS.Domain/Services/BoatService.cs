@@ -25,7 +25,8 @@ namespace ROS.Domain.Services
         public Boat Add(Boat boat)
         {
             var returnedBoat = _boatContext.Boats.Add(boat);
-            _boatContext.SaveChanges();
+            _boatContext.Context.SaveChanges();
+
             return returnedBoat;
         }
 

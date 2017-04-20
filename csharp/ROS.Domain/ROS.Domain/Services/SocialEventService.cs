@@ -1,4 +1,5 @@
 using System.Security.Authentication;
+using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 using ROS.Domain.Services;
 

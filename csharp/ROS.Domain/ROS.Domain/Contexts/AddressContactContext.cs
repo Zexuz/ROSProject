@@ -8,15 +8,12 @@ using System.Threading.Tasks;
 
 namespace ROS.Domain.Contexts
 {
-    public class AddressContactContext : DbContext
+    public class AddressContactContext : MasterContext
     {
-
-        public virtual EntityDataModel Context { get; set; }
         public virtual DbSet<AddressContact> AddressContacts { get; set; }
 
         public AddressContactContext()
         {
-            Context = new EntityDataModel();
             AddressContacts = Context.Set<AddressContact>();
         }
 

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace ROS.Domain.Contexts
 {
-    public class RegattaContext : DbContext
+    public class RegattaContext : MasterContext
     {
         public virtual DbSet<Regatta> Regattas { get; set; }
 
         public RegattaContext()
         {
-            Regattas = new EntityDataModel().Regattas;
+            Regattas = Context.Set<Regatta>();;
         }
     }
 }
