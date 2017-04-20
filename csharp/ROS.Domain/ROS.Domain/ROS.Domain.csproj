@@ -93,7 +93,9 @@
     <Compile Include="Contexts\AddressContactContext.cs" />
     <Compile Include="Contexts\BoatContext.cs" />
     <Compile Include="Contexts\ContactPersonContext.cs" />
+    <Compile Include="Contexts\MasterContext.cs" />
     <Compile Include="Contexts\EntryContext.cs" />
+    <Compile Include="Contexts\IContext.cs" />
     <Compile Include="Contexts\RaceEventContext.cs" />
     <Compile Include="Contexts\RegisteredUserContext.cs" />
     <Compile Include="Contexts\SocialEventContext.cs" />

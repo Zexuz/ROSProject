@@ -23,6 +23,8 @@ namespace ROS.Test
                     $"That user with id '{adminUser.Id}' does not have premission to run method {nameof(Add)} in service {nameof(RaceEventService)}");
 
             var e = _context.RaceEvents.Add(eventToAdd);
+            _context.Context.SaveChanges();
+
             return e;
         }
     }

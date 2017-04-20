@@ -3,13 +3,13 @@ using ROS.Domain.Models;
 
 namespace ROS.Domain.Contexts
 {
-    public class RaceEventContext
+    public class RaceEventContext:MasterContext
     {
         public virtual DbSet<RaceEvent> RaceEvents { get; set; }
 
         public RaceEventContext()
         {
-            RaceEvents = new EntityDataModel().RaceEvents;
+            RaceEvents = Context.Set<RaceEvent>();
         }
     }
 }
