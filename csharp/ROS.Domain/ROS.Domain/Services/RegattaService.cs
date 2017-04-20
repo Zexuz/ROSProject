@@ -25,7 +25,7 @@ namespace ROS.Domain.Services
         public Regatta Add(Regatta regatta)
         {
             var returnedRegatta = _regattaContext.Regattas.Add(regatta);
-            _regattaContext.SaveChanges();
+            _regattaContext.Context.SaveChanges();
             return returnedRegatta;
         }
 

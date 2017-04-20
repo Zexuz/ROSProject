@@ -12,6 +12,12 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.AddressContact.NextOfKin)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ContactPersonsId)
+        </th>*@
+        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
@@ -37,9 +43,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.AddressContact.NextOfKin)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactPerson.Email)
-        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ContactPersonsId)
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>

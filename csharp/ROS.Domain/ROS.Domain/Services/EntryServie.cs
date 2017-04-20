@@ -30,7 +30,8 @@ namespace ROS.Domain.Services
         public Entry Add(Entry entry)
         {
             var returnedEntry = _context.Entries.Add(entry);
-            _context.SaveChanges();
+            _context.Context.SaveChanges();
+
             return returnedEntry;
         }
 

@@ -1,15 +1,15 @@
 using System.Data.Entity;
 using ROS.Domain.Models;
 
-namespace ROS.Test
+namespace ROS.Domain.Contexts
 {
-    public class SocialEventContext
+    public class SocialEventContext:MasterContext
     {
         public virtual DbSet<SocialEvent> SocialEvents { get; set; }
 
         public SocialEventContext()
         {
-            SocialEvents = new EntityDataModel().SocialEvents;
+            SocialEvents = Context.Set<SocialEvent>();;
         }
     }
 }

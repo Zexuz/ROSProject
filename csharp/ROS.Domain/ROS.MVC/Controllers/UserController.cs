@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 using AutoMapper;
 using AutoMapper.Configuration;
 using ROS.Domain;
@@ -48,6 +49,7 @@ namespace ROS.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserLogin userLogin)
         {
+            userLogin.Email = userLogin.Email.Trim().ToLower();
             var userService = new UserService(new UserContext());
             var authUser = userService.GetAll()
                 .SingleOrDefault(user =>
@@ -55,15 +57,23 @@ namespace ROS.MVC.Controllers
                     user.Password == userLogin.Password
                 );
 
+
             if (authUser == null)
             {
                 return View("Login");
             }
 
             new SessionContext().SetAuthenticationToken(authUser.Id.ToString(), false, authUser);
-            ;
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
         // GET: Users/Create
         public ActionResult Create()
@@ -87,8 +97,9 @@ namespace ROS.MVC.Controllers
                 Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.AddressContacts.AddressContact, AddressContact>());
                 var addressContact = Mapper.Map<AddressContact>(createUserViewModel.AddressContact);
 
+                var address = new AddressContactService(new AddressContactContext()).Add(addressContact);
+                user.AddressContactId = address.Id;
                 new UserService(new UserContext()).Add(user);
-                new AddressContactService(new AddressContactContext()).Add(addressContact);
                 return RedirectToAction("Index");
             }
 

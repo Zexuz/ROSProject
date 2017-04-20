@@ -25,7 +25,8 @@ namespace ROS.Domain.Services
         public ContactPerson Add(ContactPerson contactPerson)
         {
             var returnedContactPerson = _contactPersonContext.ContactPersons.Add(contactPerson);
-            _contactPersonContext.SaveChanges();
+            _contactPersonContext.Context.SaveChanges();
+
             return returnedContactPerson;
         }
 
