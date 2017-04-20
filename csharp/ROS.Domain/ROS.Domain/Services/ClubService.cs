@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,24 @@ namespace ROS.Domain.Services
     public class ClubService
     {
         public EntityDataModel db = new EntityDataModel();
-        public void Create(Club club)
+        private readonly ClubContext _ClubContext;
+
+        public ClubService(ClubContext clubContext)
         {
-            db.Clubs.Add(club);
-            db.SaveChanges();
+            _ClubContext = clubContext;
+        }
+        public IEnumerable<Club> GetAll()
+        {
+            return _ClubContext.Clubs;
+        }
+        public Club Create(Club club)
+        {
+            var returnClub = _ClubContext.Clubs.Add(club);
+            _ClubContext.Context.SaveChanges();
+            
+            return returnClub;
+            //db.Clubs.Add(club);
+            //db.SaveChanges();
         }
         public void Delete(int id)
         {

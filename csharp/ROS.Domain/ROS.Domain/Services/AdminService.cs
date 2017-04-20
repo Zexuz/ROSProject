@@ -34,6 +34,7 @@ namespace ROS.Domain.Services
             };
 
             var sys = _context.SysAdmins.Add(sysAdmin);
+            _context.Context.SaveChanges();
             return sys;
         }
 

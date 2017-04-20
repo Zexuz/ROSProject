@@ -3,13 +3,13 @@ using ROS.Domain.Models;
 
 namespace ROS.Domain.Contexts
 {
-    public class SysAdminContext
+    public class SysAdminContext:MasterContext
     {
         public virtual DbSet<SysAdmin> SysAdmins { get; set; }
 
         public SysAdminContext()
         {
-            SysAdmins = new EntityDataModel().SysAdmins;
+            SysAdmins = Context.Set<SysAdmin>();;
         }
     }
 }

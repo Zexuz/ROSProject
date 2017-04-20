@@ -27,7 +27,7 @@ namespace ROS.Domain.Services
                 throw new ArgumentException();
 
             var returnedUser = _userContext.Users.Add(user);
-            _userContext.SaveChanges();
+            _userContext.Context.SaveChanges();
             return returnedUser;
         }
 
