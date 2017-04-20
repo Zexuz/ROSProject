@@ -102,6 +102,7 @@
     <Compile Include="Contexts\SocialEventContext.cs" />
     <Compile Include="Contexts\RegattaContext.cs" />
     <Compile Include="Contexts\SysAdminContext.cs" />
+    <Compile Include="Contexts\TeamContext.cs" />
     <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Models\AddressContact.cs" />
     <Compile Include="Models\Boat.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Services\RegisteredUserService.cs" />
     <Compile Include="Services\SocialEventService.cs" />
     <Compile Include="Services\RegattaService.cs" />
+    <Compile Include="Services\TeamService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="SessionContext.cs" />
   </ItemGroup>

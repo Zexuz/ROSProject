@@ -98,6 +98,7 @@
     <Compile Include="EntryServiceTests.cs" />
     <Compile Include="RaceServiceTests.cs" />
     <Compile Include="RegisteredUserServiceTests.cs" />
+    <Compile Include="RandomEntryNrCreatorTest.cs" />
     <Compile Include="SocialEventServiceTests.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
