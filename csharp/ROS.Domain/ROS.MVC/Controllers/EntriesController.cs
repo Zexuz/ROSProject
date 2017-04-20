@@ -10,6 +10,7 @@ using ROS.Domain.Models;
 
 namespace ROS.MVC.Controllers
 {
+    [Authorize]
     public class EntriesController : Controller
     {
         private EntityDataModel db = new EntityDataModel();

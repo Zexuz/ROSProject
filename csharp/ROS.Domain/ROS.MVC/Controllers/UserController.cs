@@ -1,88 +1,187 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
+using AutoMapper;
+using AutoMapper.Configuration;
+using ROS.Domain;
+using ROS.Domain.Contexts;
+using ROS.Domain.Models;
+using ROS.Domain.Services;
+using ROS.MVC.PocoClasses;
+using ROS.MVC.ViewModel;
 
 namespace ROS.MVC.Controllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
-        // GET: User
+        // GET: Users
         public ActionResult Index()
         {
-            return View();
+            var users = GetAllUsers();
+            return View(users);
         }
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
+        // GET: Users/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            User user = GetAllUsers().Find(u => u.Id == id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        public ActionResult Login()
         {
             return View();
         }
 
-        // GET: User/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserLogin userLogin)
+        {
+            var userService = new UserService(new UserContext());
+            var authUser = userService.GetAll()
+                .SingleOrDefault(user =>
+                    user.Email == userLogin.Email &&
+                    user.Password == userLogin.Password
+                );
+
+            if (authUser == null)
+            {
+                return View("Login");
+            }
+
+            new SessionContext().SetAuthenticationToken(authUser.Id.ToString(), false, authUser);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+        // GET: Users/Create
         public ActionResult Create()
         {
+//            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin");
             return View();
         }
 
-        // POST: User/Create
+        // POST: Users/Create
+        // To protect from overposting attacks, please enable the specific properties you wzant to bind to, for
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateUserViewModel createUserViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.Users.User, User>());
+                var user = Mapper.Map<User>(createUserViewModel.User);
 
+                Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.AddressContacts.AddressContact, AddressContact>());
+                var addressContact = Mapper.Map<AddressContact>(createUserViewModel.AddressContact);
+
+                var address = new AddressContactService(new AddressContactContext()).Add(addressContact);
+                user.AddressContactId = address.Id;
+                new UserService(new UserContext()).Add(user);
                 return RedirectToAction("Index");
             }
-            catch
+
+            return View(createUserViewModel);
+        }
+
+        // GET: Users/Edit/5
+        [Authorize]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-        }
 
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (id != int.Parse(User.Identity.Name))
             {
-                // TODO: Add update logic here
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
+            User user = GetAllUsers().Find(u => u.Id == id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AddressContactId = new SelectList(new AddressContactService(new AddressContactContext()).GetAll(), "Id", "NextOfKin",
+                user.AddressContactId);
+            return View(user);
+        }
+
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult Edit(
+            [Bind(Include = "Id,AddressContactId,Email,Password,FirstName,LastName,DateOfBirth")] User user)
+        {
+            if (user.Id != int.Parse(User.Identity.Name))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+            if (ModelState.IsValid)
+            {
+                new UserService(new UserContext()).Edit(user);
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+//            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
+            return View(user);
         }
 
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Users/Delete/5
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = GetAllUsers().Find(u => u.Id == id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            User user = GetAllUsers().Find(u => u.Id == id);
+            new UserService(new UserContext()).Remove(user);
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        private List<User> GetAllUsers()
+        {
+            using (var context = new UserContext())
             {
-                return View();
+                var service = new UserService(context);
+                var users = service.GetAll();
+                return users.ToList();
             }
         }
     }

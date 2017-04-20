@@ -31,11 +31,6 @@ namespace ROS.Domain.Models
 
         public bool HasPayed { get; set; }
 
-        public string HasPayedMessage
-        {
-            get { return HasPayed ? "Yes" : "No"; }
-        }
-
         public virtual Boat Boat { get; set; }
 
         public virtual Regatta Regatta { get; set; }

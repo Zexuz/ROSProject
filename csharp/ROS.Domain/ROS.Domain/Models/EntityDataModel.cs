@@ -319,5 +319,6 @@ namespace ROS.Domain.Models
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
         }
+
     }
 }
