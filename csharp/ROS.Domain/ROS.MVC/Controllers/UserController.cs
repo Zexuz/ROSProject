@@ -49,12 +49,14 @@ namespace ROS.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserLogin userLogin)
         {
+            userLogin.Email = userLogin.Email.Trim().ToLower();
             var userService = new UserService(new UserContext());
             var authUser = userService.GetAll()
                 .SingleOrDefault(user =>
                     user.Email == userLogin.Email &&
                     user.Password == userLogin.Password
                 );
+
 
             if (authUser == null)
             {
