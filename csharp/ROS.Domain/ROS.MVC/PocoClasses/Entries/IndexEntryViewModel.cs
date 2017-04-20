@@ -22,9 +22,10 @@ namespace ROS.MVC.PocoClasses.Entries
         [DisplayName("Registration Date")]
         public DateTime RegistrationDate { get; set; }
 
+        [DisplayName("Paid")]
         public bool HasPayed { get; set; }
 
-        [DisplayName ("Has Payed")]
+        [DisplayName ("Paid")]
         public string HasPayedMessage { get { return HasPayed ? "Yes" : "No"; } }
 
         public virtual Boat Boat { get; set; }

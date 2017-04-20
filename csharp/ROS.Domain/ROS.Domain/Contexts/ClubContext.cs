@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace ROS.Domain.Contexts
 {
-    public class ClubContext : DbContext
+    public class ClubContext : MasterContext
     {
-        public virtual EntityDataModel Context { get; set; }
         public virtual DbSet<Club> Clubs { get; set; }
 
         public ClubContext()
         {
-            Context = new EntityDataModel();
             Clubs = Context.Set<Club>();         
         }
     }

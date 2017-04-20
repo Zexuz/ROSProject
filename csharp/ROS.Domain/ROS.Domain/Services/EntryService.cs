@@ -20,6 +20,7 @@ namespace ROS.Domain.Services
         public IEnumerable<Entry> GetAll()
         {
             return _context.Entries;
+
         }
 
         public Entry Add(Entry entry)
@@ -40,19 +41,23 @@ namespace ROS.Domain.Services
         {
 
             var dbEntry = _context.Entries.SingleOrDefault(u => u.Id == entry.Id);
+            
 
             if (dbEntry == null)
             {
                 throw new Exception("Can't find entry in db!");
             }
-            dbEntry.BoatId = entry.BoatId;
-            dbEntry.SkipperId = entry.SkipperId;
-            dbEntry.HasPayed = entry.HasPayed;
+            _context.Entries.Attach(entry);
+            _context.Entry(entry).State = EntityState.Modified;
+            //_context.SaveChanges();
+            //dbEntry.BoatId = entry.BoatId;
+            //dbEntry.SkipperId = entry.SkipperId;
+            //dbEntry.HasPayed = entry.HasPayed;
             _context.SaveChanges();
             return dbEntry;
         }
 
-        public Entry GetById(int id)
+        public Entry GetById(int? id)
         {
             return _context.Entries.First(e => e.Id == id);
         }

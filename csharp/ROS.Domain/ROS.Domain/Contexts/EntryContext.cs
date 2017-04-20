@@ -12,5 +12,6 @@ namespace ROS.Domain.Contexts
         {
             Entries = Context.Set<Entry>();
         }
+        
     }
 }

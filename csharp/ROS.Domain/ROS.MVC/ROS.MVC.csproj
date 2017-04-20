@@ -116,7 +116,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddressContactController.cs" />
     <Compile Include="Controllers\BoatController.cs" />
-    <Compile Include="Controllers\ClubController.cs" />
+    <Compile Include="Controllers\ClubsController.cs" />
     <Compile Include="Controllers\ContactPersonController.cs" />
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -135,6 +135,7 @@
     <Compile Include="PocoClasses\UserLogin.cs" />
     <Compile Include="PocoClasses\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CreateClubsViewModel.cs" />
     <Compile Include="ViewModel\CreateRegattaViewModel.cs" />
     <Compile Include="ViewModel\CreateUserViewModel.cs" />
   </ItemGroup>
