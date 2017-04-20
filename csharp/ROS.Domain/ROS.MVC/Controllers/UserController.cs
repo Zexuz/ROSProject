@@ -64,13 +64,13 @@ namespace ROS.MVC.Controllers
             }
 
             new SessionContext().SetAuthenticationToken(authUser.Id.ToString(), false, authUser);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Join", "Entries");
         }
 
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Users");
         }
 
 
