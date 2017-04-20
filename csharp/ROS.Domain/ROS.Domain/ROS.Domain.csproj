@@ -95,6 +95,7 @@
     <Compile Include="Contexts\ContactPersonContext.cs" />
     <Compile Include="Contexts\EntryContext.cs" />
     <Compile Include="Contexts\RaceEventContext.cs" />
+    <Compile Include="Contexts\RegisteredUserContext.cs" />
     <Compile Include="Contexts\SocialEventContext.cs" />
     <Compile Include="Contexts\RegattaContext.cs" />
     <Compile Include="Contexts\SysAdminContext.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Services\EntryService.cs" />
     <Compile Include="Services\IAdminService.cs" />
     <Compile Include="Services\RaceEventService.cs" />
+    <Compile Include="Services\RegisteredUserService.cs" />
     <Compile Include="Services\SocialEventService.cs" />
     <Compile Include="Services\RegattaService.cs" />
     <Compile Include="Services\UserService.cs" />
