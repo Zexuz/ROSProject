@@ -196,6 +196,7 @@
     <Content Include="Views\Entries\Index.cshtml" />
     <Content Include="Views\AddressContact\Create.cshtml" />
     <Content Include="Views\Regatta\Create.cshtml" />
+    <Content Include="Views\Entries\Join.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">
