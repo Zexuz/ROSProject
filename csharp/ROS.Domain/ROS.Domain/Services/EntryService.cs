@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,11 +8,11 @@ using ROS.Domain.Models;
 
 namespace ROS.Domain.Services
 {
-    public class EntryServie
+    public class EntryService
     {
         private readonly EntryContext _context;
 
-        public EntryServie(EntryContext context)
+        public EntryService(EntryContext context)
         {
             _context = context;
         }
@@ -21,17 +22,10 @@ namespace ROS.Domain.Services
             return _context.Entries;
         }
 
-        public Entry GetByEntryId(int entryId)
-        {
-            return _context.Entries.FirstOrDefault(e => e.Number == entryId);
-        }
-
-
         public Entry Add(Entry entry)
         {
             var returnedEntry = _context.Entries.Add(entry);
-            _context.Context.SaveChanges();
-
+            _context.SaveChanges();
             return returnedEntry;
         }
 
@@ -44,11 +38,23 @@ namespace ROS.Domain.Services
 
         public Entry Edit(Entry entry)
         {
-            var editedEntry = _context.Entries.Attach(entry);
-            _context.Entry(entry).State = EntityState.Modified;
+
+            var dbEntry = _context.Entries.SingleOrDefault(u => u.Id == entry.Id);
+
+            if (dbEntry == null)
+            {
+                throw new Exception("Can't find entry in db!");
+            }
+            dbEntry.BoatId = entry.BoatId;
+            dbEntry.SkipperId = entry.SkipperId;
+            dbEntry.HasPayed = entry.HasPayed;
             _context.SaveChanges();
-            return editedEntry;
+            return dbEntry;
         }
-        
+
+        public Entry GetById(int id)
+        {
+            return _context.Entries.First(e => e.Id == id);
+        }
     }
 }
