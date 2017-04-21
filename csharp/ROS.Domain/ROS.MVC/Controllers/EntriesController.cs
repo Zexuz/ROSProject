@@ -35,9 +35,17 @@ namespace ROS.MVC.Controllers
         {
             try
             {
-                //skciak med entry id, inte entry nr
-                var regUserService = new RegisteredUserService(new RegisteredUserContext());
-                regUserService.JoinEntry(int.Parse(User.Identity.Name), int.Parse(joinEntry.EntryNumber));
+                int entryId;
+                using (var context = new RegattaContext())
+                {
+                    var entryLogicService = new EntryLogicService();
+                    entryId = entryLogicService.GetEntryIdFromEntryNumber(int.Parse(joinEntry.EntryNumber));
+                }
+                using (var context = new RegattaContext())
+                {
+                    var regUserService = new RegisteredUserService(new RegisteredUserContext());
+                    regUserService.JoinEntry(int.Parse(User.Identity.Name), entryId);
+                }
 
             }
             catch (Exception e)

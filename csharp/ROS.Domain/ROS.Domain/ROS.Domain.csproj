@@ -132,6 +132,7 @@
     <Compile Include="Services\ClubAdminService.cs" />
     <Compile Include="Services\ClubService.cs" />
     <Compile Include="Services\ContactPersonService.cs" />
+    <Compile Include="Services\EntryLogicService.cs" />
     <Compile Include="Services\EntryService.cs" />
     <Compile Include="Services\IAdminService.cs" />
     <Compile Include="Services\RaceEventService.cs" />
