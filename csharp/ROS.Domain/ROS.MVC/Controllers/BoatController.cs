@@ -36,30 +36,35 @@ namespace ROS.MVC.Controllers
             return View(boat);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(string returnUrl)
         {
+            if (string.IsNullOrEmpty(returnUrl)
+                && Request.UrlReferrer != null
+                && Request.UrlReferrer.ToString().Length > 0)
+            {
+                return RedirectToAction("Create", new { returnUrl = Request.UrlReferrer.ToString() });
+            }
             return View();
         }
 
             
         [HttpPost]
-        public ActionResult Create(PocoClasses.Entries.Boat newBoat)
+        public ActionResult Create(PocoClasses.Entries.Boat newBoat, string returnUrl)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.Entries.Boat, Boat>());
             Boat boat = Mapper.Map<Boat>(newBoat);
 
             if (ModelState.IsValid)
             {
-                
                 using (var context = new BoatContext())
                 {
                     var service = new BoatService(context);
                     service.Add(boat);
                 }
-                return RedirectToAction("Index");
+                return Redirect(returnUrl); 
             }
-
             return View(newBoat);
+
         }
 
         public ActionResult Delete(int? id)

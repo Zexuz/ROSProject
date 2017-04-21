@@ -64,8 +64,54 @@ namespace ROS.Domain.Services
 
         public Entry GetByEntryNumber(int entryNumber)
         {
-
             return _context.Entries.First(e => e.Number == entryNumber);
         }
+
+        private Random random = new Random();
+
+        public int GetEntryNumber()
+        {
+            var nr = RandomEntryNrCreator();
+            while (CheckIfEntryExists(nr))
+            {
+                nr = RandomEntryNrCreator();
+            }
+
+            return nr;
+        }
+
+        public int RandomEntryNrCreator()
+        {
+            var newString = "";
+
+            const string chars = "123456789";
+
+            newString = new string(Enumerable.Repeat(chars, 6)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+
+
+
+
+            return int.Parse(newString);
+        }
+
+        public bool CheckIfEntryExists(int RandomEntryNr)
+        {
+            var randomEntry = RandomEntryNr;
+
+            var entryResult = GetAll().Select(e => e.Number == randomEntry);
+
+            if (entryResult != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
     }
 }

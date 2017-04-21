@@ -129,6 +129,7 @@
     <Compile Include="PocoClasses\ContactPerson.cs" />
     <Compile Include="PocoClasses\Entries\Boat.cs" />
     <Compile Include="PocoClasses\Entries\IndexEntryViewModel.cs" />
+    <Compile Include="PocoClasses\Entries\JoinEntry.cs" />
     <Compile Include="PocoClasses\Events\Class1.cs" />
     <Compile Include="PocoClasses\Regattas\Regatta.cs" />
     <Compile Include="PocoClasses\Results\Class1.cs" />
@@ -172,6 +173,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Views\Clubs\Create.cshtml" />
+    <Content Include="Views\Clubs\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -193,9 +196,12 @@
     <Content Include="Views\Entries\Index.cshtml" />
     <Content Include="Views\AddressContact\Create.cshtml" />
     <Content Include="Views\Regatta\Create.cshtml" />
-    <Content Include="Views\Club\Create.cshtml" />
-    <Content Include="Views\Club\Index.cshtml" />
-    <Content Include="Views\Club\Delete.cshtml" />
+    <Content Include="Views\Entries\Join.cshtml" />
+    <Content Include="Views\Boat\Index.cshtml" />
+    <Content Include="Views\Boat\Create.cshtml" />
+    <Content Include="Views\Boat\Delete.cshtml" />
+    <Content Include="Views\Regatta\Index.cshtml" />
+    <Content Include="Views\Regatta\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">
@@ -208,7 +214,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Boat\" />
     <Folder Include="Views\ContactPerson\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
