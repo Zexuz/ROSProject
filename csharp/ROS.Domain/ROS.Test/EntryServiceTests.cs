@@ -333,5 +333,74 @@ namespace ROS.Test
             A.CallTo(() => fakeContext.SaveChanges()).MustNotHaveHappened();
             Assert.Throws(typeof(Exception), x);
         }
+        [Test]
+        public void ENTRIES_Get_Entries_By_EntryNumber()
+        {
+            var data = new List<Entry>
+            {
+                new Entry()
+                {
+                    Id = 1,
+                    BoatId = 1231,
+                    SkipperId = 2,
+                    RegattaId = 1,
+                    Number = 5556,
+                    RegistrationDate = DateTime.Now,
+                    HasPayed = true
+                },
+                new Entry()
+                {
+                    Id = 2,
+                    BoatId = 1232,
+                    SkipperId = 3,
+                    RegattaId = 1,
+                    Number = 5557,
+                    RegistrationDate = DateTime.Now,
+                    HasPayed = true
+                },
+                new Entry()
+                {
+                    Id = 3,
+                    BoatId = 1233,
+                    SkipperId = 4,
+                    RegattaId = 1,
+                    Number = 5558,
+                    RegistrationDate = DateTime.Now,
+                    HasPayed = true
+                },
+                new Entry()
+                {
+                    Id = 4,
+                    BoatId = 1234,
+                    SkipperId = 5,
+                    RegattaId = 1,
+                    Number = 5550,
+                    RegistrationDate = DateTime.Now,
+                    HasPayed = true
+                }
+            }.AsQueryable();
+
+            // Arrange
+            var fakeDbSet = A.Fake<DbSet<Entry>>(o => o.Implements(typeof(IQueryable<Entry>)).Implements(typeof(IDbAsyncEnumerable<Entry>)));
+
+
+            A.CallTo(() => ((IQueryable<Entry>)fakeDbSet).Provider).Returns(data.Provider);
+            A.CallTo(() => ((IQueryable<Entry>)fakeDbSet).Expression).Returns(data.Expression);
+            A.CallTo(() => ((IQueryable<Entry>)fakeDbSet).ElementType).Returns(data.ElementType);
+            A.CallTo(() => ((IQueryable<Entry>)fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
+
+            var fakeContext = A.Fake<EntryContext>();
+
+            A.CallTo(() => fakeContext.Entries).Returns(fakeDbSet);
+
+            var entryService = new EntryService(fakeContext);
+
+            // Act
+            var entrys = entryService.GetByEntryNumber(5550);
+
+            // Assert
+            A.CallTo(() => fakeContext.SaveChanges()).MustNotHaveHappened();
+            Assert.AreEqual(4, entrys.Id, "Should find entry with id 4");
+        }
     }
 }

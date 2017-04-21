@@ -6,11 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ROS.Domain.Contexts;
 using ROS.Domain.Models;
+using ROS.Domain.Services;
+using ROS.MVC.PocoClasses.Entries;
 
 namespace ROS.MVC.Controllers
 {
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class EntriesController : Controller
     {
         private EntityDataModel db = new EntityDataModel();
@@ -21,6 +24,38 @@ namespace ROS.MVC.Controllers
             var entries = db.Entries.Include(e => e.Boat).Include(e => e.Regatta).Include(e => e.User);
             return View(entries.ToList());
         }
+
+        public ActionResult Join()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Join(JoinEntry joinEntry)
+        {
+            try
+            {
+                int entryId;
+                using (var context = new RegattaContext())
+                {
+                    var entryLogicService = new EntryLogicService();
+                    entryId = entryLogicService.GetEntryIdFromEntryNumber(int.Parse(joinEntry.EntryNumber));
+                }
+                using (var context = new RegattaContext())
+                {
+                    var regUserService = new RegisteredUserService(new RegisteredUserContext());
+                    regUserService.JoinEntry(int.Parse(User.Identity.Name), entryId);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new Exception("EF broke... Ask robin");
+            }
+            return View();
+        }
+
 
         // GET: Entries/Details/5
         public ActionResult Details(int? id)
@@ -51,7 +86,8 @@ namespace ROS.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BoatId,SkipperId,RegattaId,Number,RegistrationDate,HasPayed")] Entry entry)
+        public ActionResult Create(
+            [Bind(Include = "Id,BoatId,SkipperId,RegattaId,Number,RegistrationDate,HasPayed")] Entry entry)
         {
             if (ModelState.IsValid)
             {
@@ -87,9 +123,10 @@ namespace ROS.MVC.Controllers
         // POST: Entries/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,BoatId,SkipperId,RegattaId,Number,RegistrationDate,HasPayed")] Entry entry)
+        public ActionResult Edit(
+            [Bind(Include = "Id,BoatId,SkipperId,RegattaId,Number,RegistrationDate,HasPayed")] Entry entry)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +156,7 @@ namespace ROS.MVC.Controllers
         }
 
         // POST: Entries/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
