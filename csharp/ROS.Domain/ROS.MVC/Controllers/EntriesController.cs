@@ -35,9 +35,10 @@ namespace ROS.MVC.Controllers
         {
             try
             {
+                var entryId = new EntryService(new EntryContext()).GetAll().SingleOrDefault(e => e.Number.ToString() == joinEntry.EntryNumber).Id;
                 //skciak med entry id, inte entry nr
                 var regUserService = new RegisteredUserService(new RegisteredUserContext());
-                regUserService.JoinEntry(int.Parse(User.Identity.Name), int.Parse(joinEntry.EntryNumber));
+                regUserService.JoinEntry(int.Parse(User.Identity.Name), entryId);
 
             }
             catch (Exception e)
