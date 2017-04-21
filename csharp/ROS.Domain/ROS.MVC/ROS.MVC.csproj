@@ -197,6 +197,11 @@
     <Content Include="Views\AddressContact\Create.cshtml" />
     <Content Include="Views\Regatta\Create.cshtml" />
     <Content Include="Views\Entries\Join.cshtml" />
+    <Content Include="Views\Boat\Index.cshtml" />
+    <Content Include="Views\Boat\Create.cshtml" />
+    <Content Include="Views\Boat\Delete.cshtml" />
+    <Content Include="Views\Regatta\Index.cshtml" />
+    <Content Include="Views\Regatta\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">
@@ -209,7 +214,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Boat\" />
     <Folder Include="Views\ContactPerson\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

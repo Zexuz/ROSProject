@@ -56,6 +56,7 @@ namespace ROS.MVC.Controllers
                 Regatta regatta = Mapper.Map<Regatta>(createRegattaViewModel.Regatta);
                 regatta.AddressContactId = addressContact.Id;
                 regatta.ContactPersonsId = contactPerson.Id;
+                regatta.HostingClubId = FindClubId();
 
                 using (var context = new RegattaContext())
                 {
@@ -155,6 +156,18 @@ namespace ROS.MVC.Controllers
                 service.Add(contactPerson);
             }
             return contactPerson;
+        }
+
+        private int FindClubId()
+        {
+            int userId = int.Parse(User.Identity.Name);
+            using (var context = new ClubAdminContext())
+            {
+                var service = new ClubAdminService(context);
+                int clubId = service.GetAll().SingleOrDefault(c => c.UserId == userId).ClubId;
+                return clubId;
+            }
+            
         }
     }
 }

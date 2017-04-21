@@ -111,7 +111,10 @@ namespace ROS.Test
             A.CallTo(() => fakeContext.RegisteredUsers).Returns(fakeDbSet);
 
             var fakeEntityDataModel = A.Fake<EntityDataModel>();
-            A.CallTo(() => fakeContext.Context).Returns(fakeEntityDataModel);
+            A.CallTo(() => fakeContext.Context).Returns(fakeEntityDataModel); 
+
+            A.CallTo(() => fakeContext.RegisteredUsers.Add(A<RegisteredUser>._))
+                .ReturnsLazily((RegisteredUser ru) => ru);
 
             var registeredUserService = new RegisteredUserService(fakeContext);
 
@@ -150,6 +153,9 @@ namespace ROS.Test
             A.CallTo(() => fakeContext.RegisteredUsers).Returns(fakeDbSet);
 
             var registeredUserService = new RegisteredUserService(fakeContext);
+
+            A.CallTo(() => fakeContext.RegisteredUsers.Remove(A<RegisteredUser>._))
+                .ReturnsLazily((RegisteredUser ru) => ru);
 
             var registeredUserToRemove = new RegisteredUser() { UserId = 1, EntryId = 1, Id = 1 };
 
