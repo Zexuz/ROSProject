@@ -36,14 +36,14 @@ namespace ROS.MVC.Controllers
             try
             {
                 int entryId;
-                using (var context = new RegattaContext())
+                using (var context = new EntryContext())
                 {
-                    var entryLogicService = new EntryLogicService();
-                    entryId = entryLogicService.GetEntryIdFromEntryNumber(int.Parse(joinEntry.EntryNumber));
+                    var entryLogicService = new EntryService(context);
+                    entryId = entryLogicService.GetByEntryNumber(int.Parse(joinEntry.EntryNumber)).Id;
                 }
-                using (var context = new RegattaContext())
+                using (var context = new RegisteredUserContext())
                 {
-                    var regUserService = new RegisteredUserService(new RegisteredUserContext());
+                    var regUserService = new RegisteredUserService(context);
                     regUserService.JoinEntry(int.Parse(User.Identity.Name), entryId);
                 }
 
