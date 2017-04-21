@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
@@ -13,7 +10,7 @@ using ROS.MVC.PocoClasses.Entries;
 
 namespace ROS.MVC.Controllers
 {
-    [System.Web.Mvc.Authorize]
+    [Authorize]
     public class EntriesController : Controller
     {
         private EntityDataModel db = new EntityDataModel();
@@ -36,7 +33,6 @@ namespace ROS.MVC.Controllers
             try
             {
                 var entryId = new EntryService(new EntryContext()).GetAll().SingleOrDefault(e => e.Number.ToString() == joinEntry.EntryNumber).Id;
-                //skciak med entry id, inte entry nr
                 var regUserService = new RegisteredUserService(new RegisteredUserContext());
                 regUserService.JoinEntry(int.Parse(User.Identity.Name), entryId);
 
@@ -116,7 +112,7 @@ namespace ROS.MVC.Controllers
         // POST: Entries/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
             [Bind(Include = "Id,BoatId,SkipperId,RegattaId,Number,RegistrationDate,HasPayed")] Entry entry)
@@ -149,7 +145,7 @@ namespace ROS.MVC.Controllers
         }
 
         // POST: Entries/Delete/5
-        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
