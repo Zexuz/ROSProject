@@ -17,15 +17,14 @@ namespace ROS.MVC.Controllers
     public class EntriesController : Controller
     {
         private EntityDataModel db = new EntityDataModel();
-        private readonly EntryService _entryService = new EntryService(new EntryContext());
+        private readonly EntryService _entryService = new EntryService();
         private readonly UserService _userService = new UserService(new UserContext());
 
         // GET: Entries
         public ActionResult Index()
         {
             var entries = _entryService.GetAll();
-            //var asd = db.Entries.Include(e => e.Boat).Include(e => e.Regatta).Include(e => e.User);
-            return View(entries.ToList());
+            return View(entries);
         }
 
         public ActionResult Join()
@@ -41,7 +40,7 @@ namespace ROS.MVC.Controllers
                 int entryId;
                 using (var context = new EntryContext())
                 {
-                    var entryLogicService = new EntryService(context);
+                    var entryLogicService = new EntryService();
                     entryId = entryLogicService.GetByEntryNumber(int.Parse(joinEntry.EntryNumber)).Id;
                 }
                 using (var context = new RegisteredUserContext())
@@ -94,8 +93,7 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entries.Add(entry);
-                db.SaveChanges();
+                _entryService.Add(entry);
                 return RedirectToAction("Index");
             }
 
@@ -112,7 +110,7 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Entry entry = db.Entries.Find(id);
+            Entry entry = _entryService.GetById(id);
             if (entry == null)
             {
                 return HttpNotFound();
@@ -133,8 +131,7 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(entry).State = EntityState.Modified;
-                db.SaveChanges();
+                _entryService.Edit(entry);
                 return RedirectToAction("Index");
             }
             ViewBag.BoatId = new SelectList(db.Boats, "Id", "SailNumber", entry.BoatId);
@@ -150,7 +147,7 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Entry entry = db.Entries.Find(id);
+            Entry entry = _entryService.GetById(id);
             if (entry == null)
             {
                 return HttpNotFound();
