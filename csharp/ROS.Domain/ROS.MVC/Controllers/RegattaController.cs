@@ -5,6 +5,7 @@ using ROS.Domain.Services;
 using ROS.MVC.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -40,6 +41,9 @@ namespace ROS.MVC.Controllers
         // GET: Regatta/Create
         public ActionResult Create()
         {
+            ViewBag.AddressContactId = new SelectList(new AddressContactService(new AddressContactContext()).GetAll(), "Id", "NextOfKin");
+           // ViewBag.HostingClubId = new SelectList(new ClubService(new ClubContext()).GetAll(), "Id", "Name");
+            //ViewBag.ContactPersonsId = new SelectList(new ContactPersonService(new ContactPersonContext()).GetAll(), "Id", "Email");
             return View();
         }
 
@@ -57,16 +61,20 @@ namespace ROS.MVC.Controllers
                 regatta.AddressContactId = addressContact.Id;
                 regatta.ContactPersonsId = contactPerson.Id;
                 regatta.HostingClubId = FindClubId();
+                
 
                 using (var context = new RegattaContext())
                 {
                     var service = new RegattaService(context);
                               service.Add(regatta);
-                }
+                }               
+                ViewBag.AddressContactId = new SelectList(new AddressContactContext().AddressContacts, "Id", "NextOfKin", regatta.AddressContactId);
+                // ViewBag.AddressContactId = new SelectList(new AddressContactService(new AddressContactContext()).GetAll(),"Id","NextOfKin",regatta.AddressContactId);
+                //  ViewBag.HostingClubId = new SelectList(new ClubService(new ClubContext()).GetAll(), "Id", "Name", regatta.HostingClubId);
+                // ViewBag.ContactPersonsId = new SelectList(new ContactPersonService(new ContactPersonContext()).GetAll(), "Id", "Email", regatta.ContactPersonsId);
 
                 return RedirectToAction("Index");
             }
-
             return View(createRegattaViewModel);
         }
 
