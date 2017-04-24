@@ -8,6 +8,13 @@ namespace ROS.MVC.PocoClasses.Regattas
 {
     public class Regatta
     {
+
+        //public int? ContactPersonsId { get; set; }
+
+        //public int? HostingClubId { get; set; }
+
+        public int? AddressContactId { get; set; }
+
         [DisplayName("Name")]
         public string Name { get; set; }
 
