@@ -9,7 +9,7 @@ namespace ROS.MVC.ViewModel
 {
     public class CreateClubsViewModel
     {
-        public PocoClub club { get; set; }
+        public PocoClub Club { get; set; }
         public AddressContact AddressContact { get; set; }
     }
 }

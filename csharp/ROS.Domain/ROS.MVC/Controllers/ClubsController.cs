@@ -6,6 +6,7 @@ using ROS.MVC.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -22,10 +23,21 @@ namespace ROS.MVC.Controllers
         }
 
         // GET: Clubs/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Club club = GetAllClubs().Find(c => c.Id == id);
+            if (club == null)
+            {
+                return HttpNotFound();
+            }
+            return View(club);
         }
+
 
         // GET: Clubs/Create
         public ActionResult Create()
@@ -42,7 +54,7 @@ namespace ROS.MVC.Controllers
                 AddressContact addressContact = CreateAddressContact(createClubViewModel);
 
                 Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.Clubs.PocoClub, Club>());
-                Club Clubs = Mapper.Map<Club>(createClubViewModel.club);
+                Club Clubs = Mapper.Map<Club>(createClubViewModel.Club);
                 Clubs.AddressContactId = addressContact.Id;
 
                 using (var context = new ClubContext())
@@ -68,47 +80,69 @@ namespace ROS.MVC.Controllers
         }
 
         // GET: Clubs/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Club club = GetAllClubs().Find(c => c.Id == id);
+            if (club == null)
+            {
+                return HttpNotFound();
+            }
+            //ViewBag.AddressContactId = new SelectList(new AddressContactService(new AddressContactContext()).GetAll(), "Id", "NextOfKin",
+            //    club.AddressContactId);
+            //ViewBag.ContactPersonId = new SelectList(new ContactPersonService(new ContactPersonContext()).GetAll(), "Id","Email",
+            //    club.ContactPersonsId);
+            return View(club);
         }
 
         // POST: Clubs/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Club club)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                new ClubService(new ClubContext()).Edit(club);
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            }      
+                return View();           
         }
 
         // GET: Clubs/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Club club = GetAllClubs().Find(c => c.Id == id);
+            if (club == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AddressContactId = new SelectList(new AddressContactService(new AddressContactContext()).GetAll(), "Id", "NextOfKin",
+                club.AddressContactId);
+            return View(club);
         }
 
         // POST: Clubs/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
+            
+            if (ModelState.IsValid)
             {
-                // TODO: Add delete logic here
-
+                //Club club = GetAllClubs().Find(c => c.Id == id);
+                new ClubService(new ClubContext()).Delete(id);
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View();
+
         }
         private List<Club> GetAllClubs()
         {
