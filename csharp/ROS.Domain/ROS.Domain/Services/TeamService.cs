@@ -16,27 +16,22 @@ namespace ROS.Domain.Services
         {
             _teamContext = teamContext;
         }
-
-        public IEnumerable<Team> GetAll()
+        
+        public IQueryable<Team> GetAll()
         {
             return _teamContext.Team;
         }
 
+        public IQueryable<Team> GetAllByEntryId(int entryId)
+        {
+            return _teamContext.Team.Where(t => t.EntryId == entryId);
+        }
+
         public Team Add(Team team)
         {
-            if (!isUserValid(team))
-                throw new ArgumentException();
-
             var returnedTeam = _teamContext.Team.Add(team);
             _teamContext.Context.SaveChanges();
             return returnedTeam;
-        }
-
-
-        private bool isUserValid(Team team)
-        {
-            //todo validate user
-            return true;
         }
 
         public Team Remove(Team team)
@@ -55,7 +50,6 @@ namespace ROS.Domain.Services
                 throw new Exception("Can't find team in db!");
             }
 
-           
             dbTeam.Name = team.Name;
           
             _teamContext.SaveChanges();

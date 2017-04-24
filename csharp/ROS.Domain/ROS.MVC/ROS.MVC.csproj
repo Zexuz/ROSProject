@@ -121,6 +121,7 @@
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegattaController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="PocoClasses\AddressContacts\AddressContact.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="PocoClasses\Entries\Boat.cs" />
     <Compile Include="PocoClasses\Entries\IndexEntryViewModel.cs" />
     <Compile Include="PocoClasses\Entries\JoinEntry.cs" />
+    <Compile Include="PocoClasses\Entries\Team.cs" />
     <Compile Include="PocoClasses\Events\Class1.cs" />
     <Compile Include="PocoClasses\Regattas\Regatta.cs" />
     <Compile Include="PocoClasses\Results\Class1.cs" />
@@ -202,6 +204,9 @@
     <Content Include="Views\Boat\Delete.cshtml" />
     <Content Include="Views\Regatta\Index.cshtml" />
     <Content Include="Views\Regatta\Details.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">
