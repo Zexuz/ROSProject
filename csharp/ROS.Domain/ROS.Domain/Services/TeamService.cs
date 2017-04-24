@@ -22,7 +22,7 @@ namespace ROS.Domain.Services
             return _teamContext.Team;
         }
 
-        public IQueryable<Team> GetAllByEntryId(int entryId)
+        public IQueryable<Team> GetAllByEntryId(int? entryId)
         {
             return _teamContext.Team.Where(t => t.EntryId == entryId);
         }
