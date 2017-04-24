@@ -49,6 +49,7 @@ namespace ROS.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserLogin userLogin)
         {
+            userLogin.Email = userLogin.Email.Trim().ToLower();
             var userService = new UserService(new UserContext());
             var authUser = userService.GetAll()
                 .SingleOrDefault(user =>
@@ -56,19 +57,20 @@ namespace ROS.MVC.Controllers
                     user.Password == userLogin.Password
                 );
 
+
             if (authUser == null)
             {
                 return View("Login");
             }
 
             new SessionContext().SetAuthenticationToken(authUser.Id.ToString(), false, authUser);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Join", "Entries");
         }
 
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Users");
         }
 
 
