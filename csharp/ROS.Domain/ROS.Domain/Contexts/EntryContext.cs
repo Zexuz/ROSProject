@@ -8,9 +8,11 @@ namespace ROS.Domain.Contexts
 
         public virtual DbSet<Entry>Entries { get; set; }
 
+
         public EntryContext()
         {
             Entries = Context.Set<Entry>();
         }
+        
     }
 }
