@@ -11,7 +11,7 @@ namespace ROS.Domain.Interfaces.RepositoryInteraces
         TEntity Update(TEntity entity);
         TEntity Remove(TEntity entity);
         TEntity FindById(int? id);
-        IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> FindAllByPredicate(Expression<Func<TEntity, bool>> predicate);
         void Dispose();
     }
 }

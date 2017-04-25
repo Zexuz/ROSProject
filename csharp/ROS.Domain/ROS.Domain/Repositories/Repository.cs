@@ -65,7 +65,7 @@ namespace ROS.Domain.Repositories
             return _context.Context.Set<TEntity>().SingleOrDefault(predicate);
         }
 
-        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> FindAllByPredicate(Expression<Func<TEntity, bool>> predicate)
         {
             return _context.Context.Set<TEntity>().Where(predicate);
         }

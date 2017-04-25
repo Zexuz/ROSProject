@@ -22,6 +22,11 @@ namespace ROS.Domain.Services
             return _regattaContext.Regattas;
         }
 
+        public Regatta FindById(int id)
+        {
+            return _regattaContext.Regattas.FirstOrDefault(r => r.Id == id);
+        }
+
         public Regatta Add(Regatta regatta)
         {
             var returnedRegatta = _regattaContext.Regattas.Add(regatta);
