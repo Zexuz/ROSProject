@@ -23,11 +23,15 @@ namespace ROS.Domain.Services
         }
 
         public Boat Add(Boat boat)
-        {
-            var returnedBoat = _boatContext.Boats.Add(boat);
-            _boatContext.Context.SaveChanges();
-
-            return returnedBoat;
+        {   
+            if (!GetAll().Any(b => b.SailNumber == boat.SailNumber
+                                && b.Type == boat.Type))
+            {
+                var returnedBoat = _boatContext.Boats.Add(boat);
+                _boatContext.Context.SaveChanges();
+                return returnedBoat;
+            }
+            return boat;
         }
 
         public Boat Remove(Boat boat)
