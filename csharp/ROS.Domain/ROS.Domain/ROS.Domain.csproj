@@ -107,7 +107,10 @@
     <Compile Include="Interfaces\ContextInterfaces\IRosContext.cs" />
     <Compile Include="Contexts\MasterContext.cs" />
     <Compile Include="Contexts\EntryContext.cs" />
+    <Compile Include="Contexts\EventContext.cs" />
+    <Compile Include="Contexts\MasterContext.cs" />
     <Compile Include="Contexts\IContext.cs" />
+    <Compile Include="Contexts\RaceEntryContext.cs" />
     <Compile Include="Contexts\RaceEventContext.cs" />
     <Compile Include="Contexts\RegisteredUserContext.cs" />
     <Compile Include="Contexts\RosContext.cs" />
@@ -150,7 +153,9 @@
     <Compile Include="Services\ContactPersonService.cs" />
     <Compile Include="Services\EntryLogicService.cs" />
     <Compile Include="Services\EntryService.cs" />
+    <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\IAdminService.cs" />
+    <Compile Include="Services\RaceEntryService.cs" />
     <Compile Include="Services\RaceEventService.cs" />
     <Compile Include="Services\RegisteredUserService.cs" />
     <Compile Include="Services\SocialEventService.cs" />

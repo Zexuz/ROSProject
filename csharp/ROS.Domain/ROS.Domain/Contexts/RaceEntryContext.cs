@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 
 namespace ROS.Domain.Contexts
 {
-    public class EntryContext : MasterContext
+    public class RaceEntryContext : MasterContext
     {
-        public virtual DbSet<Entry> Entries { get; set; }
+        public virtual DbSet<RaceEntry> RaceEntry { get; set; }
 
-
-        public EntryContext()
+        public RaceEntryContext()
         {
-            Entries = Context.Set<Entry>();
+            RaceEntry = Context.Set<RaceEntry>();
         }
-        
     }
 }

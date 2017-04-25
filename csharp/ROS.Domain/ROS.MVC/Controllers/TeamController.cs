@@ -2,6 +2,7 @@
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 using ROS.Domain.Services;
+using ROS.MVC.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,28 +14,32 @@ namespace ROS.MVC.Controllers
 {
     public class TeamController : Controller
     {
-        public ActionResult Index(int? entryId)
+        public ActionResult Index(Entry entry)
         {
+            CreateTeam teamModels = new CreateTeam();
+            teamModels.entryId = entry.Id;
+            teamModels.regattaId = entry.RegattaId;
             IQueryable<Team> teams;
             using (var context = new TeamContext())
             {
                 var service = new TeamService(context);
-                teams = service.GetAllByEntryId(Convert.ToInt32(entryId));
+                teams = service.GetAllByEntryId(entry.Id);
             }
-
-            return View(teams);
+            teamModels.teams = teams;
+            return View(teamModels);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int entryId)
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(PocoClasses.Entries.Team newTeam)
+        public ActionResult Create(PocoClasses.Entries.Team newTeam, int entryId)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<PocoClasses.Entries.Team, Team>());
             Team team = Mapper.Map<Team>(newTeam);
+            team.EntryId = entryId;
 
             if (ModelState.IsValid)
             {
@@ -43,7 +48,19 @@ namespace ROS.MVC.Controllers
                     var service = new TeamService(context);
                     service.Add(team);
                 }
-                return RedirectToAction("Index");
+                using (var context = new RaceEntryContext())
+                {
+                    var service = new RaceEntryService(context);
+                    service.Add(team.Id, newTeam.EventId);
+                }
+
+                Entry entry;
+                using (var context = new EntryContext())
+                {
+                    var service = new EntryService(context);
+                    entry = service.GetById(entryId);
+                }
+                return RedirectToAction("Index", entry);
             }
             return View(team);
         }
