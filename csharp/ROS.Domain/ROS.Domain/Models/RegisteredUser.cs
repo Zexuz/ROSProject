@@ -1,3 +1,5 @@
+using ROS.Domain.Interfaces;
+
 namespace ROS.Domain.Models
 {
     using System;
@@ -6,7 +8,7 @@ namespace ROS.Domain.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class RegisteredUser
+    public partial class RegisteredUser : IEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RegisteredUser()

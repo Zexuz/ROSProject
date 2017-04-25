@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ROS.Domain.Models.Entry>
+﻿@model IEnumerable<ROS.MVC.ViewModel.EntriesViewModels.IndexEntriesViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -27,7 +27,7 @@
             Registration Date
         </th>
         <th>
-            Payed
+            <p>Payed</p>
         </th>
         <th></th>
     </tr>
@@ -50,7 +50,7 @@
             @Html.DisplayFor(modelItem => item.RegistrationDate)
         </td>
         <td>
-            @*@Html.DisplayFor(modelItem => item.HasPayedMessage)*@
+            @Html.DisplayFor(modelItem => item.HasPayedMessage)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

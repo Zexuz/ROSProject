@@ -5,21 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ROS.Domain.Repositories;
 
 namespace ROS.Domain.Services
 {
     public class RegisteredUserService
     {
         private readonly RegisteredUserContext _registeredUserContext;
+        private readonly Repository<RegisteredUser> _repository;
 
         public RegisteredUserService(RegisteredUserContext registeredUserContext)
         {
             _registeredUserContext = registeredUserContext;
+            _repository = new Repository<RegisteredUser>();
+        }
+        public RegisteredUserService()
+        {
+            _repository = new Repository<RegisteredUser>();
         }
 
         public IEnumerable<int> GetAllUserIdsByEntryId(int entryId)
         {
-            return _registeredUserContext.RegisteredUsers.Where(r => r.EntryId == entryId).Select(r => r.UserId);
+            return _registeredUserContext.RegisteredUsers.Where(r => r.EntryId == entryId).Select(r => r.UserId);            
+        }
+
+        public IEnumerable<RegisteredUser> GetAllRegisteredUsersByEntryId(int entryId) //Niclas TODO : Fix everyones services
+        {
+            return _repository.FindAllByPredicate(r => r.EntryId == entryId);
         }
 
         public IEnumerable<int> GetAllEntryIdsByUserId(int userId)
