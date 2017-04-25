@@ -4,12 +4,14 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using AutoMapper;
 using System.Web;
 using System.Web.Mvc;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 using ROS.Domain.Services;
 using ROS.MVC.PocoClasses.Entries;
+using ROS.MVC.ViewModel.EntriesViewModels;
 
 namespace ROS.MVC.Controllers
 {
@@ -18,13 +20,18 @@ namespace ROS.MVC.Controllers
     {
         private EntityDataModel db = new EntityDataModel();
         private readonly EntryService _entryService = new EntryService();
+        private readonly RegisteredUserService _registeredUserService = new RegisteredUserService();
+        private readonly RegattaService _regattaService = new RegattaService(new RegattaContext());
         private readonly UserService _userService = new UserService(new UserContext());
 
         // GET: Entries
         public ActionResult Index()
         {
             var entries = _entryService.GetAll();
-            return View(entries);
+            Mapper.Initialize(cfg => cfg.CreateMap<Entry, IndexEntriesViewModel>());
+            var mappedEntries =  Mapper.Map<IEnumerable<IndexEntriesViewModel>>(entries);
+
+            return View(mappedEntries);
         }
 
         public ActionResult Join()
@@ -67,11 +74,22 @@ namespace ROS.MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Entry entry = _entryService.GetById(id);
+            DetailEntiresViewModel detailEntiresViewModel = new DetailEntiresViewModel();
+            var regUsers = _registeredUserService.GetAllRegisteredUsersByEntryId(entry.Id);
+            Mapper.Initialize(cfg => cfg.CreateMap<RegisteredUser, ForDetailRegUserViewModel>());
+            detailEntiresViewModel.RegUser = Mapper.Map<IEnumerable<ForDetailRegUserViewModel>>(entry.RegisteredUsers);
+            var apa = entry.RegattaId;
+            var regatta = _regattaService.FindById(apa);
+            Mapper.Initialize(cfg => cfg.CreateMap<Regatta, ForDetailRegattaViewModel>());
+            detailEntiresViewModel.Regatta = Mapper.Map<ForDetailRegattaViewModel>(regatta);
+
+            Mapper.Initialize(cfg => cfg.CreateMap<Entry,ForDetailEntryViewModel>());
+            detailEntiresViewModel.Entry = Mapper.Map<ForDetailEntryViewModel>(entry);
             if (entry == null)
             {
                 return HttpNotFound();
             }
-            return View(entry);
+            return View(detailEntiresViewModel);
         }
 
         // GET: Entries/Create

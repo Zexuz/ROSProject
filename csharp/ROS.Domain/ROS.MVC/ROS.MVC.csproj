@@ -148,7 +148,7 @@
     <Compile Include="ViewModel\CreateRegattaViewModel.cs" />
     <Compile Include="ViewModel\CreateUserViewModel.cs" />
     <Compile Include="ViewModel\EntriesViewModels\DetailEntiresViewModel.cs" />
-    <Compile Include="ViewModel\EntriesViewModels\ForDetailEntiryViewModel.cs" />
+    <Compile Include="ViewModel\EntriesViewModels\ForDetailEntryViewModel.cs" />
     <Compile Include="ViewModel\EntriesViewModels\ForDetailRegattaViewModel.cs" />
     <Compile Include="ViewModel\EntriesViewModels\ForDetailRegUserViewModel.cs" />
     <Compile Include="ViewModel\EntriesViewModels\IndexEntriesViewModel.cs" />
@@ -215,6 +215,7 @@
     <Content Include="Views\Boat\Delete.cshtml" />
     <Content Include="Views\Regatta\Index.cshtml" />
     <Content Include="Views\Regatta\Details.cshtml" />
+    <Content Include="Views\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">

@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using ROS.Domain.Models;
-using Boat = ROS.MVC.PocoClasses.Entries.Boat;
 
 namespace ROS.MVC.ViewModel.EntriesViewModels
 {

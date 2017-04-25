@@ -1,63 +1,156 @@
-﻿@model ROS.Domain.Models.Entry
+﻿@model ROS.MVC.ViewModel.EntriesViewModels.DetailEntiresViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Entry</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Boat.SailNumber)
-        </dt>
+<style>
+    dt {color:green;}
+</style>
+<h2>Details for Entry [@Html.DisplayFor(model => model.Entry.Number)]</h2>
+<hr/>
+<div style="margin-top: 40px">   
+    <div style="display: inline-block; margin-left: 110px;">
+        <h4>Entry</h4>
 
-        <dd>
-            @Html.DisplayFor(model => model.Boat.SailNumber)
-        </dd>
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Entry.Boat.SailNumber)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Regatta.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Entry.Boat.SailNumber)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Regatta.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Regatta.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Regatta.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Entry.User.Email)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Number)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Entry.User.Email)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Number)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Entry.Number)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RegistrationDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Entry.Number)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RegistrationDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Entry.RegistrationDateShortTimeString)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HasPayed)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Entry.RegistrationDateShortTimeString)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Entry.HasPayed)
+            </dt>
 
 
-    </dl>
+        </dl>
+
+        @*Registred Users*@
+        <h4>Registered users</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    <p>Email</p>
+                </th>
+                <th>
+                    <p>Firstname</p>
+                </th>
+                <th>
+                    <p>Lastname</p>
+                </th>
+            </tr>
+
+            @foreach (var item in Model.RegUser)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.LastName)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div style="float: right; margin-right: 250px; width: auto">
+        <h4>Regatta</h4>
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Regatta.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Regatta.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Regatta.StartDateTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Regatta.StartDateTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Regatta.EndDateTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Regatta.EndDateTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Regatta.Fee)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Regatta.Fee)
+            </dd>
+
+            <dt>
+                Contact email
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Regatta.ContactPerson.User.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Regatta.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Regatta.Description)
+            </dd>
+
+
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Entry.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

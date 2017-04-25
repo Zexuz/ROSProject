@@ -11,8 +11,8 @@ namespace ROS.MVC.ViewModel.EntriesViewModels
 {
     public class DetailEntiresViewModel
     {
-        private ForDetailEntiryViewModel Entry;
-        private ForDetailRegUserViewModel RegUser;
-        private ForDetailRegattaViewModel Regatta;
+        public ForDetailEntryViewModel Entry;
+        public IEnumerable<ForDetailRegUserViewModel> RegUser;
+        public ForDetailRegattaViewModel Regatta;
     }
 }
