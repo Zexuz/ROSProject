@@ -58,7 +58,7 @@ namespace ROS.MVC.Controllers
                 Entry entry;
                 using (var context = new EntryContext())
                 {
-                    var service = new EntryService(context);
+                    var service = new EntryService(new RosContext<Entry>());
                     entry = service.GetById(entryId);
                 }
                 return RedirectToAction("Index", entry);
