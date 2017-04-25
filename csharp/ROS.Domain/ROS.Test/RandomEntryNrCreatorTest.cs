@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using ROS.Domain.Contexts;
+using ROS.Domain.Interfaces.ContextInterfaces;
 using ROS.Domain.Models;
 using ROS.Domain.Services;
 
@@ -14,7 +15,7 @@ namespace ROS.Test
         public void RandomEntryNrCreator_ResultShouldMatch()
         {
             //Arrange
-            EntryService es = new EntryService(new EntryContext());
+            EntryService es = new EntryService(new RosContext<Entry>());
 
             // ACT
             var nr = es.RandomEntryNrCreator();

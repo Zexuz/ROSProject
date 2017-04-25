@@ -41,6 +41,7 @@ namespace ROS.Domain
             }
             catch (Exception ex)
             {
+
             }
 
             return userData;

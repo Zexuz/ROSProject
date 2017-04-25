@@ -17,12 +17,14 @@ namespace ROS.MVC.Controllers
     public class EntriesController : Controller
     {
         private EntityDataModel db = new EntityDataModel();
+        private readonly EntryService _entryService = new EntryService();
+        private readonly UserService _userService = new UserService(new UserContext());
 
         // GET: Entries
         public ActionResult Index()
         {
-            var entries = db.Entries.Include(e => e.Boat).Include(e => e.Regatta).Include(e => e.User);
-            return View(entries.ToList());
+            var entries = _entryService.GetAll();
+            return View(entries);
         }
 
         public ActionResult Join()
@@ -38,7 +40,7 @@ namespace ROS.MVC.Controllers
                 int entryId;
                 using (var context = new EntryContext())
                 {
-                    var entryLogicService = new EntryService(context);
+                    var entryLogicService = new EntryService();
                     entryId = entryLogicService.GetByEntryNumber(int.Parse(joinEntry.EntryNumber)).Id;
                 }
                 using (var context = new RegisteredUserContext())
@@ -64,7 +66,7 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Entry entry = db.Entries.Find(id);
+            Entry entry = _entryService.GetById(id);
             if (entry == null)
             {
                 return HttpNotFound();
@@ -77,7 +79,7 @@ namespace ROS.MVC.Controllers
         {
             ViewBag.BoatId = new SelectList(db.Boats, "Id", "SailNumber");
             ViewBag.RegattaId = new SelectList(db.Regattas, "Id", "Name");
-            ViewBag.SkipperId = new SelectList(db.Users, "Id", "Email");
+            ViewBag.SkipperId = new SelectList(_userService.GetAll(), "Id", "Email");
             return View();
         }
 
@@ -91,14 +93,13 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entries.Add(entry);
-                db.SaveChanges();
+                _entryService.Add(entry);
                 return RedirectToAction("Index");
             }
 
             ViewBag.BoatId = new SelectList(db.Boats, "Id", "SailNumber", entry.BoatId);
             ViewBag.RegattaId = new SelectList(db.Regattas, "Id", "Name", entry.RegattaId);
-            ViewBag.SkipperId = new SelectList(db.Users, "Id", "Email", entry.SkipperId);
+            ViewBag.SkipperId = new SelectList(_userService.GetAll(), "Id", "Email", entry.SkipperId);
             return View(entry);
         }
 
@@ -109,14 +110,14 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Entry entry = db.Entries.Find(id);
+            Entry entry = _entryService.GetById(id);
             if (entry == null)
             {
                 return HttpNotFound();
             }
             ViewBag.BoatId = new SelectList(db.Boats, "Id", "SailNumber", entry.BoatId);
             ViewBag.RegattaId = new SelectList(db.Regattas, "Id", "Name", entry.RegattaId);
-            ViewBag.SkipperId = new SelectList(db.Users, "Id", "Email", entry.SkipperId);
+            ViewBag.SkipperId = new SelectList(_userService.GetAll(), "Id", "Email", entry.SkipperId);
             return View(entry);
         }
 
@@ -130,13 +131,12 @@ namespace ROS.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(entry).State = EntityState.Modified;
-                db.SaveChanges();
+                _entryService.Edit(entry);
                 return RedirectToAction("Index");
             }
             ViewBag.BoatId = new SelectList(db.Boats, "Id", "SailNumber", entry.BoatId);
             ViewBag.RegattaId = new SelectList(db.Regattas, "Id", "Name", entry.RegattaId);
-            ViewBag.SkipperId = new SelectList(db.Users, "Id", "Email", entry.SkipperId);
+            ViewBag.SkipperId = new SelectList(_userService.GetAll(), "Id", "Email", entry.SkipperId);
             return View(entry);
         }
 
@@ -147,7 +147,7 @@ namespace ROS.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Entry entry = db.Entries.Find(id);
+            Entry entry = _entryService.GetById(id);
             if (entry == null)
             {
                 return HttpNotFound();
@@ -160,9 +160,8 @@ namespace ROS.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Entry entry = db.Entries.Find(id);
-            db.Entries.Remove(entry);
-            db.SaveChanges();
+            Entry entry = _entryService.GetById(id);
+            _entryService.Remove(entry);
             return RedirectToAction("Index");
         }
 
