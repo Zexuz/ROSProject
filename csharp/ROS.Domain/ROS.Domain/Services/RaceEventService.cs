@@ -2,8 +2,10 @@ using System.Security.Authentication;
 using ROS.Domain.Contexts;
 using ROS.Domain.Models;
 using ROS.Domain.Services;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace ROS.Test
+namespace ROS.Domain.Services
 {
     public class RaceEventService
     {
@@ -14,6 +16,11 @@ namespace ROS.Test
         {
             _context = context;
             _adminService = adminService;
+        }
+
+        public RaceEvent GetById(int id)
+        {
+            return _context.RaceEvents.SingleOrDefault(r => r.Id == id);
         }
 
         public RaceEvent Add(RaceEvent eventToAdd, User adminUser)

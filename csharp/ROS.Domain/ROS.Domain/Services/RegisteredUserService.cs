@@ -24,6 +24,21 @@ namespace ROS.Domain.Services
             _repository = new Repository<RegisteredUser>();
         }
 
+        public int GetIdByUserIdAndEntryId(int userId, int entryId)
+        {
+            return _registeredUserContext.RegisteredUsers.SingleOrDefault(r => r.UserId == userId && r.EntryId == entryId).Id;
+        }
+
+        public RegisteredUser GetById(int id)
+        {
+            return _registeredUserContext.RegisteredUsers.SingleOrDefault(r => r.Id == id);
+        }
+
+        public int GetUserIdById(int id)
+        {
+            return _registeredUserContext.RegisteredUsers.SingleOrDefault(r => r.Id == id).UserId;
+        }
+
         public IEnumerable<int> GetAllUserIdsByEntryId(int entryId)
         {
             return _registeredUserContext.RegisteredUsers.Where(r => r.EntryId == entryId).Select(r => r.UserId);            
