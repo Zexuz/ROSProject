@@ -105,7 +105,6 @@
     <Compile Include="Contexts\ContactPersonContext.cs" />
     <Compile Include="Contexts\TeamContext.cs" />
     <Compile Include="Interfaces\ContextInterfaces\IRosContext.cs" />
-    <Compile Include="Contexts\MasterContext.cs" />
     <Compile Include="Contexts\EntryContext.cs" />
     <Compile Include="Contexts\EventContext.cs" />
     <Compile Include="Contexts\MasterContext.cs" />
@@ -117,7 +116,6 @@
     <Compile Include="Contexts\SocialEventContext.cs" />
     <Compile Include="Contexts\RegattaContext.cs" />
     <Compile Include="Contexts\SysAdminContext.cs" />
-    <Compile Include="Contexts\TeamContext.cs" />
     <Compile Include="Contexts\TeamCrewRegisteredUserContext.cs" />
     <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
