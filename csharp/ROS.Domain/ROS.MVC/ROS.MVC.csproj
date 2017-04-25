@@ -122,6 +122,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegattaController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TeamCrewRegisteredUserController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="PocoClasses\AddressContacts\AddressContact.cs" />
@@ -142,6 +143,8 @@
     <Compile Include="ViewModel\CreateRegattaViewModel.cs" />
     <Compile Include="ViewModel\CreateTeam.cs" />
     <Compile Include="ViewModel\CreateUserViewModel.cs" />
+    <Compile Include="ViewModel\EditTeam.cs" />
+    <Compile Include="ViewModel\SelectUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -208,6 +211,8 @@
     <Content Include="Views\Team\Edit.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\TeamCrewRegisteredUser\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ROS.Domain\ROS.Domain.csproj">
@@ -221,6 +226,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\ContactPerson\" />
+    <Folder Include="Views\RaceEntry\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

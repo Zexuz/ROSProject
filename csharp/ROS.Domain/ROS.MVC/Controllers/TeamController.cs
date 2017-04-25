@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -65,24 +66,17 @@ namespace ROS.MVC.Controllers
             return View(team);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (id == null)
             {
-                // TODO: Add update logic here
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            EditTeam editTeam = CreateEditTeam(id);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(editTeam);
+    
+            
         }
 
         public ActionResult Delete(int id)
@@ -103,6 +97,50 @@ namespace ROS.MVC.Controllers
             {
                 return View();
             }
+        }
+
+        public EditTeam CreateEditTeam(int? id)
+        {
+            Team team;
+            using (var context = new TeamContext())
+            {
+                var service = new TeamService(context);
+                team = service.GetAll().SingleOrDefault(t => t.Id == id);
+            }
+            EditTeam editTeamViewModel = new EditTeam();
+            editTeamViewModel.team = team;
+            RaceEntry raceEntry;
+            using (var context = new RaceEntryContext())
+            {
+                var service = new RaceEntryService(context);
+                raceEntry = service.GetByTeamId(team.Id);
+            }
+            using (var context = new RaceEventContext())
+            {
+                editTeamViewModel.raceEvent = context.RaceEvents.SingleOrDefault(r => r.Id == raceEntry.RaceId);
+            }
+            editTeamViewModel.registeredUsers = new List<RegisteredUser>();
+            editTeamViewModel.users = new List<User>();
+            IEnumerable<int> registeredUserIds;
+            using (var context = new TeamCrewRegisteredUserContext())
+            {
+                var service = new TeamCrewRegisteredUserService(context);
+                registeredUserIds = service.GetAllregisteredUserIdsByTeamId(team.Id);
+            }
+            using (var context = new RegisteredUserContext())
+            {
+                var RUservice = new RegisteredUserService(context);
+                var userService = new UserService(new UserContext());
+                foreach (int rUserId in registeredUserIds)
+                {
+                    int userId = RUservice.GetUserIdById(rUserId);
+                    RegisteredUser registeredUser = RUservice.GetById(rUserId);
+                    User user = userService.GetAll().SingleOrDefault(u => u.Id == userId);
+                    editTeamViewModel.registeredUsers.Add(registeredUser);
+                    editTeamViewModel.users.Add(user);
+                }
+            }
+            return editTeamViewModel;
         }
     }
 }

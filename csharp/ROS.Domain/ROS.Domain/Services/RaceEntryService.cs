@@ -17,9 +17,9 @@ namespace ROS.Domain.Services
             _raceEntryContext = raceEntryContext;
         }
 
-        public IEnumerable<RaceEntry> GetAllByTeamId(int teamId)
+        public RaceEntry GetByTeamId(int teamId)
         {
-            return _raceEntryContext.RaceEntry.Where(r => r.TeamId == teamId);
+            return _raceEntryContext.RaceEntry.SingleOrDefault(r => r.TeamId == teamId);
         }
 
         public IEnumerable<RaceEntry> GetEventIdsById(int teamId)
