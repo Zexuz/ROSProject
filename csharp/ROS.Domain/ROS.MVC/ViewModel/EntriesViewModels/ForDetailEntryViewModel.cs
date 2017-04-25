@@ -11,18 +11,6 @@ namespace ROS.MVC.ViewModel.EntriesViewModels
 {
     public class ForDetailEntryViewModel
     {
-        
-        //public ForDetailEntryViewModel(Entry entry)
-        //{
-        //    Id = entry.Id;
-        //    BoatId = entry.BoatId;
-        //    SkipperId = entry.SkipperId;
-        //    RegattaId = entry.RegattaId;
-        //    Number = entry.Number;
-        //    RegistrationDate = entry.RegistrationDate;
-        //    HasPayed = entry.HasPayed;
-        //    Boat = entry.Boat;
-        //}
 
         public int Id { get; set; }
 
