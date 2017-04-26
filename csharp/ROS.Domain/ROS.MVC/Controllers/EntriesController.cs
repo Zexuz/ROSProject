@@ -22,7 +22,7 @@ namespace ROS.MVC.Controllers
         private readonly EntryService _entryService = new EntryService();
         private readonly RegisteredUserService _registeredUserService = new RegisteredUserService();
         private readonly RegattaService _regattaService = new RegattaService(new RegattaContext());
-        private readonly UserService _userService = new UserService(new UserContext());
+        private readonly UserService _userService = new UserService(new RosContext<User>());
 
         // GET: Entries
         public ActionResult Index()

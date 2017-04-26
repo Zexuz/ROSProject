@@ -130,7 +130,7 @@ namespace ROS.MVC.Controllers
             using (var context = new RegisteredUserContext())
             {
                 var RUservice = new RegisteredUserService(context);
-                var userService = new UserService(new UserContext());
+                var userService = new UserService(new RosContext<User>());
                 foreach (int rUserId in registeredUserIds)
                 {
                     int userId = RUservice.GetUserIdById(rUserId);

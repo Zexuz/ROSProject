@@ -5,7 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
-using ROS.Domain.Contexts;
+using ROS.Domain.Interfaces.ContextInterfaces;
 using ROS.Domain.Models;
 using ROS.Domain.Services;
 
@@ -61,9 +61,9 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
+            var fakeContext = A.Fake<IRosContext<User>>();
 
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
+            A.CallTo(() => fakeContext.DbSet).Returns(fakeDbSet);
 
             var userService = new UserService(fakeContext);
 
@@ -71,7 +71,7 @@ namespace ROS.Test
             var users = userService.GetAll().ToList();
 
             // Assert
-            A.CallTo(() => fakeContext.SaveChanges()).MustNotHaveHappened();
+            A.CallTo(() => fakeContext.Context.SaveChanges()).MustNotHaveHappened();
             Assert.AreEqual(3, users.Count(), "Count should be 3");
             Assert.AreEqual(1, users.First().Id, "Id Should be 1");
             Assert.AreEqual("Robin", users.First().FirstName, "FirstName Should be Robin");
@@ -102,10 +102,10 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
+            var fakeContext = A.Fake<IRosContext<User>>();
 
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
-            A.CallTo(() => fakeContext.Users.Add(userToInsert)).Returns(userToInsert);
+            A.CallTo(() => fakeContext.DbSet).Returns(fakeDbSet);
+            A.CallTo(() => fakeContext.DbSet.Add(userToInsert)).Returns(userToInsert);
 
             var userService = new UserService(fakeContext);
 
@@ -113,7 +113,7 @@ namespace ROS.Test
             var user = userService.Add(userToInsert);
 
             // Assert
-            A.CallTo(() => fakeContext.SaveChanges()).MustHaveHappened();
+            A.CallTo(() => fakeContext.Context.SaveChanges()).MustHaveHappened();
             Assert.AreEqual(1, user.Id, "Id Should be 1");
             Assert.AreEqual("Robin", user.FirstName, "FirstName Should be Robin");
             Assert.AreEqual("Edbom", user.LastName, "LastName Should be Edbom");
@@ -175,11 +175,12 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
+
+            var fakeContext = A.Fake<IRosContext<User>>();
 
 
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
-            A.CallTo(() => fakeContext.Users.Remove(userToDelete)).Returns(userToDelete);
+            A.CallTo(() => fakeContext.DbSet).Returns(fakeDbSet);
+            A.CallTo(() => fakeContext.DbSet.Remove(userToDelete)).Returns(userToDelete);
 
             var userService = new UserService(fakeContext);
 
@@ -187,7 +188,7 @@ namespace ROS.Test
             var user = userService.Remove(userToDelete);
 
             // Assert
-            A.CallTo(() => fakeContext.SaveChanges()).MustHaveHappened();
+            A.CallTo(() => fakeContext.Context.SaveChanges()).MustHaveHappened();
             Assert.AreEqual(1, user.Id, "Id Should be 1");
             Assert.AreEqual("Robin", user.FirstName, "FirstName Should be Robin");
             Assert.AreEqual("Edbom", user.LastName, "LastName Should be Edbom");
@@ -249,10 +250,10 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
+            var fakeContext = A.Fake<IRosContext<User>>();
 
 
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
+            A.CallTo(() => fakeContext.DbSet).Returns(fakeDbSet);
 
             var userService = new UserService(fakeContext);
 
@@ -260,7 +261,7 @@ namespace ROS.Test
             var user = userService.Edit(userToUpdate);
 
             // Assert
-            A.CallTo(() => fakeContext.SaveChanges()).MustHaveHappened();
+            A.CallTo(() => fakeContext.Context.SaveChanges()).MustHaveHappened();
             Assert.AreEqual(1, user.Id, "Id Should be 1");
             Assert.AreEqual("ola", user.FirstName, "FirstName Should be ola");
             Assert.AreEqual("Edbom", user.LastName, "LastName Should be Edbom");
@@ -292,10 +293,10 @@ namespace ROS.Test
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).ElementType).Returns(data.ElementType);
             A.CallTo(() => ((IQueryable<User>) fakeDbSet).GetEnumerator()).Returns(data.GetEnumerator());
 
-            var fakeContext = A.Fake<UserContext>();
+            var fakeContext = A.Fake<IRosContext<User>>();
 
 
-            A.CallTo(() => fakeContext.Users).Returns(fakeDbSet);
+            A.CallTo(() => fakeContext.DbSet).Returns(fakeDbSet);
 
             var userService = new UserService(fakeContext);
 
@@ -303,7 +304,7 @@ namespace ROS.Test
             var x = new TestDelegate(() => userService.Edit(userToUpdate));
 
             // Assert
-            A.CallTo(() => fakeContext.SaveChanges()).MustNotHaveHappened();
+            A.CallTo(() => fakeContext.Context.SaveChanges()).MustNotHaveHappened();
             Assert.Throws(typeof(Exception), x);
         }
     }
