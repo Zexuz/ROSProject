@@ -50,7 +50,7 @@ namespace ROS.MVC.Controllers
         public ActionResult Login(UserLogin userLogin)
         {
             userLogin.Email = userLogin.Email.Trim().ToLower();
-            var userService = new UserService(new UserContext());
+            var userService = new UserService(new RosContext<User>());
             var authUser = userService.GetAll()
                 .SingleOrDefault(user =>
                     user.Email == userLogin.Email &&
@@ -99,7 +99,7 @@ namespace ROS.MVC.Controllers
 
                 var address = new AddressContactService(new AddressContactContext()).Add(addressContact);
                 user.AddressContactId = address.Id;
-                new UserService(new UserContext()).Add(user);
+                new UserService(new RosContext<User>()).Add(user);
                 return RedirectToAction("Index");
             }
 
@@ -145,7 +145,7 @@ namespace ROS.MVC.Controllers
             }
             if (ModelState.IsValid)
             {
-                new UserService(new UserContext()).Edit(user);
+                new UserService(new RosContext<User>()).Edit(user);
                 return RedirectToAction("Index");
             }
 //            ViewBag.AddressContactId = new SelectList(db.AddressContacts, "Id", "NextOfKin", user.AddressContactId);
@@ -173,18 +173,15 @@ namespace ROS.MVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = GetAllUsers().Find(u => u.Id == id);
-            new UserService(new UserContext()).Remove(user);
+            new UserService(new RosContext<User>()).Remove(user);
             return RedirectToAction("Index");
         }
 
         private List<User> GetAllUsers()
         {
-            using (var context = new UserContext())
-            {
-                var service = new UserService(context);
+                var service = new UserService(new RosContext<User>());
                 var users = service.GetAll();
                 return users.ToList();
-            }
         }
     }
 }
