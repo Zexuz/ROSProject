@@ -14,11 +14,8 @@ namespace ROS.MVC.Controllers
     {
         public ActionResult Create(int entryId, int teamId, List<RegisteredUser> regUsers)
         {
-            using (var context = new UserContext())
-            {
-                var service = new UserService(context);
-                ViewBag.userId = new SelectList(service.GetAll(), "Id", "Email");
-            }
+            var service = new UserService(new RosContext<User>());
+            ViewBag.userId = new SelectList(service.GetAll(), "Id", "Email");
             return View();
         }
 
